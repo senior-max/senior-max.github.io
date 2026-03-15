@@ -168,33 +168,40 @@
     },
     {
       "id": "d_05",
-      "location": "mittagessen",
-      "locationEmoji": "🍕",
-      "locationName": "Mittagspause",
+      "location": "kundenbüro",
+      "locationEmoji": "👔",
+      "locationName": "Kundenbüro Acme Corp",
       "npc": "dieter",
-      "mood": "neutral",
-      "text": "12:30 Uhr. Mittagspause. Dieter hat das Restaurant ausgesucht: ein griechisches Lokal mit laminierten Speisekarten und einem Fernseher, der Nachrichten zeigt, die niemand sieht.\n\nDieter bestellt für den ganzen Tisch, ohne zu fragen. Moussaka und Tzatziki. Er scheint entspannter jetzt — außerhalb von Raum 1.4b ist er ein anderer Mensch.\n\nEr redet über früher. Über eine Stelle vor Acme Corp. \"Ich war mal kurz bei einem SAP-Projekt. Berater kamen. Berater gingen. Am Ende wusste niemand mehr, wie das System funktioniert.\"\n\nEr schaut in die Ferne. Dann in den Tzatziki.\n\n\"Nie wieder.\"",
+      "mood": "tense",
+      "text": "Du öffnest Flexera One. Der Report ist hier. Irgendwo.",
+      "minigame": "flexera",
       "choices": [
         {
           "id": "c1",
           "text": "Das Gespräch nutzen — mehr über die IT-Geschichte von Acme erfahren.",
+          "text_fast": "Report gefunden. Das Gespräch nutzen — mehr über die IT-Geschichte von Acme erfahren.",
+          "text_slow": "Report endlich gefunden. Das Gespräch nutzen — mehr über die IT-Geschichte von Acme erfahren.",
           "effects": { "kompetenz": 3, "kundenliebe": 3, "burnout": -5 },
           "next": "d_06",
-          "feedback": "Dieter redet 40 Minuten. Du lernst mehr über Acme's IT als aus 3 Stunden Analyse. Und die Moussaka ist überraschend gut."
+          "feedback": "Report gesichert. Du lernst mehr über Acme's IT als aus 3 Stunden Analyse."
         },
         {
           "id": "c2",
           "text": "Professionell bleiben — lieber über das Projekt reden.",
+          "text_fast": "Report gefunden. Professionell bleiben — lieber über das Projekt reden.",
+          "text_slow": "Report endlich gefunden. Professionell bleiben — lieber über das Projekt reden.",
           "effects": { "kompetenz": 1, "kundenliebe": -2 },
           "next": "d_06",
-          "feedback": "Dieter isst schweigend. Du hast das Rapport-Fenster zugemacht."
+          "feedback": "Report gesichert. Du bereitest die Dokumentation vor."
         },
         {
           "id": "c3",
-          "text": "Handy checken während Dieter redet.",
+          "text": "Handy checken — kurz durchatmen.",
+          "text_fast": "Report gefunden. Handy checken — kurz durchatmen.",
+          "text_slow": "Report endlich gefunden. Handy checken — kurz durchatmen.",
           "effects": { "bullshit": 1, "kundenliebe": -5, "burnout": -3 },
           "next": "d_06",
-          "feedback": "Dieter sieht es. Er sagt nichts. Aber er sieht es."
+          "feedback": "Report gesichert. Du checkst die Mails. 47 ungelesen."
         }
       ]
     },

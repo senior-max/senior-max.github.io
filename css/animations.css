@@ -134,3 +134,25 @@
   from { opacity: 0; transform: scale(0.4) rotate(-10deg); }
   to   { opacity: 1; transform: scale(1)   rotate(0deg); }
 }
+
+/* ── Vendor ad: badge pulse (incident) ───────────────────── */
+
+@keyframes vendorAdBadgePulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
+
+.animate-vendor-ad-badge-pulse {
+  animation: vendorAdBadgePulse 1.5s ease-in-out infinite;
+}
+
+/* ── Vendor ad: phone call ring ─────────────────────────── */
+
+@keyframes vendorAdPhoneRing {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+
+.animate-vendor-ad-phone-ring {
+  animation: vendorAdPhoneRing 1s ease-in-out infinite;
+}

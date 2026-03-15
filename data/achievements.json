@@ -166,5 +166,82 @@
     "emoji": "✅",
     "description": "Stundenzettel perfekt ausgefüllt. Finance hat nachgefragt ob du ein Bot bist.",
     "trigger": "minigame_stundenzettel_perfect"
+  },
+  {
+    "id": "tyler_fan",
+    "name": "Tyler's bester Kunde",
+    "emoji": "📞",
+    "description": "Den AWS-Cold-Call von Tyler dreimal angenommen. Tyler schätzt das.",
+    "trigger": "vendor_call_accepted_3"
+  },
+  {
+    "id": "ad_ignorer",
+    "name": "Werbeblocker",
+    "emoji": "🚫",
+    "description": "5 Vendor-Ads übersprungen ohne einen einzigen Button zu klicken.",
+    "trigger": "vendor_ads_skipped_5"
+  },
+  {
+    "id": "flexera_speedrun",
+    "name": "Flexera-Veteran",
+    "emoji": "🟠",
+    "description": "Report in Flexera in unter 6 Klicks gefunden. Sie wissen wo alles ist. Das ist keine Selbstverständlichkeit.",
+    "trigger": "flexera_speedrun"
+  },
+  {
+    "id": "flexera_community_held",
+    "name": "Community-Held",
+    "emoji": "💬",
+    "description": "Alle Flexera-Tabs gelesen UND den Report gefunden. 847 Community-User hätten sich das gewünscht.",
+    "trigger": "flexera_community_held"
+  },
+  {
+    "id": "servicenow_survivor",
+    "name": "ServiceNow-Überlebender",
+    "emoji": "🟢",
+    "description": "Ticket in unter 60 Sekunden erstellt. Sie kennen die Fallstricke. Alle davon.",
+    "trigger": "servicenow_survivor"
+  },
+  {
+    "id": "servicenow_timeout",
+    "name": "Session Expired",
+    "emoji": "⏱️",
+    "description": "ServiceNow hat Ihre Session beendet. Alle Eingaben verloren. Das ist kein Bug. Das ist ServiceNow.",
+    "trigger": "servicenow_timeout"
+  },
+  {
+    "id": "draft_obsession",
+    "name": "Draft-Fetisch",
+    "emoji": "💾",
+    "description": "Save Draft in ServiceNow 3x geklickt. Es hat nie funktioniert. Sie haben es trotzdem versucht.",
+    "trigger": "draft_obsession"
+  },
+  {
+    "id": "snow_detective",
+    "name": "Report-Detektiv",
+    "emoji": "❄️",
+    "description": "Die richtige Zahl aus dem Snow-Report identifiziert. Alle Quellen gelesen. Methodologie verstanden.",
+    "trigger": "snow_detective"
+  },
+  {
+    "id": "rtfm",
+    "name": "RTFM",
+    "emoji": "📖",
+    "description": "Alle Quelldokumente gelesen bevor Sie geantwortet haben. Read The Fine Manual. Chapeau.",
+    "trigger": "rtfm"
+  },
+  {
+    "id": "ivanti_whisperer",
+    "name": "Ivanti-Flüsterer",
+    "emoji": "🔴",
+    "description": "Discovery-Scan ohne Neustart und ohne Support-Anruf behoben. Sie haben den Prozess verstanden.",
+    "trigger": "ivanti_whisperer"
+  },
+  {
+    "id": "kevin_saved_the_day_again",
+    "name": "Kevin rettet den Tag",
+    "emoji": "🤓",
+    "description": "Kevin hat den WMI-Fehler über Stack Overflow gelöst. Manchmal ist Kevin die Lösung.",
+    "trigger": "kevin_saved_the_day_again"
   }
 ]

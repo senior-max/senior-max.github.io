@@ -149,6 +149,7 @@ async function boot() {
       fetch('/data/config.json'),
       NPCs.loadNPCs(),
       Achievements.init(),
+      window.VendorAds?.loadAds?.() ?? Promise.resolve(),
     ]);
 
     if (!configResponse.ok) {

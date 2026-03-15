@@ -75,7 +75,8 @@
       "locationName": "Keller UG-3",
       "npc": "kevin",
       "mood": "funny",
-      "text": "Der Scan hat es bestätigt. Du schaust Kevin an.\n\nBefund:\n\n— Adobe Creative Cloud: 8 Nutzerinstallationen. Keine gültige Lizenz.\n— Zoom Pro: 3 Accounts, Kreditkarte von Björn hinterlegt (abgelaufen).\n— Slack Premium Workspace \"Marketing-Secrets\": 47 Mitglieder. Das ist die gesamte Marketing-Abteilung.\n— Minecraft Java Edition Server: \"MineCorp\". 23 registrierte Spieler. Letzter Sessionstart: gestern, 14:23 Uhr. Uptime: 2 Jahre, 7 Monate.\n\nKevin steht neben dir. Er hat den letzten Punkt gesehen.\n\n\"Warte — ist das ein Survival- oder Creative-Server?\"\n\nDu schließt den Laptop.",
+      "text": "Der Discovery-Scan soll alle Server erfassen. Inklusive CORP-KELLER-SRV-03. Der Scan hängt.",
+      "minigame": "ivanti",
       "choices": [
         {
           "id": "c1",

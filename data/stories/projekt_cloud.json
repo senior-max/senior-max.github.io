@@ -191,7 +191,8 @@
       "locationName": "Chefbüro — Torsten Hoffmann",
       "npc": null,
       "mood": "tense",
-      "text": "Torstens Büro: Glastisch, ein Stehtisch (er steht nicht daran), ein Segelboot-Bild von einem Boot das er nicht segelt, und an der Wand — handgeschrieben, eingerahmt — 'Think big.'\n\nEr kommt 12 Minuten zu spät. Er sagt 'Entschuldigung, kurzes Call'. Es war kein kurzes Call.\n\nEr hat den Roadmap-Entwurf nicht gelesen. Du siehst das daran, dass er noch in der Plastikfolie ist.\n\n'Fassen Sie mir das kurz zusammen. Einen Satz.'\n\nDann klingelt sein Handy. Er hebt die Hand — 'Einen Moment' — und geht ans Telefon. Sieben Minuten.\n\nAls er zurückkommt, setzt er sich. Er schaut dich an wie jemanden, den er gerade erst kennengelernt hat. 'Also — Q3. Das ist machbar, oder?'",
+      "text": "Der Snow-Report liegt vor dir. Drei Zahlen. Eine ist richtig. Du hast 60 Sekunden.",
+      "minigame": "snow_report",
       "choices": [
         {
           "id": "c1",

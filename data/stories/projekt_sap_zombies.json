@@ -131,27 +131,28 @@
       "location": "konferenz",
       "locationEmoji": "📱",
       "locationName": "Konferenzraum — Telefonkonferenz",
-      "npc": null,
+      "npc": "kevin",
       "mood": "tense",
-      "text": "Dein Telefon klingelt. Eine Stuttgarter Vorwahl.\n\nSAP Sales. Sie haben von der Lizenzprüfung gehört. \"Wir wollten uns proaktiv melden\" — was bedeutet: jemand bei Globex hat es weitererzählt.\n\nDer Account Manager ist sehr freundlich. Er spricht in vollständigen Sätzen und klingt aufrichtig besorgt. Er hat eine Lösung: ein neues Lizenzmodell. \"Langfristig deutlich günstiger.\"\n\nEr schickt die Offerte noch während ihr telefoniert. Du öffnest sie.\n\nDas neue Modell umfasst 420 Lizenzen — 20 mehr als vorher. In drei verschiedenen Kategorien, was den Vergleich kompliziert. Die versprochenen Einsparungen: €12.000 jährlich. Bei 5-Jahres-Bindung. Und nur wenn ihr auch S/4HANA migriert.\n\nDu hörst ihm noch zu. Er redet noch.",
+      "text": "Die Zombie-User müssen als inaktive Assets in ServiceNow erfasst werden. Kevin schaut zu.",
+      "minigame": "servicenow",
       "choices": [
         {
           "id": "c1",
-          "text": "Angebot ablehnen und klar auf Rückerstattung für die Geisterlizenzen bestehen.",
+          "text": "Ticket erstellt. Klar auf Rückerstattung für die Geisterlizenzen bestehen.",
           "effects": { "kompetenz": 5, "prestige": 3, "bullshit": -3, "burnout": 8 },
           "next": "s_06",
           "feedback": "Der Account Manager wird merklich kühler. Er verspricht, 'die zuständige Abteilung zu informieren'. Das klingt wie eine Drohung, ist aber nur SAP-Standardsprache."
         },
         {
           "id": "c2",
-          "text": "Angebot ernsthaft evaluieren — vielleicht steckt doch was dahinter.",
+          "text": "Dokumentation abgeschlossen. SAP-Angebot ernsthaft evaluieren.",
           "effects": { "kompetenz": 2, "bullshit": 3, "burnout": 5 },
           "next": "s_06",
           "feedback": "Du verbringst zwei Stunden damit, die Kalkulation nachzurechnen. Das Ergebnis: mit anderen Zahlen und anderen Annahmen wäre es tatsächlich günstiger. Nicht mit diesen."
         },
         {
           "id": "c3",
-          "text": "Das Angebot kommentarlos an Dr. Müller-Brandt weiterleiten.",
+          "text": "Alle Assets erfasst. Das Angebot an Müller-Brandt weiterleiten.",
           "effects": { "burnout": -8, "kompetenz": -3, "bullshit": 5 },
           "next": "s_06",
           "feedback": "Müller-Brandt antwortet: 'Interessant. Lass uns eine Entscheidungsmatrix bauen.'"

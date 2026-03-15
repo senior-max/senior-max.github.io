@@ -58,7 +58,13 @@ const GameState = {
     emails_ignored: 0,
     client_ignored: 0,
     lunch_ignored: 0,
+    vendor_call_accepted: 0,
+    vendor_ads_skipped: 0,
   },
+  /** @type {string|null} Last event type (e.g. 'scene', 'vendor_ad') for ad trigger logic. */
+  lastEventType: null,
+  /** @type {{ title: string, level: number }|null} Pending level-up to show after project complete. */
+  pendingLevelUp: null,
 };
 
 /** Holds the full data object of the active project for cross-function access. */
@@ -104,7 +110,11 @@ function buildDefaultState() {
       emails_ignored: 0,
       client_ignored: 0,
       lunch_ignored: 0,
+      vendor_call_accepted: 0,
+      vendor_ads_skipped: 0,
     },
+    lastEventType: null,
+    pendingLevelUp: null,
   };
 }
 
@@ -145,12 +155,16 @@ function initGame() {
   const defaults = buildDefaultState();
   mergeState(GameState, defaults);
 
+  window.VendorAds?.resetSession?.();
+  window.VendorAds?.loadAds?.();
+
   const saved = (window.Storage && typeof window.Storage.loadGame === 'function')
     ? window.Storage.loadGame()
     : null;
   if (saved) {
     mergeState(GameState, saved);
   }
+  GameState.pendingLevelUp = null;
 
   GameState.sessionCount = (GameState.sessionCount || 0) + 1;
 }
@@ -270,9 +284,10 @@ function checkLevelUp() {
 
     window.Sound?.play('level_up');
 
-    if (typeof Renderer !== 'undefined') {
-      Renderer.showLevelUp(GameState.career.title, GameState.career.level);
-    }
+    GameState.pendingLevelUp = {
+      title: GameState.career.title,
+      level: GameState.career.level,
+    };
 
     window.Achievements?.checkTrigger(`career_level_${GameState.career.level}`);
   }
@@ -320,7 +335,15 @@ function loadScene(sceneId, projectData) {
 
     // Detour ending: redirect to another scene without completing the project.
     if (ending.next) {
-      setTimeout(() => loadScene(ending.next, null), 0);
+      setTimeout(() => {
+        if (window.VendorAds?.triggerIfApplicable) {
+          window.VendorAds.triggerIfApplicable(() => loadScene(ending.next, null), {
+            nextSceneId: ending.next,
+          });
+        } else {
+          loadScene(ending.next, null);
+        }
+      }, 0);
       return;
     }
 
@@ -348,6 +371,7 @@ function loadScene(sceneId, projectData) {
   }
 
   GameState.currentScene = sceneId;
+  GameState.lastEventType = 'scene';
 
   if (typeof Renderer !== 'undefined') {
     Renderer.renderScene(scene);
@@ -385,6 +409,7 @@ function makeChoice(choice) {
   }
 
   if (isGameOver()) {
+    GameState.pendingBurnoutTransition = choice.next;
     if (typeof Renderer !== 'undefined') {
       Renderer.showBurnoutScreen();
     }
@@ -394,7 +419,13 @@ function makeChoice(choice) {
   triggerMeetingRoulette();
 
   setTimeout(() => {
-    loadScene(choice.next, null);
+    if (window.VendorAds?.triggerIfApplicable) {
+      window.VendorAds.triggerIfApplicable(() => loadScene(choice.next, null), {
+        nextSceneId: choice.next,
+      });
+    } else {
+      loadScene(choice.next, null);
+    }
   }, 5000);
 }
 
@@ -451,6 +482,23 @@ function isGameOver() {
 }
 
 /**
+ * Called after the burnout overlay is dismissed. Continues to the next scene
+ * if a transition was pending (e.g. from makeChoice when burnout hit 100).
+ */
+function continueAfterBurnout() {
+  const next = GameState.pendingBurnoutTransition;
+  delete GameState.pendingBurnoutTransition;
+  if (!next) return;
+  if (window.VendorAds?.triggerIfApplicable) {
+    window.VendorAds.triggerIfApplicable(() => loadScene(next, null), {
+      nextSceneId: next,
+    });
+  } else {
+    loadScene(next, null);
+  }
+}
+
+/**
  * Triggers a named minigame and resumes the scene flow when it completes.
  * Minigame modules must expose a start(onComplete) function on window.
  * @param {string}   id         - Minigame id, e.g. 'excel'.
@@ -460,11 +508,15 @@ function triggerMinigame(id, onComplete) {
   document.querySelectorAll('.choice-btn').forEach(btn => { btn.disabled = true; });
 
   const wrappedCallback = (result) => {
+    GameState.lastMinigameScore = result && typeof result.score === 'number' ? result.score : 0;
     if (result && result.effects) {
       applyEffects(result.effects);
     }
     if (result && result.achievementTrigger) {
       window.Achievements?.checkTrigger(result.achievementTrigger);
+    }
+    if (result?.achievementTriggers && Array.isArray(result.achievementTriggers)) {
+      result.achievementTriggers.forEach((t) => window.Achievements?.checkTrigger(t));
     }
     if (result && result.xpBonus) {
       addXP(result.xpBonus);
@@ -507,6 +559,18 @@ function triggerMinigame(id, onComplete) {
     case 'powerpoint':
     case 'powerpoint_cleanup':
       safe(window.PowerpointMinigame);
+      break;
+    case 'flexera':
+      safe(window.FlexeraMinigame);
+      break;
+    case 'servicenow':
+      safe(window.ServiceNowMinigame);
+      break;
+    case 'snow_report':
+      safe(window.SnowReportMinigame);
+      break;
+    case 'ivanti':
+      safe(window.IvantiMinigame);
       break;
     default:
       console.warn(`[Engine] Unknown minigame type: "${id}" — Kevin war wahrscheinlich beteiligt.`);
@@ -828,6 +892,7 @@ window.Engine = {
   hasFlag,
   completeProject,
   isGameOver,
+  continueAfterBurnout,
   triggerMinigame,
   startPostProjectPhase,
   startEmailPhase,

@@ -1,0 +1,344 @@
+[
+  {
+    "id": "ad_microsoft_01",
+    "vendor": "Microsoft",
+    "color": "#0078D4",
+    "logo": "🪟",
+    "headline": "Microsoft True-Up: Es ist wieder Zeit.",
+    "subline": "Ihr Enterprise Agreement läuft in 47 Tagen ab. Wir wissen was Sie installiert haben.",
+    "badge": "DRINGEND",
+    "badgeColor": "#d13438",
+    "bodyText": "Microsoft Enterprise Agreement — Ihre jährliche True-Up Verpflichtung nähert sich. Bitte stellen Sie sicher dass Ihre gemeldeten Lizenzzahlen mit der tatsächlichen Nutzung übereinstimmen. Bei Fragen wenden Sie sich an Ihren Account Executive Tyler.",
+    "smallPrint": "* Lizenzmengen die nach Einreichung abweichen werden automatisch nachgebucht. Microsoft behält sich eine Überprüfung vor.",
+    "buttons": [
+      { "label": "Jetzt True-Up einreichen", "style": "primary", "effects": { "kompetenz": 3, "burnout": 5 }, "feedback": "Tyler bestätigt den Erhalt. Er schickt sofort eine Upsell-Mail." },
+      { "label": "Später erinnern", "style": "secondary", "effects": { "burnout": 2 }, "feedback": "Erinnerung gesetzt: morgen 07:00 Uhr. Du wirst es wieder verschieben." },
+      { "label": "Ignorieren", "style": "ghost", "effects": { "kompetenz": -2, "burnout": -3 }, "feedback": "Tyler ruft in 3 Tagen an. Er nennt es einen 'freundlichen Reminder'." }
+    ]
+  },
+  {
+    "id": "ad_microsoft_02",
+    "vendor": "Microsoft",
+    "color": "#0078D4",
+    "logo": "🪟",
+    "headline": "Copilot für alle. Sofort. Jetzt.",
+    "subline": "Microsoft 365 Copilot — KI die weiß was Sie tippen wollen bevor Sie es wissen.",
+    "badge": "NEU",
+    "badgeColor": "#107c10",
+    "bodyText": "Steigern Sie Ihre Produktivität mit Microsoft 365 Copilot. Automatisieren Sie Meetings, E-Mails und Präsentationen. Ihre Mitarbeiter werden es lieben. Ihre IT-Abteilung wird Fragen haben. Viele Fragen.",
+    "smallPrint": "* Copilot erfordert Microsoft 365 E3 oder E5. Datenschutz-Bewertung durch Legal empfohlen. Legal ist beschäftigt.",
+    "buttons": [
+      { "label": "Für alle 1.200 User aktivieren", "style": "primary", "effects": { "bullshit": 8, "burnout": 10, "prestige": 3 }, "feedback": "Aktiviert. Dr. Sasse schickt eine Mail mit 3 Fragen. Kevin aktiviert es zuerst für sich selbst." },
+      { "label": "Pilotprojekt mit 10 Usern", "style": "secondary", "effects": { "kompetenz": 5, "burnout": 3 }, "feedback": "Vernünftig. Tyler ist enttäuscht. Er nennt das 'zu vorsichtig'." },
+      { "label": "Datenschutz-Bewertung zuerst", "style": "ghost", "effects": { "kompetenz": 6, "prestige": 2 }, "feedback": "Legal sagt: 'Gut dass Sie fragen.' Das war vor 6 Wochen. Keine Antwort seitdem." }
+    ]
+  },
+  {
+    "id": "ad_sap_01",
+    "vendor": "SAP",
+    "color": "#0070A8",
+    "logo": "🔷",
+    "headline": "SAP S/4HANA: Die Transformation wartet nicht.",
+    "subline": "Ihr ECC-System wird 2027 nicht mehr supported. Das ist übrigens in 14 Monaten.",
+    "badge": "END OF LIFE",
+    "badgeColor": "#d13438",
+    "bodyText": "SAP ECC 6.0 läuft aus. S/4HANA ist die Zukunft. Migration dauert durchschnittlich 18-24 Monate. Sie haben 14 Monate. Das ist — laut unseren Beratern — 'machbar mit dem richtigen Partner'. Wir kennen gute Partner.",
+    "smallPrint": "* Migrationsdauer abhängig von Datenqualität, Customizing-Anteil und ob jemand den Quellcode noch versteht.",
+    "buttons": [
+      { "label": "Angebot anfordern", "style": "primary", "effects": { "bullshit": 5, "burnout": 8 }, "feedback": "Ein SAP-Berater ruft in 20 Minuten an. Das Gespräch dauert 90 Minuten. Ein Angebot kommt in 3 Wochen." },
+      { "label": "Roadmap-Workshop buchen", "style": "secondary", "effects": { "kompetenz": 3, "burnout": 5 }, "feedback": "Workshop-Termin: in 6 Wochen. Ganztägig. Mit 14 Teilnehmern. Catering ist 'optional'." },
+      { "label": "Erstmal in Ruhe nachdenken", "style": "ghost", "effects": { "kompetenz": 2 }, "feedback": "Vernünftig. SAP schickt täglich eine Erinnerungs-Mail. Täglich." }
+    ]
+  },
+  {
+    "id": "ad_sap_02",
+    "vendor": "SAP",
+    "color": "#0070A8",
+    "logo": "🔷",
+    "headline": "Ihre Lizenzlücke: geschätzte €89.400",
+    "subline": "Unsere automatische Nutzungsanalyse hat eine Abweichung festgestellt. Möglicherweise.",
+    "badge": "AUDIT-HINWEIS",
+    "badgeColor": "#f7630c",
+    "bodyText": "Basierend auf anonymisierten Nutzungsdaten (Ihrer Nutzungsdaten) haben wir eine potenzielle Lizenzunterdeckung im Bereich SAP ERP Financials festgestellt. Diese Einschätzung ist unverbindlich. Ein SAP License Audit wäre jedoch empfehlenswert. Wir führen diese durch.",
+    "smallPrint": "* Diese Analyse ist keine offizielle Audit-Ankündigung. Noch nicht.",
+    "buttons": [
+      { "label": "Selbst-Audit durchführen", "style": "primary", "effects": { "kompetenz": 6, "burnout": 12 }, "feedback": "3 Wochen Arbeit. Ergebnis: Lücke ist €23.000, nicht €89.400. Du schickst SAP die korrigierten Zahlen. Tyler antwortet nicht." },
+      { "label": "SAP-Audit beauftragen", "style": "secondary", "effects": { "bullshit": 3, "burnout": 5, "prestige": -2 }, "feedback": "Audit dauert 8 Wochen. Kostet €15.000. Ergebnis: €31.000 Nachzahlung. Plus Beratungsgebühren." },
+      { "label": "Rechtsbeistand konsultieren", "style": "ghost", "effects": { "kompetenz": 4, "prestige": 3 }, "feedback": "Anwalt sagt: 'Erst offiziell anfragen lassen.' SAP schickt zwei Tage später eine offizielle Anfrage." }
+    ]
+  },
+  {
+    "id": "ad_adobe_01",
+    "vendor": "Adobe",
+    "color": "#FA0F00",
+    "logo": "🅰️",
+    "headline": "Creative Cloud für Ihr gesamtes Unternehmen.",
+    "subline": "8 User haben es installiert. 3 benutzen es. Alle zahlen.",
+    "badge": "VIP-ANGEBOT",
+    "badgeColor": "#6B0FAD",
+    "bodyText": "Adobe Creative Cloud Enterprise — lizenzieren Sie für alle 1.200 Mitarbeiter und sparen Sie 12% gegenüber einzelnen Lizenzen. Dass 1.197 Mitarbeiter es nie benutzen werden ist dabei vollkommen irrelevant.",
+    "smallPrint": "* Jahresvertrag. Keine vorzeitige Kündigung. Adobe behält sich das Recht vor die Preise jährlich anzupassen.",
+    "buttons": [
+      { "label": "Enterprise-Lizenz abschließen", "style": "primary", "effects": { "bullshit": 6, "prestige": 3, "burnout": 4 }, "feedback": "Vertrag unterzeichnet. Finance fragt warum 1.200 Personen Photoshop brauchen. Gute Frage." },
+      { "label": "Named-User-Lizenzen für 8 User", "style": "secondary", "effects": { "kompetenz": 5 }, "feedback": "8 Lizenzen. Adobe schlägt vor 'für die Zukunft' auf 50 aufzustocken. Nur €890 mehr pro Jahr." },
+      { "label": "Nutzungsanalyse zuerst", "style": "ghost", "effects": { "kompetenz": 6, "bullshit": -2 }, "feedback": "3 User benutzen es aktiv. 2 haben es nie geöffnet. 3 wissen nicht mal dass sie es haben." }
+    ]
+  },
+  {
+    "id": "ad_adobe_02",
+    "vendor": "Adobe",
+    "color": "#FA0F00",
+    "logo": "🅰️",
+    "headline": "ACROBAT PRO: IHRE PDF-LIZENZ IST ABGELAUFEN",
+    "subline": "Seit gestern. Alle 47 User können keine PDFs mehr bearbeiten. Nur noch lesen.",
+    "badge": "⚠️ ABGELAUFEN",
+    "badgeColor": "#d13438",
+    "bodyText": "Ihre Adobe Acrobat Pro Lizenz für 47 Nutzer ist gestern abgelaufen. Betroffene Nutzer erhalten beim Öffnen einen Hinweis. Der Hinweis lässt sich nicht wegklicken ohne ein Upgrade-Formular auszufüllen.",
+    "smallPrint": "* Verlängerung +8% gegenüber Vorjahr. Das ist 'marktüblich'.",
+    "buttons": [
+      { "label": "Sofort verlängern (+8%)", "style": "primary", "effects": { "burnout": 3, "prestige": 2 }, "feedback": "Verlängert. Finance bucht es auf die falsche Kostenstelle. Du wirst das in 3 Wochen korrigieren." },
+      { "label": "Alternativen prüfen (Foxit, etc.)", "style": "secondary", "effects": { "kompetenz": 4, "burnout": 6 }, "feedback": "Foxit wäre 40% günstiger. Migration für 47 User: 2 Wochen. 3 User weigern sich zu wechseln. Einer davon ist Kevin." },
+      { "label": "Erstmal alle auf kostenlose Version setzen", "style": "ghost", "effects": { "bullshit": 4, "burnout": 8 }, "feedback": "47 Support-Tickets in 2 Stunden. 'Ich kann das PDF nicht bearbeiten.' Doch. Aber anders." }
+    ]
+  },
+  {
+    "id": "ad_ibm_01",
+    "vendor": "IBM",
+    "color": "#1F70C1",
+    "logo": "🔵",
+    "headline": "IBM Passport Advantage: Sub-Capacity Reporting fällig",
+    "subline": "Ihre Virtualisierungsumgebung wurde erweitert. Ihre Lizenzreports nicht.",
+    "badge": "COMPLIANCE",
+    "badgeColor": "#0070A8",
+    "bodyText": "IBM Sub-Capacity Lizenzierung erfordert quartalsweise ILMT-Reports. Ihr letzter Report war vor 7 Monaten. IBM empfiehlt dringend eine Überprüfung Ihrer virtuellen Umgebung. Wir helfen gerne. Kostenpflichtig.",
+    "smallPrint": "* ILMT = IBM License Metric Tool. Nicht zu verwechseln mit ILMT Version 9.2.7.1 die Sie noch haben.",
+    "buttons": [
+      { "label": "ILMT-Report sofort erstellen", "style": "primary", "effects": { "kompetenz": 6, "burnout": 10 }, "feedback": "ILMT läuft. Report dauert 4 Stunden. Ergebnis: 12 Abweichungen. 3 davon waren schon immer da." },
+      { "label": "IBM-Berater beauftragen", "style": "secondary", "effects": { "bullshit": 4, "burnout": 5, "prestige": 2 }, "feedback": "IBM-Berater kostet €2.400/Tag. Er findet dieselben 12 Abweichungen. Er schreibt einen 40-seitigen Report darüber." },
+      { "label": "Das ist Kevins Problem", "style": "ghost", "effects": { "bullshit": 5, "kompetenz": -3 }, "feedback": "Kevin hat ILMT noch nie benutzt. Er googelt es. Er findet ein YouTube-Tutorial von 2019. Er fängt an." }
+    ]
+  },
+  {
+    "id": "ad_oracle_01",
+    "vendor": "Oracle",
+    "color": "#C74634",
+    "logo": "🔴",
+    "headline": "Oracle Audit: Wir schauen vorbei.",
+    "subline": "Nicht als Frage. Als Information.",
+    "badge": "AUDIT",
+    "badgeColor": "#d13438",
+    "bodyText": "Oracle License Management Services (LMS) kündigt eine Lizenzprüfung für Ihr Unternehmen an. Bitte stellen Sie alle relevanten Installationsdaten, Konfigurationsdokumente und Deployment-Details bereit. Starttermin: in 30 Tagen. Dauer: 8-12 Wochen.",
+    "smallPrint": "* Oracle-Audits enden durchschnittlich mit Nachzahlungen. Das ist kein Gerücht. Das sind Daten.",
+    "buttons": [
+      { "label": "Anwalt einschalten", "style": "primary", "effects": { "kompetenz": 7, "prestige": 4, "burnout": 5 }, "feedback": "Anwalt antwortet in 3 Tagen. Oracle verschiebt den Termin um 2 Wochen. Das Spiel hat begonnen." },
+      { "label": "Vollständige Inventur starten", "style": "secondary", "effects": { "kompetenz": 8, "burnout": 15 }, "feedback": "Du findest 3 Oracle-Installationen die niemand kannte. Eine ist von 2007. Sie läuft noch." },
+      { "label": "Freundlich kooperieren", "style": "ghost", "effects": { "bullshit": 3, "kompetenz": -3, "burnout": 8 }, "feedback": "Oracle findet mehr als du. Nachzahlung: €134.000. Der LMS-Auditor lächelt zum ersten Mal." }
+    ]
+  },
+  {
+    "id": "ad_servicenow_01",
+    "vendor": "ServiceNow",
+    "color": "#62D84E",
+    "logo": "🟢",
+    "headline": "ServiceNow: Transformieren Sie Ihr ITAM. Jetzt.",
+    "subline": "Ihre Excel-Tabellen leiden. Wir haben eine Lösung. Sie kostet mehr als Ihre Excel-Tabellen.",
+    "badge": "DEMO BUCHEN",
+    "badgeColor": "#107c10",
+    "bodyText": "ServiceNow IT Asset Management — End-to-End Visibility, Automated Discovery, License Optimization und Compliance Reporting. Alles auf einer Platform. Implementation: 6-9 Monate. Training: 3 Monate. ROI: ab Jahr 3.",
+    "smallPrint": "* Preis auf Anfrage. Die Anfrage führt zu einem Gespräch. Das Gespräch zu einem Angebot. Das Angebot zu Verhandlungen.",
+    "buttons": [
+      { "label": "Demo vereinbaren", "style": "primary", "effects": { "burnout": 4, "prestige": 2 }, "feedback": "Demo-Termin: nächste Woche, 90 Minuten. Es werden 2 Stunden. Der Account Executive heißt ebenfalls Tyler." },
+      { "label": "Referenzkunden sprechen", "style": "secondary", "effects": { "kompetenz": 4 }, "feedback": "Referenzkunde: 'Es hat 11 Monate gedauert statt 6. Aber jetzt läuft es.' Das ist eine positive Referenz." },
+      { "label": "Erstmal Excel behalten", "style": "ghost", "effects": { "bullshit": 2, "kompetenz": -1 }, "feedback": "ServiceNow schickt wöchentlich einen Newsletter. Betreff: 'Warum Excel kein ITAM-Tool ist'." }
+    ]
+  },
+  {
+    "id": "ad_zoom_01",
+    "vendor": "Zoom",
+    "color": "#2D8CFF",
+    "logo": "📹",
+    "headline": "Zoom Enterprise: Weil Teams auch manchmal nicht funktioniert.",
+    "subline": "450 User haben Zoom privat installiert. Ohne Lizenz. Wir haben das bemerkt.",
+    "badge": "SHADOW IT",
+    "badgeColor": "#f7630c",
+    "bodyText": "Unsere Nutzungsanalyse zeigt: 450 Ihrer Mitarbeiter nutzen Zoom Free für Business-Meetings. Das verstößt gegen Zoom's Terms of Service und möglicherweise gegen Ihre Datenschutzrichtlinien. Wir haben eine Enterprise-Lösung.",
+    "smallPrint": "* Alternativ könnten Sie alle 450 User verwarnen. Das wäre auch eine Option.",
+    "buttons": [
+      { "label": "Enterprise-Lizenz für alle", "style": "primary", "effects": { "bullshit": 5, "prestige": 3 }, "feedback": "Lizenziert. 200 User wechseln trotzdem zu Google Meet. 50 bleiben bei Zoom Free weil sie den Link nicht gefunden haben." },
+      { "label": "Shadow-IT-Policy durchsetzen", "style": "secondary", "effects": { "kompetenz": 5, "kundenliebe": -3 }, "feedback": "Policy kommuniziert. 3 Beschwerden an HR. Kevin schreibt eine FAQ. Die FAQ hat Fehler." },
+      { "label": "Teams für alle verpflichtend machen", "style": "ghost", "effects": { "bullshit": 4, "burnout": 6 }, "feedback": "Microsoft ist glücklich. Alle anderen nicht. Der erste Teams-Ausfall kommt in 4 Tagen." }
+    ]
+  },
+  {
+    "id": "ad_aws_01",
+    "vendor": "AWS",
+    "color": "#FF9900",
+    "logo": "☁️",
+    "headline": "AWS: Ihre Cloud-Rechnung war höher als erwartet.",
+    "subline": "23% höher. Kevin hat letzte Woche etwas deployed. In Production.",
+    "badge": "KOSTENKONTROLLE",
+    "badgeColor": "#f7630c",
+    "bodyText": "Ihr AWS Cost Explorer zeigt eine unerwartete Ausgabensteigerung von 23% im letzten Monat. Drei EC2-Instanzen laufen seit 18 Tagen mit voller Kapazität ohne messbare Last. Wir empfehlen AWS Cost Optimization — unser Team hilft gerne. Stundensatz: $380.",
+    "smallPrint": "* Kevin hat die Instanzen deployed und vergessen sie zu stoppen. Das ist kein seltener Vorfall.",
+    "buttons": [
+      { "label": "Instanzen sofort stoppen", "style": "primary", "effects": { "kompetenz": 4 }, "feedback": "Gestoppt. €2.340 gespart. Kevin sagt: 'Ich dachte die stoppen sich selbst.' Sie tun das nicht." },
+      { "label": "AWS Cost Optimization beauftragen", "style": "secondary", "effects": { "bullshit": 3, "burnout": 4 }, "feedback": "Das AWS-Team findet 12 weitere unnötige Instanzen. Und 3 S3-Buckets von 2019 die niemand kennt." },
+      { "label": "Budget-Alert einrichten und hoffen", "style": "ghost", "effects": { "kompetenz": 2, "bullshit": 3 }, "feedback": "Alert gesetzt bei 150% des Budgets. Kevin deployed nächste Woche erneut. Der Alert feuert pünktlich." }
+    ]
+  },
+  {
+    "id": "ad_flexera_01",
+    "vendor": "Flexera",
+    "color": "#E8622A",
+    "logo": "🟠",
+    "headline": "Flexera One: Sehen Sie was Sie nicht sehen.",
+    "subline": "Full Visibility. Hybrid IT. License Optimization. Und ein Onboarding das nur 4 Monate dauert.",
+    "badge": "ITAM PLATFORM",
+    "badgeColor": "#E8622A",
+    "bodyText": "Flexera One vereint Software Asset Management, Cloud Cost Management und IT Visibility auf einer Plattform. Discovery-Agent für Windows, Mac, Linux, Cloud und — auf expliziten Wunsch — auch den Keller-Server.",
+    "smallPrint": "* Der Keller-Server wird als 'Legacy Environment' klassifiziert. BUCHHALTUNG 2006 wird separat bewertet.",
+    "buttons": [
+      { "label": "Free Trial starten", "style": "primary", "effects": { "kompetenz": 4, "burnout": 6 }, "feedback": "Trial gestartet. Onboarding-Call: Dienstag 09:00. Dauer laut Einladung: 45 Min. Es werden 2 Stunden." },
+      { "label": "Referenzgespräch anfragen", "style": "secondary", "effects": { "kompetenz": 3 }, "feedback": "Referenzkunde sagt: 'Wenn man erstmal drin ist, ist es gut.' Das ist alles was er sagt." },
+      { "label": "Weiter mit Excel", "style": "ghost", "effects": { "bullshit": 3 }, "feedback": "Flexera schickt eine Fallstudie: 'Wie Unternehmen X €2M mit Flexera gespart hat.' Unternehmen X ist anonym." }
+    ]
+  },
+  {
+    "id": "ad_snow_01",
+    "vendor": "Snow Software",
+    "color": "#00B4D8",
+    "logo": "❄️",
+    "headline": "Snow License Manager: Compliance in Echtzeit.",
+    "subline": "Ihr letzter Compliance-Report hatte 3 widersprüchliche Zahlen. Wir helfen.",
+    "badge": "SAM TOOL",
+    "badgeColor": "#00B4D8",
+    "bodyText": "Snow License Manager liefert automatisierte Lizenz-Compliance-Reports für über 50.000 Software-Titel. Die Reports sind klar, präzise und — im Gegensatz zu Ihrer aktuellen Excel-Datei — aktuell.",
+    "smallPrint": "* Snow Software wurde 2023 von Flexera übernommen. Die Produktstrategie wird 'harmonisiert'.",
+    "buttons": [
+      { "label": "Demo anfragen", "style": "primary", "effects": { "burnout": 3, "prestige": 2 }, "feedback": "Demo: Mittwoch 10:00. 60 Minuten. Die Demo ist beeindruckend. Der Preis steht nicht auf der Website." },
+      { "label": "Preisliste anfordern", "style": "secondary", "effects": { "kompetenz": 3 }, "feedback": "Preisliste kommt nicht. Stattdessen: Anruf von einem Account Executive. Er heißt Thomas, nicht Tyler. Abwechslung." },
+      { "label": "Snow vs. Flexera vergleichen", "style": "ghost", "effects": { "kompetenz": 5, "burnout": 4 }, "feedback": "Du verbringst 3 Stunden mit dem Vergleich. Ergebnis: Es hängt von Ihrer spezifischen Umgebung ab. Natürlich." }
+    ]
+  },
+  {
+    "id": "ad_cold_call_tyler",
+    "vendor": "AWS",
+    "color": "#FF9900",
+    "logo": "📞",
+    "headline": "EINGEHENDER ANRUF: Tyler (AWS)",
+    "subline": "Tyler von AWS möchte 'kurz was besprechen'. Er sagt kurz.",
+    "badge": "📞 ANRUF",
+    "badgeColor": "#107c10",
+    "isPhoneCall": true,
+    "bodyText": "Tyler: 'Hey! Ich wollte nur kurz nachfassen wegen unserem letzten Gespräch — hatten wir ja ein super Alignment zu der Cloud-First Journey, und ich wollte fragen ob Sie schon Kapazitäten für den nächsten Schritt gesehen haben? Wir haben gerade ein Super-Angebot laufen das nur noch diese Woche gilt.'",
+    "smallPrint": "Das Angebot gilt nächste Woche auch noch.",
+    "buttons": [
+      { "label": "Annehmen und zuhören", "style": "primary", "effects": { "burnout": 8, "bullshit": 3 }, "feedback": "Das Gespräch dauert 34 Minuten. Tyler schickt danach eine Zusammenfassung die das Gespräch anders darstellt als es war." },
+      { "label": "Kurz bleiben: 'Kein Budget gerade'", "style": "secondary", "effects": { "burnout": 2, "prestige": 1 }, "feedback": "Tyler: 'Verstehe, verstehe. Darf ich nächsten Monat nochmal melden?' Er meldet sich in 2 Wochen." },
+      { "label": "Nicht rangehen", "style": "ghost", "effects": { "burnout": -3 }, "feedback": "Tyler hinterlässt eine Voicemail. 3 Minuten. Er schickt danach eine E-Mail mit der Zusammenfassung der Voicemail." }
+    ]
+  },
+  {
+    "id": "ad_microsoft_teams_outage",
+    "vendor": "Microsoft",
+    "color": "#6264A7",
+    "logo": "💜",
+    "headline": "Microsoft Teams: Eingeschränkte Verfügbarkeit",
+    "subline": "Teams ist gerade down. Das Meeting in 4 Minuten: extern. Keine Ausweichlösung.",
+    "badge": "⚠️ STÖRUNG",
+    "badgeColor": "#d13438",
+    "isIncident": true,
+    "bodyText": "Microsoft 365 Status: Wir untersuchen derzeit Berichte über Verbindungsprobleme mit Microsoft Teams. Betroffene Regionen: Europa. Geschätzte Behebung: unbekannt. Ihr nächstes Meeting startet in 4 Minuten.",
+    "smallPrint": "* Incident ID: MO123456. Status-Updates unter status.microsoft.com. Der Status-Counter zeigt ebenfalls 'investigating'.",
+    "buttons": [
+      { "label": "Auf Zoom ausweichen (ohne Lizenz)", "style": "primary", "effects": { "kundenliebe": 4, "bullshit": 3 }, "feedback": "Meeting läuft. Zoom fragt nach 40 Minuten ob das noch ein kostenloses Meeting ist. Es ist 37 Minuten in." },
+      { "label": "Kunden informieren und verschieben", "style": "secondary", "effects": { "kundenliebe": -2, "kompetenz": 3 }, "feedback": "Kunde versteht es. Dieter schickt trotzdem 4 Mails in den nächsten 30 Minuten." },
+      { "label": "Telefonkonferenz starten (alt school)", "style": "ghost", "effects": { "bullshit": 2, "prestige": 2 }, "feedback": "Einwahlnummer funktioniert. Alle wählen sich ein. Es klingt wie 1998. Irgendwie effizient." }
+    ]
+  },
+  {
+    "id": "ad_jira_01",
+    "vendor": "Atlassian",
+    "color": "#0052CC",
+    "logo": "📋",
+    "headline": "Jira Software: 847 offene Tickets.",
+    "subline": "12 davon sind 'Blocker'. 3 davon sind von 2019. Kevin hat gestern 47 neue erstellt.",
+    "badge": "BACKLOG",
+    "badgeColor": "#f7630c",
+    "bodyText": "Jira Software Cloud — skalierbare Projektverwaltung für agile Teams. Ihre Backlog-Tiefe übersteigt die empfohlene Obergrenze. Atlassian empfiehlt Jira Advanced mit automatischem Ticket-Triage. Oder einen Scrum Master. Oder beides.",
+    "smallPrint": "* Jira Advanced kostet pro User mehr. Die 847 Tickets kosten Sie bereits Schlaf.",
+    "buttons": [
+      { "label": "Jira Advanced buchen", "style": "primary", "effects": { "bullshit": 5, "burnout": 4 }, "feedback": "Gebucht. Das KI-Triage sortiert 200 Tickets in 'Vielleicht später'. Kevin ist beleidigt." },
+      { "label": "Backlog-Bereinigung starten", "style": "secondary", "effects": { "kompetenz": 6, "burnout": 8 }, "feedback": "Du schließt 312 Tickets als 'Won't Fix'. 3 davon waren wichtig. Du findest es in 2 Wochen heraus." },
+      { "label": "Kevin ein Ticket dafür geben", "style": "ghost", "effects": { "bullshit": 4, "kompetenz": -2 }, "feedback": "Ticket JIRA-848: 'Backlog bereinigen'. Priorität: Low. Kevin weist es sich selbst zu." }
+    ]
+  },
+  {
+    "id": "ad_salesforce_01",
+    "vendor": "Salesforce",
+    "color": "#00A1E0",
+    "logo": "☁️",
+    "headline": "Salesforce: Ihr Vertrag läuft in 90 Tagen aus.",
+    "subline": "Die Verhandlung beginnt in 89 Tagen. Sie haben noch keine Nutzungsdaten.",
+    "badge": "RENEWAL",
+    "badgeColor": "#107c10",
+    "bodyText": "Salesforce Enterprise Edition — Ihre jährliche Erneuerung steht an. Unsere Analyse zeigt: 340 von 500 Lizenzen wurden im letzten Quartal nie genutzt. Das könnte Verhandlungsspielraum schaffen. Oder Salesforce erhöht einfach den Preis. Beides ist möglich.",
+    "smallPrint": "* Salesforce erhöht die Preise durchschnittlich um 7% pro Jahr. 'Wertsteigerung' nennen sie das.",
+    "buttons": [
+      { "label": "Nutzungsreport erstellen", "style": "primary", "effects": { "kompetenz": 6, "burnout": 5 }, "feedback": "Report fertig. 340 ungenutzte Lizenzen. Der Account Executive sagt: 'Dann downgraden Sie.' Er meint zu einem teureren Paket." },
+      { "label": "Verhandlungscoach buchen", "style": "secondary", "effects": { "prestige": 3, "burnout": 3 }, "feedback": "Coach kostet €3.000. Er spart €28.000 in der Verhandlung. Finance fragt warum der Coach so teuer war." },
+      { "label": "Einfach verlängern", "style": "ghost", "effects": { "bullshit": 6, "burnout": 2 }, "feedback": "Verlängert. +9% gegenüber Vorjahr. Der Account Executive schickt einen Blumenstrauß." }
+    ]
+  },
+  {
+    "id": "ad_slack_01",
+    "vendor": "Slack",
+    "color": "#4A154B",
+    "logo": "💬",
+    "headline": "Slack Enterprise Grid: 2.400 Channels.",
+    "subline": "12 davon sind aktiv. #random hat 847 Nachrichten heute. #projekt-x hat die letzte 2018.",
+    "badge": "CHANNEL CREEP",
+    "badgeColor": "#f7630c",
+    "bodyText": "Slack Enterprise Grid — unbegrenzte Nachrichten, unbegrenzte Channels. Ihre Workspace-Architektur entspricht nicht den Best Practices. Wir empfehlen einen Channel-Audit und Migration zu Slack Connect. Oder Sie archivieren einfach 2.388 Channels. Beides dauert.",
+    "smallPrint": "* Archivierte Channels erscheinen in Suchergebnissen. Für immer. Kevin hat #projekt-x nie verlassen.",
+    "buttons": [
+      { "label": "Channel-Audit beauftragen", "style": "primary", "effects": { "kompetenz": 4, "burnout": 6 }, "feedback": "Audit dauert 3 Wochen. Ergebnis: 2.100 Channels können weg. 3 Teams weigern sich. Einer hat Recht." },
+      { "label": "Slack Connect evaluieren", "style": "secondary", "effects": { "burnout": 4 }, "feedback": "Slack Connect kostet extra. Es verbindet Sie mit Partnern. Sie haben 47 Partner. 46 nutzen E-Mail." },
+      { "label": "Nichts tun", "style": "ghost", "effects": { "bullshit": 3 }, "feedback": "#random wächst weiter. In 6 Monaten sind es 3.000 Channels. Kevin erstellt #random-2." }
+    ]
+  },
+  {
+    "id": "ad_google_01",
+    "vendor": "Google",
+    "color": "#4285F4",
+    "logo": "🔵",
+    "headline": "Google Workspace: Storage-Limit erreicht.",
+    "subline": "Alle 1.200 User teilen sich 30 TB. 28 TB sind Dieter's E-Mail-Anhänge von 2006-2019.",
+    "badge": "QUOTA",
+    "badgeColor": "#d13438",
+    "bodyText": "Google Workspace Business Plus — Ihr gemeinsamer Speicher ist voll. Neue E-Mails können nicht gesendet werden. Unser Analyse-Tool zeigt: 23 User verbrauchen 80% des Speichers. Dieter ist einer davon. Dieter hat 47.000 E-Mails im Posteingang.",
+    "smallPrint": "* Google empfiehlt Workspace Enterprise. Oder Dieter löscht seine E-Mails. Beides unwahrscheinlich.",
+    "buttons": [
+      { "label": "Enterprise upgraden", "style": "primary", "effects": { "bullshit": 5, "prestige": 2 }, "feedback": "Upgrade durchgeführt. +€4.200/Jahr. Dieter hat jetzt 60 TB für sich. Er nutzt 2." },
+      { "label": "Dieter zur Bereinigung auffordern", "style": "secondary", "effects": { "kompetenz": 4, "kundenliebe": -5 }, "feedback": "Dieter: 'Das sind alles wichtige Unterlagen.' Er löscht 200 E-Mails. Das Problem bleibt." },
+      { "label": "Archiv-Policy durchsetzen", "style": "ghost", "effects": { "kompetenz": 6, "burnout": 7 }, "feedback": "Policy: E-Mails älter als 2 Jahre archivieren. 3 Abteilungen beschweren sich. Legal hat Bedenken. Du verschiebst auf 'Q2'." }
+    ]
+  },
+  {
+    "id": "ad_cisco_01",
+    "vendor": "Cisco",
+    "color": "#049FD9",
+    "logo": "📞",
+    "headline": "Cisco Webex: Lizenz-Mismatch erkannt.",
+    "subline": "Sie haben Webex Meetings. 340 User nutzen Webex Calling. Sie haben Webex Calling nicht lizenziert.",
+    "badge": "COMPLIANCE",
+    "badgeColor": "#d13438",
+    "bodyText": "Cisco Webex Suite — unsere Nutzungsanalyse hat festgestellt, dass 340 Nutzer Webex Calling-Funktionen verwenden ohne entsprechende Lizenz. Das kann zu Compliance-Problemen führen. Wir haben ein Angebot für Webex Suite. Es enthält alles. Auch was Sie nicht brauchen.",
+    "smallPrint": "* Webex Suite kostet 40% mehr als Meetings alleine. Es enthält auch Webex App. Die nutzt niemand.",
+    "buttons": [
+      { "label": "Webex Suite für alle", "style": "primary", "effects": { "bullshit": 5, "burnout": 3 }, "feedback": "Lizenziert. 340 User haben jetzt Webex App. 2 haben sie geöffnet. Beide aus Versehen." },
+      { "label": "Calling-Funktion deaktivieren", "style": "secondary", "effects": { "kompetenz": 5, "kundenliebe": -4 }, "feedback": "Deaktiviert. 47 Support-Tickets. 'Wo ist mein Webex Calling?' Kevin hat eine Anleitung geschrieben. Sie ist falsch." },
+      { "label": "Audit abwarten", "style": "ghost", "effects": { "kompetenz": 2, "burnout": 5 }, "feedback": "Cisco schickt 2 Wochen später eine Audit-Ankündigung. Sie haben die Nutzungsdaten. Sie haben immer die Nutzungsdaten." }
+    ]
+  }
+]

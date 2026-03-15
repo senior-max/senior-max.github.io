@@ -114,10 +114,14 @@ function renderChoices(choices) {
     return window.Engine?.hasFlag(choice.requires_flag) || false;
   });
 
+  const lastScore = window.Engine?.GameState?.lastMinigameScore ?? 0;
   visible.forEach((choice, index) => {
     const btn = document.createElement('button');
     btn.className = 'choice-btn animate-fadeInUp';
-    btn.textContent = choice.text;
+    const label = (lastScore >= 70 && choice.text_fast) ? choice.text_fast
+      : (lastScore < 70 && choice.text_slow) ? choice.text_slow
+      : choice.text;
+    btn.textContent = label;
     btn.style.animationDelay = `${index * 80}ms`;
 
     btn.setAttribute('aria-describedby', 'story-text');
@@ -387,8 +391,9 @@ const LEVEL_QUIRKS = {
  * career bonus, a funny two-line level description, and a dismiss button.
  * @param {string} newTitle - The new career title.
  * @param {number} [newLevel] - The new career level (1-based).
+ * @param {function} [onDismiss] - Called when the user dismisses the overlay.
  */
-function showLevelUp(newTitle, newLevel) {
+function showLevelUp(newTitle, newLevel, onDismiss) {
   const quirk = LEVEL_QUIRKS[newLevel ?? 0];
 
   // ── Full-screen dimmed backdrop ──────────────────────────
@@ -541,6 +546,7 @@ function showLevelUp(newTitle, newLevel) {
   dismissBtn.style.cssText = 'width:200px;margin-top:var(--space-xs);position:relative;z-index:1;';
   dismissBtn.textContent = 'Danke, weiter geht\'s';
   const dismiss = () => {
+    if (typeof onDismiss === 'function') onDismiss();
     backdrop.style.transition = 'opacity 0.4s ease';
     backdrop.style.opacity = '0';
     setTimeout(() => backdrop.remove(), 400);
@@ -655,7 +661,7 @@ function showBurnoutScreen() {
   });
   overlay.appendChild(statsBox);
 
-  // Recovery button
+  // Recovery button — reset burnout, then continue to next scene if pending
   const btn = document.createElement('button');
   btn.className = 'choice-btn';
   btn.textContent = '🌴 Erholt zurückkehren';
@@ -670,6 +676,7 @@ function showBurnoutScreen() {
     }
     if (window.Stats) Stats.updateStatBars();
     overlay.remove();
+    window.Engine?.continueAfterBurnout?.();
   });
   overlay.appendChild(btn);
 }
@@ -854,14 +861,28 @@ function showProjectComplete(title, endingType, message, opts = {}) {
     }
   }
 
-  // CTA button
+  // CTA button — Reihenfolge: Projektabschluss → Beförderung → Minigame → Postfach
   const btn = document.createElement('button');
   btn.className = 'choice-btn';
   btn.style.cssText = 'width:220px;margin:var(--space-sm) auto 0;';
-  btn.textContent = isSuccess ? '📬 Posteingang öffnen' : '😔 Weiter (in Schande)';
+  btn.textContent = isSuccess ? 'Weiter' : '😔 Weiter (in Schande)';
   btn.addEventListener('click', () => {
     overlay.remove();
-    if (typeof window.Engine?.startPostProjectPhase === 'function') {
+    const pending = window.Engine?.GameState?.pendingLevelUp;
+    if (pending) {
+      window.Engine.GameState.pendingLevelUp = null;
+      if (typeof Renderer.showLevelUp === 'function') {
+        Renderer.showLevelUp(pending.title, pending.level, () => {
+          if (typeof window.Engine?.startPostProjectPhase === 'function') {
+            window.Engine.startPostProjectPhase();
+          } else if (typeof window.Engine?.startEmailPhase === 'function') {
+            window.Engine.startEmailPhase();
+          }
+        });
+      } else {
+        window.Engine?.startPostProjectPhase?.() ?? window.Engine?.startEmailPhase?.();
+      }
+    } else if (typeof window.Engine?.startPostProjectPhase === 'function') {
       window.Engine.startPostProjectPhase();
     } else if (typeof window.Engine?.startEmailPhase === 'function') {
       window.Engine.startEmailPhase();
