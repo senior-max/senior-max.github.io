@@ -612,19 +612,23 @@ input[type="range"] {
 /* ── Dashboard button ───────────────────────────────────── */
 
 #dashboard-btn {
-  background: transparent;
-  border: 1px solid #333;
-  color: #666;
-  padding: 4px 8px;
-  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(232, 98, 42, 0.2), rgba(232, 98, 42, 0.05));
+  border: 1px solid rgba(232, 98, 42, 0.5);
+  color: #E8622A;
+  padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: border-color 0.2s, color 0.2s;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(232, 98, 42, 0.15);
 }
 
 #dashboard-btn:hover {
   border-color: #E8622A;
-  color: #E8622A;
+  color: #fff;
+  background: rgba(232, 98, 42, 0.35);
+  box-shadow: 0 6px 16px rgba(232, 98, 42, 0.3);
 }
 
 /* ── Dashboard overlay ───────────────────────────────────── */
@@ -632,7 +636,7 @@ input[type="range"] {
 .dashboard-overlay {
   position: fixed;
   inset: 0;
-  background: #0f0f0f;
+  background: linear-gradient(160deg, #0f0f0f 0%, #1a1520 40%, #0d1117 100%);
   z-index: 3000;
   display: flex;
   flex-direction: column;
@@ -644,69 +648,75 @@ input[type="range"] {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-start;
-  padding: 20px 24px;
+  align-items: center;
+  padding: 16px 24px;
   gap: 16px;
-  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(232, 98, 42, 0.2);
 }
 
-.dashboard-header-left {
+.dashboard-close {
+  flex-shrink: 0;
+  order: 1;
+  background: rgba(232, 98, 42, 0.15);
+  border: 1px solid rgba(232, 98, 42, 0.4);
+  color: #E8622A;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.dashboard-close:hover {
+  background: rgba(232, 98, 42, 0.3);
+  border-color: #E8622A;
+  color: #fff;
+}
+
+.dashboard-header-center {
   flex: 1;
-  min-width: 200px;
+  min-width: 180px;
+  order: 2;
+  text-align: center;
+}
+
+.dashboard-header-right {
+  flex-shrink: 0;
+  order: 3;
+  text-align: right;
 }
 
 .dashboard-title {
   font-size: 1.25rem;
   color: #fff;
   margin: 0 0 4px 0;
+  text-shadow: 0 0 20px rgba(232, 98, 42, 0.3);
 }
 
 .dashboard-subtitle {
   font-size: 0.75rem;
-  color: #888;
-}
-
-.dashboard-header-right {
-  text-align: right;
+  color: #8b949e;
 }
 
 .dashboard-clock {
-  font-size: 1.1rem;
-  color: #00ff41;
+  font-size: 1.15rem;
+  color: #58a6ff;
   font-variant-numeric: tabular-nums;
+  font-weight: 600;
 }
 
 .dashboard-refresh {
   font-size: 0.7rem;
-  color: #555;
-}
-
-.dashboard-close {
-  position: absolute;
-  top: 20px;
-  right: 24px;
-  background: transparent;
-  border: 1px solid #444;
-  color: #888;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  transition: border-color 0.2s, color 0.2s;
-}
-
-.dashboard-close:hover {
-  border-color: #E8622A;
-  color: #E8622A;
+  color: #6e7681;
 }
 
 .dashboard-subtitle-bar {
-  background: #1a1a1a;
-  padding: 8px 24px;
+  background: linear-gradient(90deg, rgba(88, 166, 255, 0.08), rgba(232, 98, 42, 0.08));
+  padding: 10px 24px;
   font-size: 0.75rem;
-  color: #888;
-  border-top: 1px solid #2a2a2a;
-  border-bottom: 1px solid #2a2a2a;
+  color: #8b949e;
+  border-bottom: 1px solid rgba(110, 118, 129, 0.3);
 }
 
 .dashboard-grid {
@@ -718,25 +728,44 @@ input[type="range"] {
 }
 
 @media (max-width: 600px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dashboard-close {
+    align-self: flex-start;
+  }
+
+  .dashboard-header-center {
+    text-align: left;
+  }
+
+  .dashboard-header-right {
+    text-align: left;
+  }
+
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
 }
 
 .dashboard-tile {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  border-radius: 6px;
+  background: linear-gradient(145deg, rgba(26, 26, 30, 0.95), rgba(22, 27, 34, 0.98));
+  border: 1px solid rgba(88, 166, 255, 0.2);
+  border-radius: 10px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .dashboard-tile:hover {
-  border-color: #E8622A;
-  box-shadow: 0 0 12px rgba(232, 98, 42, 0.15);
+  border-color: rgba(232, 98, 42, 0.6);
+  box-shadow: 0 6px 20px rgba(232, 98, 42, 0.2);
+  transform: translateY(-2px);
 }
 
 .dashboard-tile--locked {
@@ -767,9 +796,24 @@ input[type="range"] {
 
 .dashboard-tile-title {
   font-size: 0.8rem;
-  color: #aaa;
+  color: #8b949e;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+.dashboard-mini-chart {
+  width: 100%;
+  height: 6px;
+  background: rgba(110, 118, 129, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.dashboard-mini-chart-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
 }
 
 .dashboard-trend {
@@ -796,15 +840,23 @@ input[type="range"] {
   min-height: 48px;
 }
 
+.dashboard-tile-subtext {
+  font-size: 0.75rem;
+  color: #6e7681;
+  font-style: italic;
+  line-height: 1.4;
+}
+
 .dashboard-value {
   font-size: 1.75rem;
   font-weight: bold;
   color: #fff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
 }
 
 .dashboard-unit {
   font-size: 0.85rem;
-  color: #888;
+  color: #8b949e;
   margin-left: 4px;
 }
 
@@ -816,18 +868,21 @@ input[type="range"] {
 }
 
 .dashboard-status--green {
-  background: rgba(46, 160, 67, 0.3);
+  background: linear-gradient(135deg, rgba(46, 160, 67, 0.4), rgba(35, 134, 54, 0.3));
   color: #3fb950;
+  border: 1px solid rgba(63, 185, 80, 0.4);
 }
 
 .dashboard-status--amber {
-  background: rgba(210, 153, 34, 0.3);
+  background: linear-gradient(135deg, rgba(210, 153, 34, 0.4), rgba(166, 121, 27, 0.3));
   color: #d29922;
+  border: 1px solid rgba(210, 153, 34, 0.4);
 }
 
 .dashboard-status--red {
-  background: rgba(248, 81, 73, 0.3);
+  background: linear-gradient(135deg, rgba(248, 81, 73, 0.4), rgba(207, 34, 46, 0.3));
   color: #f85149;
+  border: 1px solid rgba(248, 81, 73, 0.4);
 }
 
 .dashboard-status--gray {

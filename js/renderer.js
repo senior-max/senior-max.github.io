@@ -67,9 +67,25 @@ function createOverlay(id, label) {
 
 // ── Core render functions ─────────────────────────────────
 
+/** @type {{ interval: number, text: string, resolve: function, el: HTMLElement, clickHandler: function }|null} */
+let _currentTyping = null;
+
+function finishTyping() {
+  if (!_currentTyping) return;
+  clearInterval(_currentTyping.interval);
+  const { text, resolve, el, clickHandler } = _currentTyping;
+  _currentTyping = null;
+  el.textContent = text;
+  el.style.cursor = '';
+  el.querySelector('.animate-typing-cursor')?.remove();
+  if (clickHandler) el.removeEventListener('click', clickHandler);
+  resolve();
+}
+
 /**
  * Types text character by character into a DOM element.
  * Appends a blinking cursor during typing; removes it on completion.
+ * Click on the element to reveal full text immediately.
  * @param {string} text - The text to type out.
  * @param {string} selector - CSS selector of the target element.
  * @param {number} [speed=28] - Milliseconds between each character.
@@ -79,16 +95,25 @@ function typeText(text, selector, speed = 28) {
   return new Promise((resolve) => {
     const el = $(selector);
     el.textContent = '';
+    el.style.cursor = 'pointer';
 
     const cursor = document.createElement('span');
     cursor.className = 'animate-typing-cursor';
     el.appendChild(cursor);
+
+    const clickHandler = () => {
+      if (_currentTyping) finishTyping();
+    };
+    el.addEventListener('click', clickHandler);
 
     let index = 0;
     const interval = setInterval(() => {
       if (index >= text.length) {
         clearInterval(interval);
         cursor.remove();
+        _currentTyping = null;
+        el.style.cursor = '';
+        el.removeEventListener('click', clickHandler);
         resolve();
         return;
       }
@@ -96,6 +121,8 @@ function typeText(text, selector, speed = 28) {
       if (index % 3 === 0) window.Sound?.play('typing');
       index += 1;
     }, speed);
+
+    _currentTyping = { interval, text, resolve, el, clickHandler };
   });
 }
 
@@ -349,6 +376,35 @@ function showFeedback(text) {
   void el.offsetWidth; // force reflow so re-adding the class triggers animation
   el.classList.add('animate-slide-in-right');
   removeClassAfterAnimation(el, 'animate-slide-in-right');
+}
+
+/**
+ * Displays feedback and a "Weiter" button. Advances only when user clicks.
+ * @param {string} text - Feedback text (can be empty).
+ * @param {function} onContinue - Called when user clicks Weiter.
+ */
+function showFeedbackWithContinue(text, onContinue) {
+  const feedbackEl = $('#feedback-text');
+  feedbackEl.classList.remove('animate-slide-in-right');
+  feedbackEl.textContent = text || '';
+  if (text) {
+    void feedbackEl.offsetWidth;
+    feedbackEl.classList.add('animate-slide-in-right');
+    removeClassAfterAnimation(feedbackEl, 'animate-slide-in-right');
+  }
+
+  const container = $('#choices-container');
+  container.innerHTML = '';
+  const btn = document.createElement('button');
+  btn.className = 'choice-btn';
+  btn.textContent = 'Weiter';
+  btn.style.cssText = 'width:100%;max-width:320px;margin:0 auto;';
+  btn.addEventListener('click', () => {
+    window.Sound?.play?.('click');
+    btn.disabled = true;
+    if (typeof onContinue === 'function') onContinue();
+  });
+  container.appendChild(btn);
 }
 
 /** @type {Object.<number, string>} Quirk text unlocked at each career level. */
@@ -898,6 +954,7 @@ window.Renderer = {
   typeText,
   renderChoices,
   showFeedback,
+  showFeedbackWithContinue,
   showLevelUp,
   showBurnoutScreen,
   showAchievement,

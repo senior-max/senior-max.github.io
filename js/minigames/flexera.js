@@ -5,6 +5,13 @@
  * 75 second timer. Burnout scales with time and wrong paths.
  */
 
+const FLEXERA_DEBUG = false; // set true to enable debug logging
+
+function debugLog(msg, data) {
+  if (!FLEXERA_DEBUG) return;
+  console.log(`[Flexera] ${msg}`, data ?? '');
+}
+
 const FLEXERA_ORANGE = '#E8622A';
 const TIMER_SECONDS = 75;
 const LOADING_CHANCE = 0.3;
@@ -42,7 +49,7 @@ const NAV_TREE = {
         'Usage Reports': 'DEAD_END — Nutzung, nicht Compliance',
         'Compliance Reports': {
           'License Compliance': 'DEAD_END — ähnlicher Name, falscher Report',
-          'Software Compliance Summary': 'GOAL',
+          'Software Compliance Summary': '✅ ZIEL ERREICHT',
           'Software Compliance Detail': 'DEAD_END — zu detailliert',
           'Vendor Compliance': 'DEAD_END',
         },
@@ -71,19 +78,24 @@ const NAV_TREE = {
 window.FlexeraMinigame = (function () {
   'use strict';
 
-  let overlayEl = null;
-  let onCompleteCallback = null;
-  let timerHandle = null;
-  let timeLeft = TIMER_SECONDS;
-  let breadcrumb = [];
-  let currentNode = NAV_TREE;
-  let clicksToGoal = 0;
-  let deadEndCount = 0;
-  let communityForumClicked = false;
-  let sessionWarningShown = false;
-  let contentEl = null;
-  let sidebarEl = null;
-  let breadcrumbEl = null;
+  const state = {
+    currentNode: NAV_TREE,
+    breadcrumb: [],
+    clickCount: 0,
+    deadEndCount: 0,
+    communityForumClicked: false,
+    isLoading: false,
+    timerInterval: null,
+    sessionWarningTimeout: null,
+    loadingTimeout: null,
+    onComplete: null,
+    timeLeft: TIMER_SECONDS,
+    overlayEl: null,
+    contentEl: null,
+    sidebarEl: null,
+    breadcrumbEl: null,
+    escHandler: null,
+  };
 
   // ── Helpers ─────────────────────────────────────────────
 
@@ -101,14 +113,6 @@ window.FlexeraMinigame = (function () {
     return Object.keys(node);
   }
 
-  function isGoal(value) {
-    return value === 'GOAL';
-  }
-
-  function isDeadEnd(value) {
-    return typeof value === 'string' && value.startsWith('DEAD_END');
-  }
-
   function getDeadEndMessage(value) {
     if (typeof value !== 'string') return '';
     if (value.startsWith('DEAD_END_EASTER_EGG')) {
@@ -121,30 +125,58 @@ window.FlexeraMinigame = (function () {
     return typeof value === 'string' && value.startsWith('DEAD_END_EASTER_EGG');
   }
 
+  // ── Cleanup ─────────────────────────────────────────────
+
+  function cleanup() {
+    debugLog('Cleanup called');
+    if (state.timerInterval) {
+      clearInterval(state.timerInterval);
+      state.timerInterval = null;
+    }
+    if (state.sessionWarningTimeout) {
+      clearTimeout(state.sessionWarningTimeout);
+      state.sessionWarningTimeout = null;
+    }
+    if (state.loadingTimeout) {
+      clearTimeout(state.loadingTimeout);
+      state.loadingTimeout = null;
+    }
+    if (state.escHandler) {
+      document.removeEventListener('keydown', state.escHandler);
+      state.escHandler = null;
+    }
+    const overlay = document.getElementById('flexera-overlay');
+    const brief = document.getElementById('flexera-brief');
+    const sessionWarn = document.getElementById('flexera-session-warn');
+    if (overlay) overlay.remove();
+    if (brief) brief.remove();
+    if (sessionWarn) sessionWarn.remove();
+    state.overlayEl = null;
+    state.contentEl = null;
+    state.sidebarEl = null;
+    state.breadcrumbEl = null;
+  }
+
   // ── Timer ───────────────────────────────────────────────
 
   function startTimer() {
-    const timerEl = overlayEl?.querySelector('#flexera-timer');
+    const timerEl = state.overlayEl?.querySelector('#flexera-timer');
     if (!timerEl) return;
 
-    timerHandle = setInterval(() => {
-      timeLeft -= 1;
-      timerEl.textContent = `${timeLeft}s`;
-      if (timeLeft <= 0) {
-        clearInterval(timerHandle);
-        handleTimeout();
-      } else if (timeLeft === TIMER_SECONDS - SESSION_WARNING_AT && !sessionWarningShown) {
-        sessionWarningShown = true;
-        showSessionWarning();
+    state.timerInterval = setInterval(() => {
+      state.timeLeft -= 1;
+      timerEl.textContent = `${state.timeLeft}s`;
+      if (state.timeLeft <= 0) {
+        clearInterval(state.timerInterval);
+        state.timerInterval = null;
+        triggerTimeout();
       }
     }, 1000);
-  }
 
-  function stopTimer() {
-    if (timerHandle) {
-      clearInterval(timerHandle);
-      timerHandle = null;
-    }
+    state.sessionWarningTimeout = setTimeout(() => {
+      state.sessionWarningTimeout = null;
+      showSessionWarning();
+    }, SESSION_WARNING_AT * 1000);
   }
 
   // ── UI Build ────────────────────────────────────────────
@@ -207,9 +239,9 @@ window.FlexeraMinigame = (function () {
         'z-index:100', 'font-size:24px',
       ].join(';');
       spinner.innerHTML = '<div style="animation:typing 0.8s ease-in-out infinite;">⏳</div>';
-      if (contentEl) {
-        contentEl.style.position = 'relative';
-        contentEl.appendChild(spinner);
+      if (state.contentEl) {
+        state.contentEl.style.position = 'relative';
+        state.contentEl.appendChild(spinner);
       }
       setTimeout(() => {
         spinner.remove();
@@ -218,19 +250,37 @@ window.FlexeraMinigame = (function () {
     });
   }
 
+  function disableAllMenuButtons() {
+    if (!state.sidebarEl) return;
+    state.sidebarEl.querySelectorAll('button').forEach((btn) => {
+      btn.disabled = true;
+      btn.style.pointerEvents = 'none';
+      btn.style.opacity = '0.5';
+    });
+  }
+
+  function enableAllMenuButtons() {
+    if (!state.sidebarEl) return;
+    state.sidebarEl.querySelectorAll('button').forEach((btn) => {
+      btn.disabled = false;
+      btn.style.pointerEvents = '';
+      btn.style.opacity = '';
+    });
+  }
+
   function buildMainUI() {
-    overlayEl = document.createElement('div');
-    overlayEl.id = 'flexera-overlay';
-    overlayEl.setAttribute('role', 'dialog');
-    overlayEl.setAttribute('aria-modal', 'true');
-    overlayEl.style.cssText = [
+    state.overlayEl = document.createElement('div');
+    state.overlayEl.id = 'flexera-overlay';
+    state.overlayEl.setAttribute('role', 'dialog');
+    state.overlayEl.setAttribute('aria-modal', 'true');
+    state.overlayEl.style.cssText = [
       'position:fixed', 'inset:0', 'z-index:2100',
       'background:#fff', 'display:flex', 'flex-direction:column',
       'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',
       'color:#1a1a1a',
     ].join(';');
 
-    overlayEl.innerHTML = `
+    state.overlayEl.innerHTML = `
       <div style="display:flex;height:100%;">
         <aside id="flexera-sidebar" style="
           width:240px;background:#1a1a1a;color:#e6edf3;
@@ -239,6 +289,11 @@ window.FlexeraMinigame = (function () {
         ">
           <div style="font-size:14px;font-weight:bold;color:${FLEXERA_ORANGE};margin-bottom:var(--space-md);">🟠 Flexera One</div>
           <div id="flexera-nav-items"></div>
+          <button type="button" id="flexera-skip-btn" style="
+            margin-top:var(--space-md);width:100%;padding:8px 12px;
+            background:transparent;border:1px solid #555;color:#888;
+            font-size:12px;cursor:pointer;border-radius:3px;
+          ">Überspringen</button>
         </aside>
         <main style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
           <header style="
@@ -247,7 +302,7 @@ window.FlexeraMinigame = (function () {
             display:flex;justify-content:space-between;align-items:center;
           ">
             <div id="flexera-breadcrumb" style="font-size:12px;color:#666;"></div>
-            <div id="flexera-timer" style="font-size:var(--font-size-lg);color:${FLEXERA_ORANGE};font-weight:bold;">${timeLeft}s</div>
+            <div id="flexera-timer" style="font-size:var(--font-size-lg);color:${FLEXERA_ORANGE};font-weight:bold;">${state.timeLeft}s</div>
           </header>
           <div id="flexera-content" style="flex:1;padding:var(--space-lg);overflow-y:auto;background:#fafafa;"></div>
           <footer style="padding:var(--space-xs) var(--space-md);font-size:11px;color:#999;">Sackgassen: <span id="flexera-deadends">0</span></footer>
@@ -255,53 +310,89 @@ window.FlexeraMinigame = (function () {
       </div>
     `;
 
-    document.body.appendChild(overlayEl);
-    sidebarEl = overlayEl.querySelector('#flexera-nav-items');
-    contentEl = overlayEl.querySelector('#flexera-content');
-    breadcrumbEl = overlayEl.querySelector('#flexera-breadcrumb');
+    document.body.appendChild(state.overlayEl);
+    state.sidebarEl = state.overlayEl.querySelector('#flexera-nav-items');
+    state.contentEl = state.overlayEl.querySelector('#flexera-content');
+    state.breadcrumbEl = state.overlayEl.querySelector('#flexera-breadcrumb');
+
+    state.overlayEl.querySelector('#flexera-skip-btn').addEventListener('click', () => {
+      debugLog('Skip clicked');
+      cleanup();
+      const result = {
+        score: 0,
+        effects: { burnout: 5 },
+        xpBonus: 0,
+        message: 'Übersprungen. Müller-Brandt hat den Report selbst gesucht.',
+      };
+      if (typeof state.onComplete === 'function') {
+        state.onComplete(result);
+        state.onComplete = null;
+      }
+    });
+
+    state.escHandler = (e) => {
+      if (e.key === 'Escape') {
+        document.removeEventListener('keydown', state.escHandler);
+        state.escHandler = null;
+        cleanup();
+        const result = {
+          score: 0,
+          effects: { burnout: 5 },
+          xpBonus: 0,
+          message: 'Abgebrochen.',
+        };
+        if (typeof state.onComplete === 'function') {
+          state.onComplete(result);
+          state.onComplete = null;
+        }
+      }
+    };
+    document.addEventListener('keydown', state.escHandler);
 
     renderNav();
     renderContent('Klicken Sie links, um zu navigieren.');
   }
 
   function renderBreadcrumb() {
-    if (!breadcrumbEl) return;
-    breadcrumbEl.innerHTML = '';
-    if (breadcrumb.length === 0) {
-      breadcrumbEl.textContent = '—';
+    if (!state.breadcrumbEl) return;
+    state.breadcrumbEl.innerHTML = '';
+    if (state.breadcrumb.length === 0) {
+      state.breadcrumbEl.textContent = '—';
       return;
     }
-    breadcrumb.forEach((label, i) => {
+    state.breadcrumb.forEach((label, i) => {
       const span = document.createElement('span');
       span.style.cssText = 'cursor:pointer;text-decoration:underline;margin-right:4px;';
       span.textContent = label;
       span.addEventListener('click', () => {
-        breadcrumb = breadcrumb.slice(0, i + 1);
+        state.breadcrumb = state.breadcrumb.slice(0, i + 1);
+        state.currentNode = getNodeAtPath(state.breadcrumb);
         renderBreadcrumb();
         renderNav();
         renderContent('Wählen Sie einen Eintrag aus der linken Navigation.');
       });
-      breadcrumbEl.appendChild(span);
-      if (i < breadcrumb.length - 1) {
-        breadcrumbEl.appendChild(document.createTextNode(' > '));
+      state.breadcrumbEl.appendChild(span);
+      if (i < state.breadcrumb.length - 1) {
+        state.breadcrumbEl.appendChild(document.createTextNode(' > '));
       }
     });
   }
 
   function renderNav() {
-    if (!sidebarEl) return;
-    sidebarEl.innerHTML = '';
+    if (!state.sidebarEl) return;
+    state.sidebarEl.innerHTML = '';
 
-    const keys = breadcrumb.length
-      ? getChildren(getNodeAtPath(breadcrumb))
+    const keys = state.breadcrumb.length
+      ? getChildren(getNodeAtPath(state.breadcrumb))
       : Object.keys(NAV_TREE);
 
     if (!keys) return;
 
-    keys.forEach((key) => {
+    keys.forEach((menuKey) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.textContent = key;
+      btn.textContent = menuKey;
+      btn.dataset.menuKey = encodeURIComponent(menuKey);
       btn.style.cssText = [
         'display:block', 'width:100%', 'text-align:left',
         'padding:8px 12px', 'margin-bottom:4px',
@@ -311,41 +402,43 @@ window.FlexeraMinigame = (function () {
       ].join(';');
       btn.addEventListener('mouseenter', () => { btn.style.background = 'rgba(232,98,42,0.2)'; });
       btn.addEventListener('mouseleave', () => { btn.style.background = 'transparent'; });
-      btn.addEventListener('click', () => handleNavClick(key));
-      sidebarEl.appendChild(btn);
+      btn.addEventListener('click', (e) => {
+        const key = decodeURIComponent(e.currentTarget.dataset.menuKey || '');
+        handleMenuClick(key);
+      });
+      state.sidebarEl.appendChild(btn);
     });
   }
 
   function renderContent(text) {
-    if (!contentEl) return;
-    contentEl.innerHTML = `<div style="font-size:14px;line-height:1.6;color:#333;">${text}</div>`;
+    if (!state.contentEl) return;
+    state.contentEl.innerHTML = `<div style="font-size:14px;line-height:1.6;color:#333;">${text}</div>`;
   }
 
   // ── Navigation logic ─────────────────────────────────────
 
-  async function handleNavClick(key) {
-    if (timeLeft <= 0) return;
+  function processClick(menuKey) {
+    if (state.timeLeft <= 0) return;
 
-    const path = [...breadcrumb, key];
+    const path = [...state.breadcrumb, menuKey];
     const value = getNodeAtPath(path);
-    clicksToGoal += 1;
+    state.clickCount += 1;
 
-    if (Math.random() < LOADING_CHANCE) {
-      await showLoadingSpinner();
-    }
+    debugLog('Click:', menuKey, '→ type:', typeof value);
 
-    if (isGoal(value)) {
-      stopTimer();
-      handleSuccess();
+    // CHECK 2: Success FIRST — before typeof branch
+    if (typeof value === 'string' && value.startsWith('✅')) {
+      triggerSuccess();
       return;
     }
 
-    if (isDeadEnd(value)) {
-      deadEndCount += 1;
-      overlayEl?.querySelector('#flexera-deadends')?.replaceChildren(document.createTextNode(String(deadEndCount)));
+    // CHECK 1: Dead end — show message
+    if (typeof value === 'string') {
+      state.deadEndCount += 1;
+      state.overlayEl?.querySelector('#flexera-deadends')?.replaceChildren(document.createTextNode(String(state.deadEndCount)));
 
       if (isEasterEggPath(value)) {
-        communityForumClicked = true;
+        state.communityForumClicked = true;
       }
 
       const msg = getDeadEndMessage(value);
@@ -353,22 +446,61 @@ window.FlexeraMinigame = (function () {
       return;
     }
 
+    // CHECK 1: Submenu — render children
     if (typeof value === 'object' && value !== null) {
-      breadcrumb = path;
+      state.breadcrumb.push(menuKey);
+      state.currentNode = value;
       renderBreadcrumb();
       renderNav();
       renderContent('Wählen Sie einen Eintrag aus der linken Navigation.');
     }
   }
 
-  function handleSuccess() {
-    stopTimer();
+  function handleMenuClick(menuKey) {
+    if (state.isLoading) return;
+    if (state.timeLeft <= 0) return;
+
+    const path = [...state.breadcrumb, menuKey];
+    const value = getNodeAtPath(path);
+
+    // CHECK 5: Fake loading — disable buttons, guard against double-click
+    if (Math.random() < LOADING_CHANCE) {
+      state.isLoading = true;
+      showLoadingSpinner();
+      disableAllMenuButtons();
+
+      state.loadingTimeout = setTimeout(() => {
+        state.loadingTimeout = null;
+        state.isLoading = false;
+        enableAllMenuButtons();
+        processClick(menuKey);
+      }, LOADING_MS);
+    } else {
+      processClick(menuKey);
+    }
+  }
+
+  function triggerSuccess() {
+    debugLog('SUCCESS — clicks:', state.clickCount);
+
+    if (state.timerInterval) {
+      clearInterval(state.timerInterval);
+      state.timerInterval = null;
+    }
+    if (state.sessionWarningTimeout) {
+      clearTimeout(state.sessionWarningTimeout);
+      state.sessionWarningTimeout = null;
+    }
+    if (state.loadingTimeout) {
+      clearTimeout(state.loadingTimeout);
+      state.loadingTimeout = null;
+    }
 
     let result;
-    const withCommunityEgg = communityForumClicked;
+    const withCommunityEgg = state.communityForumClicked;
     const triggers = [];
 
-    if (clicksToGoal <= 6) {
+    if (state.clickCount <= 6) {
       result = {
         score: 100,
         effects: { kompetenz: 7 },
@@ -376,14 +508,14 @@ window.FlexeraMinigame = (function () {
         message: 'Flexera-Veteran. Sie wussten wo es ist.',
       };
       triggers.push('flexera_speedrun');
-    } else if (clicksToGoal <= 12) {
+    } else if (state.clickCount <= 12) {
       result = {
         score: 70,
         effects: { kompetenz: 4, burnout: 5 },
         xpBonus: 20,
         message: 'Gefunden. Mit Umwegen.',
       };
-    } else if (clicksToGoal <= 20) {
+    } else if (state.clickCount <= 20) {
       result = {
         score: 40,
         effects: { kompetenz: 2, burnout: 10 },
@@ -406,19 +538,35 @@ window.FlexeraMinigame = (function () {
     showResult(result);
   }
 
-  function handleTimeout() {
-    stopTimer();
+  function triggerTimeout() {
+    debugLog('TIMEOUT — clicks:', state.clickCount);
+
+    if (state.timerInterval) {
+      clearInterval(state.timerInterval);
+      state.timerInterval = null;
+    }
+    if (state.sessionWarningTimeout) {
+      clearTimeout(state.sessionWarningTimeout);
+      state.sessionWarningTimeout = null;
+    }
+    if (state.loadingTimeout) {
+      clearTimeout(state.loadingTimeout);
+      state.loadingTimeout = null;
+    }
+
     const result = {
       score: 0,
       effects: { burnout: 15, prestige: -3 },
       xpBonus: 0,
       message: 'Timeout. Müller-Brandt hat den Report selbst gesucht. Er hat ihn auch nicht gefunden.',
     };
+
     showResult(result);
   }
 
   function showResult(result) {
-    overlayEl.innerHTML = '';
+    if (!state.overlayEl) return;
+    state.overlayEl.innerHTML = '';
 
     const wrap = document.createElement('div');
     wrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:var(--space-lg);padding:var(--space-xl);max-width:480px;margin:0 auto;';
@@ -444,25 +592,37 @@ window.FlexeraMinigame = (function () {
     btn.style.cssText = 'width:200px;';
     btn.addEventListener('click', () => {
       window.Sound?.play?.('click');
-      overlayEl?.remove();
-      overlayEl = null;
-      if (typeof onCompleteCallback === 'function') onCompleteCallback(result);
+      cleanup(); // always first
+      if (typeof state.onComplete === 'function') {
+        debugLog('onComplete fired with result:', result);
+        state.onComplete(result);
+        state.onComplete = null;
+      }
     });
     wrap.appendChild(btn);
-    overlayEl.appendChild(wrap);
+    state.overlayEl.appendChild(wrap);
   }
 
   // ── Public API ───────────────────────────────────────────
 
   function start(onComplete) {
-    onCompleteCallback = onComplete;
-    timeLeft = TIMER_SECONDS;
-    breadcrumb = [];
-    currentNode = NAV_TREE;
-    clicksToGoal = 0;
-    deadEndCount = 0;
-    communityForumClicked = false;
-    sessionWarningShown = false;
+    debugLog('Minigame started');
+
+    state.onComplete = onComplete;
+    state.timeLeft = TIMER_SECONDS;
+    state.breadcrumb = [];
+    state.currentNode = NAV_TREE;
+    state.clickCount = 0;
+    state.deadEndCount = 0;
+    state.communityForumClicked = false;
+    state.isLoading = false;
+    state.timerInterval = null;
+    state.sessionWarningTimeout = null;
+    state.loadingTimeout = null;
+    state.overlayEl = null;
+    state.contentEl = null;
+    state.sidebarEl = null;
+    state.breadcrumbEl = null;
 
     showMissionBrief();
   }

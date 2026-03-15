@@ -340,12 +340,35 @@
     return '<span class="dashboard-trend dashboard-trend--neutral">—</span>';
   }
 
+  function getChartPercent(tile, gs) {
+    const raw = tile.getValue(gs);
+    const num = typeof raw === 'number' ? raw : parseFloat(String(raw).replace(/[^\d.-]/g, ''));
+    if (isNaN(num)) return null;
+    if (tile.threshold != null) {
+      if (tile.id === 'produktivitaet' || tile.id === 'kundenzufriedenheit' || tile.id === 'billable_hours') return Math.min(100, (num / (tile.threshold || 100)) * 100);
+      if (tile.id === 'email_response') return Math.max(0, 100 - (num - 2) * 20);
+    }
+    if (tile.unit === '%') return Math.min(100, num);
+    if (tile.unit === '/ 100') return Math.min(100, num);
+    if (tile.unit === '/ 10') return Math.min(100, num * 10);
+    return Math.min(100, (num / 100) * 100);
+  }
+
+  function renderMiniChart(percent, trend) {
+    if (percent == null) return '';
+    const pct = Math.max(0, Math.min(100, percent));
+    const color = trend === 'down' ? 'var(--color-accent-green)' : trend === 'up' ? 'var(--color-accent-red)' : '#E8622A';
+    return `<div class="dashboard-mini-chart"><div class="dashboard-mini-chart-fill" style="width:${pct}%;background:${color};"></div></div>`;
+  }
+
   function renderTileValue(tile, gs) {
     const raw = tile.getValue(gs);
     const val = typeof raw === 'number' ? String(raw) : String(raw ?? '');
 
     if (tile.type === 'number') {
-      return { html: `<span class="dashboard-value">${val}</span><span class="dashboard-unit">${tile.unit || ''}</span>`, value: val };
+      const chartPct = getChartPercent(tile, gs);
+      const chart = chartPct != null ? renderMiniChart(chartPct, resolveTrend(tile, gs)) : '';
+      return { html: `<span class="dashboard-value">${val}</span><span class="dashboard-unit">${tile.unit || ''}</span>${chart}`, value: val };
     }
     if (tile.type === 'status') {
       const color = tile.statusColors?.[val] ?? 'gray';
@@ -355,13 +378,21 @@
       const [a, b] = val.split('/').map((s) => parseInt(s.trim(), 10));
       const ratio = b && b > 0 ? a / b : 0;
       const cls = ratio >= 0.5 ? 'dashboard-fraction--ok' : 'dashboard-fraction--low';
-      return { html: `<span class="dashboard-fraction ${cls}">${val}</span>`, value: val };
+      const pct = b && b > 0 ? Math.round((a / b) * 100) : 0;
+      const chart = renderMiniChart(pct, ratio >= 0.5 ? 'down' : 'up');
+      return { html: `<span class="dashboard-fraction ${cls}">${val}</span>${chart}`, value: val };
     }
     if (tile.type === 'currency') {
-      return { html: `<span class="dashboard-currency">${val} ${tile.unit || '€'}</span>`, value: val };
+      const num = parseFloat(val.replace(/\D/g, '')) || 0;
+      const chartPct = Math.min(100, (num / 100000) * 100);
+      const chart = renderMiniChart(chartPct, 'up');
+      return { html: `<span class="dashboard-currency">${val} ${tile.unit || '€'}</span>${chart}`, value: val };
     }
     if (tile.type === 'trend_only') {
-      return { html: `<span class="dashboard-trend-value">${val}</span>`, value: val };
+      const num = parseFloat(val.replace(/[^\d.-]/g, '')) || 0;
+      const chartPct = Math.min(100, Math.max(0, num * 3));
+      const chart = renderMiniChart(chartPct, 'up');
+      return { html: `<span class="dashboard-trend-value">${val}</span>${chart}`, value: val };
     }
     if (tile.type === 'special') {
       return { html: `<span class="dashboard-special">${val}</span>`, value: val };
@@ -449,7 +480,8 @@
 
     overlay.innerHTML = `
       <div class="dashboard-header">
-        <div class="dashboard-header-left">
+        <button class="dashboard-close" id="dashboard-close" aria-label="Schließen">✕ Schließen</button>
+        <div class="dashboard-header-center">
           <h1 class="dashboard-title">📊 Performance Dashboard</h1>
           <div class="dashboard-subtitle">Greysuit & Partner Consulting — ${getCareerTitle()}</div>
         </div>
@@ -457,7 +489,6 @@
           <div class="dashboard-clock" id="dashboard-clock">${formatTime()}</div>
           <div class="dashboard-refresh">Last Refresh: just now</div>
         </div>
-        <button class="dashboard-close" id="dashboard-close" aria-label="Schließen">✕ Schließen</button>
       </div>
       <div class="dashboard-subtitle-bar">
         KW ${getWeekNumber()} | Daten: Live | Genauigkeit: ±∞ | Nächstes Review: Freitag 17:30

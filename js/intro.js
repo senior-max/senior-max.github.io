@@ -16,7 +16,7 @@
    * @param {number} msPerChar - Delay per character.
    * @returns {Promise<void>}
    */
-  function typewriter(el, text, msPerChar = 40) {
+  function typewriter(el, text, msPerChar = 55) {
     return new Promise((resolve) => {
       let i = 0;
       el.textContent = '';
@@ -121,7 +121,7 @@
               b7.classList.add('active');
               runBeat7(overlay, handleInput, finishIntro);
             }
-          }, 3200);
+          }, 4800);
         }
         if (beatNum === 7) runBeat7(overlay, handleInput, finishIntro);
       }
@@ -136,7 +136,7 @@
       await runBeat1(beat1);
       if (skipRequested) return;
       beat1.classList.remove('active');
-      await delay(400);
+      await delay(600);
 
       // Beat 2
       currentBeat = 2;
@@ -145,7 +145,7 @@
       await runBeat2(beat2);
       if (skipRequested) return;
       beat2.classList.remove('active');
-      await delay(400);
+      await delay(600);
 
       // Beat 3
       currentBeat = 3;
@@ -154,7 +154,7 @@
       await runBeat3(beat3);
       if (skipRequested) return;
       beat3.classList.remove('active');
-      await delay(400);
+      await delay(600);
 
       // Beat 4
       currentBeat = 4;
@@ -163,7 +163,7 @@
       await runBeat4(beat4);
       if (skipRequested) return;
       beat4.classList.remove('active');
-      await delay(400);
+      await delay(600);
 
       // Beat 5
       currentBeat = 5;
@@ -172,14 +172,14 @@
       await runBeat5(beat5);
       if (skipRequested) return;
       beat5.classList.remove('active');
-      await delay(400);
+      await delay(600);
 
       // Beat 6
       currentBeat = 6;
       const beat6 = overlay.querySelector('[data-beat="6"]');
       beat6.classList.add('active');
       runBeat6(overlay);
-      await delay(3000);
+      await delay(4500);
 
       if (skipRequested) return;
 
@@ -228,10 +228,10 @@
   async function runBeat1(beat) {
     const line1 = beat.querySelector('.intro-beat1-line1');
     const line2 = beat.querySelector('.intro-beat1-line2');
-    await typewriter(line1, 'GREYSUIT & PARTNER CONSULTING', 40);
-    await delay(800);
+    await typewriter(line1, 'GREYSUIT & PARTNER CONSULTING', 55);
+    await delay(1400);
     line2.style.opacity = '1';
-    await delay(600);
+    await delay(1000);
   }
 
   function createBeat2(overlay) {
@@ -268,7 +268,7 @@
     fill.style.background = '#fff';
     status.textContent = 'BEREIT. FAST.';
     status.style.color = '#fff';
-    await delay(400);
+    await delay(800);
   }
 
   const NOTIFICATIONS = [
@@ -312,11 +312,11 @@
     for (let i = 0; i < cards.length; i++) {
       if (window.Sound) window.Sound.play('notification');
       cards[i].classList.add('visible');
-      await delay(300);
+      await delay(450);
     }
-    await delay(400);
+    await delay(700);
     cards.forEach((c) => c.classList.add('shake'));
-    await delay(350);
+    await delay(500);
     cards.forEach((c) => {
       c.style.opacity = '0';
       c.style.transition = 'opacity 0.3s ease';
@@ -343,14 +343,14 @@
     const l1 = beat.querySelector('.intro-beat4-line1');
     const l2 = beat.querySelector('.intro-beat4-line2');
     const l3 = beat.querySelector('.intro-beat4-line3');
-    await typewriter(l1, 'Du hast eine neue Aufgabe.', 40);
-    await delay(600);
+    await typewriter(l1, 'Du hast eine neue Aufgabe.', 55);
+    await delay(1000);
     l2.textContent = 'Microsoft-Audit. Montag. 09:00 Uhr.';
     l2.style.opacity = '1';
-    await delay(400);
+    await delay(700);
     l3.textContent = 'Heute ist Freitag. 17:47 Uhr.';
     l3.style.opacity = '1';
-    await delay(500);
+    await delay(900);
   }
 
   function createBeat5(overlay) {
@@ -369,12 +369,12 @@
     if (!text) return;
     text.textContent = '😰 Dieter Kammann tippt...';
     text.style.opacity = '1';
-    await delay(800);
+    await delay(1200);
     text.textContent = "😰 Dieter Kammann: 'Hallo! Kurze Frage...'";
     text.style.color = '#666';
-    await delay(500);
+    await delay(900);
     text.style.opacity = '0';
-    await delay(300);
+    await delay(400);
   }
 
   function createBeat6(overlay) {

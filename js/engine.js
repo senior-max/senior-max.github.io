@@ -404,10 +404,6 @@ function makeChoice(choice) {
   ) {
     feedbackText = choice.feedback_prefix + feedbackText;
   }
-  if (typeof Renderer !== 'undefined' && feedbackText) {
-    Renderer.showFeedback(feedbackText);
-  }
-
   if (isGameOver()) {
     GameState.pendingBurnoutTransition = choice.next;
     if (typeof Renderer !== 'undefined') {
@@ -416,9 +412,8 @@ function makeChoice(choice) {
     return;
   }
 
-  triggerMeetingRoulette();
-
-  setTimeout(() => {
+  const doAdvance = () => {
+    triggerMeetingRoulette();
     if (window.VendorAds?.triggerIfApplicable) {
       window.VendorAds.triggerIfApplicable(() => loadScene(choice.next, null), {
         nextSceneId: choice.next,
@@ -426,7 +421,14 @@ function makeChoice(choice) {
     } else {
       loadScene(choice.next, null);
     }
-  }, 5000);
+  };
+
+  if (typeof Renderer !== 'undefined' && Renderer.showFeedbackWithContinue) {
+    Renderer.showFeedbackWithContinue(feedbackText, doAdvance);
+  } else {
+    if (feedbackText && typeof Renderer !== 'undefined') Renderer.showFeedback(feedbackText);
+    setTimeout(doAdvance, 5000);
+  }
 }
 
 /**
