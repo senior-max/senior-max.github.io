@@ -1,0 +1,311 @@
+{
+  "id": "projekt_board",
+  "title": "Das Board-Präsentation Desaster",
+  "subtitle": "C-Level. 30 Minuten. 47 Folien. Viel Glück.",
+  "difficulty": "expert",
+  "comedyLevel": 5,
+  "requiredLevel": 4,
+  "unlockMessage": "Sie sind jetzt Manager. Das Board wartet. Ihr Kalender zeigt: 'STRATEGY PRESENTATION — DO NOT RESCHEDULE'. Es wurde zweimal umgeplant.",
+  "xpReward": 280,
+  "scenes": [
+    {
+      "id": "b_01",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Greysuit & Partner",
+      "npc": "dr_mueller",
+      "mood": "panic",
+      "text": "Dr. Müller-Brandt steht, als du ins Büro kommst. Er steht selten. Es ist ein schlechtes Zeichen oder ein sehr gutes Zeichen.\n\nGrünes Licht. Reinhold Industries AG. DAX-gelistet. 8.000 Mitarbeiter. 23 Länder. Du sollst dem vollständigen Aufsichtsrat eine ITAM-Strategie präsentieren. CEO, CFO, COO, CTO, CHRO und drei Kontrollgremium-Mitglieder, die — Müller-Brandt zitiert aus dem Briefing-Dokument — 'wenig IT-Hintergrund haben, aber klare Meinungen.'\n\nPräsentationstermin: vier Wochen. Das Projekt: der bedeutendste Auftrag des Jahres. Vielleicht der bedeutendste deiner Karriere, wenn man Müller-Brandts Tonfall richtig liest.\n\nEr hält inne.\n\n'Kevin ist auch dabei.'",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "\"Ich brauche vollständigen Datenzugang ab sofort.\"",
+          "effects": { "kompetenz": 5, "prestige": 3 },
+          "next": "b_02",
+          "feedback": "Müller-Brandt: 'Natürlich.' Er schickt sofort eine E-Mail an 'IT@reinhold.de'. Die Antwort kommt in acht Tagen. Du beginnst in der Zwischenzeit mit Annahmen."
+        },
+        {
+          "id": "c2",
+          "text": "\"Was sind die drei wichtigsten Botschaften für das Board?\"",
+          "effects": { "kompetenz": 6, "prestige": 5 },
+          "flags": { "strategic_framing": true },
+          "next": "b_02",
+          "feedback": "Müller-Brandt hält inne. Echte Pause. 'Das ist...' Er schaut auf seine Notizen. Er hat sie nicht. 'Das klären wir mit dem Kunden.' Es ist der ehrlichste Moment seit Monaten."
+        },
+        {
+          "id": "c3",
+          "text": "\"Wie lange hat das letzte Team für sowas gebraucht?\"",
+          "effects": { "kompetenz": 3, "burnout": 3 },
+          "next": "b_02",
+          "feedback": "'Drei Monate.' Pause. 'Sie haben sechs Wochen.' Längere Pause. 'Vier Wochen.' Er sagt es wie eine Korrektur, nicht wie eine Aussage."
+        },
+        {
+          "id": "c4",
+          "text": "Sofort mit PowerPoint anfangen.",
+          "effects": { "bullshit": 5, "kompetenz": -3 },
+          "flags": { "premature_ppt": true },
+          "next": "b_02",
+          "feedback": "Du hast 12 Folien bevor du mit dem Kunden gesprochen hast. Folie 7 hat einen Clipart-Pfeil. Müller-Brandt wird das niemals sehen. Das ist das Einzige was dich rettet."
+        }
+      ]
+    },
+    {
+      "id": "b_02",
+      "location": "kundenbüro",
+      "locationEmoji": "🗂️",
+      "locationName": "Reinhold Industries AG — IT-Strategie-Büro",
+      "npc": "dieter",
+      "npcOverrideName": "Harald Sixt, Head of IT Strategy",
+      "mood": "neutral",
+      "text": "Harald Sixt hat zwanzig Jahre bei Reinhold Industries. Er hat Consulting-Projekte kommen und gehen sehen. Das ist direkt in seinem Büro dokumentiert: eine Wand voller Ordner, jeder beschriftet mit Jahr und Firmennamen.\n\n1998: Accenture. 2003: Roland Berger. 2008: McKinsey. 2012: Capgemini. 2016: Deloitte. 2019: McKinsey (nochmal). 2021: leer.\n\nEinige der Firmen existieren noch. Manche nicht mehr. Alle Ordner stehen. Der Ordner von 2021 hat keine Beschriftung.\n\nEr schaut dich an.\n\n'Kaffee?'\n\nEs ist eine Frage. Es ist auch ein Test.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Kaffee annehmen und erst mal zuhören.",
+          "effects": { "kundenliebe": 8, "kompetenz": 3 },
+          "flags": { "harald_trusted": true },
+          "next": "b_03",
+          "feedback": "Harald redet vierzig Minuten. Ungefragt. Du erfährst mehr über Reinhold Industries als aus drei Wochen Dokumentenanalyse. Die Abläufe. Die Reibungspunkte. Den CFO. Den Ordner von 2021. 'Die haben gar nicht zugehört.' Der Kaffee ist ausgezeichnet."
+        },
+        {
+          "id": "c2",
+          "text": "Höflich ablehnen und direkt zur Sache kommen.",
+          "effects": { "kompetenz": 2, "kundenliebe": -3 },
+          "next": "b_03",
+          "feedback": "Harald antwortet präzise auf alles was du fragst. Nicht mehr. Er hält Informationen zurück, nicht aus Böswilligkeit — er gibt sie einfach nur Leuten, die zuhören können. Du hast heute noch nicht zugehört."
+        },
+        {
+          "id": "c3",
+          "text": "Harald fragen was beim letzten ITAM-Projekt schiefgelaufen ist.",
+          "effects": { "kompetenz": 8, "kundenliebe": 5 },
+          "flags": { "learned_from_history": true },
+          "next": "b_03",
+          "feedback": "Er zeigt auf den Ordner ohne Beschriftung. 'McKinsey, 2021. Die haben uns eine Strategie gebaut, die für ein anderes Unternehmen funktioniert hätte.' Pause. Er schaut dich an. Der Blick ist bedeutsamer als jeder Satz aus einem Briefing-Dokument."
+        }
+      ]
+    },
+    {
+      "id": "b_03",
+      "location": "konferenz",
+      "locationEmoji": "📌",
+      "locationName": "Reinhold Industries — IT-Abteilung, Workshop",
+      "npc": "kevin",
+      "mood": "funny",
+      "text": "Workshop mit dem IT-Team. Acht Personen. Drei sind engagiert und haben bereits eigene Ideen mitgebracht. Drei sind skeptisch und lehnen sich zurück auf eine Art, die geübt aussieht. Zwei spielen etwas auf ihren Handys — du kannst das Geräusch nicht identifizieren, aber es hat Hintergrundmusik.\n\nKevin ist auch da. Er hat bereits ein Deck vorbereitet. Es hat 73 Folien.\n\nFolie 1: 'ITAM: Eine Revolution' — mit einem Stockfoto einer Rakete.\nFolie 7: 'Hyperscaler Integration Matrix v2' — niemand wird erklären was das bedeutet.\nFolie 43: leer. Kevin erklärt: 'Die kommt noch.'\n\nDas Deck wird auf Kevins Laptop geöffnet. Es wartet.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Strukturierter Workshop: Post-its, Themencluster, Priorisierung.",
+          "effects": { "kompetenz": 5, "kundenliebe": 4, "burnout": 5 },
+          "flags": { "workshop_done": true },
+          "next": "b_04",
+          "feedback": "Vier Stunden. Sehr viele Post-its. Die skeptischen Drei werden nach zwei Stunden zu den Engagiertesten im Raum. Die Handy-Zwei haben ihre Handys weggelegt. Kevin's Deck wird nie geöffnet. Das ist das beste Ergebnis aller möglichen Ergebnisse."
+        },
+        {
+          "id": "c2",
+          "text": "Kevins Deck als Ausgangsbasis nehmen.",
+          "effects": { "bullshit": 5, "kompetenz": -3, "burnout": -3 },
+          "next": "b_04",
+          "feedback": "Folie 7, 'Hyperscaler Integration Matrix v2': du bittest Kevin um eine Erklärung. Er erklärt es achteinhalb Minuten lang. Die skeptischen Drei werden skeptischer. Die Handy-Zwei spielen weiter."
+        },
+        {
+          "id": "c3",
+          "text": "Einzelinterviews statt Gruppenworkshop.",
+          "effects": { "kompetenz": 7, "burnout": 8, "kundenliebe": 6 },
+          "flags": { "interviews_done": true },
+          "next": "b_04",
+          "feedback": "Neun Interviews. Fünf Stunden. Die Handy-Zwei haben im Einzelgespräch die präzisesten Einsichten von allen acht. Das hättest du nicht erwartet. Du schreibst es auf. Du wirst es nie jemandem erklären können."
+        }
+      ]
+    },
+    {
+      "id": "b_04",
+      "location": "homeoffice",
+      "locationEmoji": "💻",
+      "locationName": "Home Office — PowerPoint, 23:15 Uhr",
+      "npc": null,
+      "minigame": "powerpoint",
+      "mood": "tense",
+      "text": "Du hast die Daten. Die Insights. Den Rahmen. Jetzt: die Präsentation.\n\nMüller-Brandt hat eine klare Vorgabe gegeben: Executive Summary eine Seite, Strategie fünf Seiten, Roadmap drei Seiten, Rest Anhang. Maximal 15 Folien im Deck.\n\nEs ist 23:15 Uhr.\n\nDu hast 47 Folien. Keine davon ist im Anhang. Folie 23 ist 'Backup — für Rückfragen (vielleicht)'. Folie 31 enthält eine Tabelle aus dem Internet die du 'vielleicht noch brauchst'. Kevin hat Folie 47 heimlich hinzugefügt: seine Hyperscaler Integration Matrix.\n\nDu musst das Deck jetzt bereinigen.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Konsequent auf höchstens 15 Kernfolien reduzieren.",
+          "effects": { "kompetenz": 6, "prestige": 4, "burnout": 8 },
+          "flags": { "tight_deck": true },
+          "next": "b_05",
+          "feedback": "15 Folien. Jede trägt Gewicht. Es ist 02:30 Uhr. Du hast morgen um 08:00 einen Call. Das war es wert. Folie 15 ist trotzdem noch eine Folie zu viel aber du siehst das erst morgen."
+        },
+        {
+          "id": "c2",
+          "text": "Alle 47 behalten — aber Folien 13–47 umbenennen in 'Anhang A–G'.",
+          "effects": { "bullshit": 5, "burnout": 4 },
+          "next": "b_05",
+          "feedback": "'Modularisierung des Inhalts' nennst du das. Müller-Brandt wird das mögen. Harald wird es nicht mögen. Die CFO wird direkt zu Anhang C springen und drei neue Fragen mitbringen."
+        },
+        {
+          "id": "c3",
+          "text": "Müller-Brandt fragen ob er gegenliest.",
+          "effects": { "prestige": 4, "burnout": 5 },
+          "next": "b_05",
+          "feedback": "Er antwortet um 00:47 Uhr. Mit Kommentaren. 33 Stück. Kommentar 1: 'Deckblatt: Unser Logo ist zu klein.' Kommentar 18: 'Diese Grafik verstehe ich nicht.' Kommentar 33: 'Gut. Beinahe.' Du arbeitest bis 03:15."
+        }
+      ]
+    },
+    {
+      "id": "b_05",
+      "location": "konferenz",
+      "locationEmoji": "🎤",
+      "locationName": "Proberaum — Generalprobe mit Müller-Brandt",
+      "npc": "dr_mueller",
+      "mood": "tense",
+      "text": "Generalprobe. Du präsentierst vor Müller-Brandt, Harald und Kevin.\n\nMüller-Brandt unterbricht dich sieben Mal in den ersten zehn Minuten. Jede Unterbrechung ist sachlich. Jede ist berechtigt. Das ist das Schlimmste daran.\n\nKevin schreibt bei jeder Unterbrechung etwas auf. Du weißt nicht ob das gut ist.\n\nNach zwanzig Minuten sagt Harald, der seit Beginn der Probe nichts gesagt hat, einen Satz:\n\n'Was würden Sie dem Board empfehlen, wenn das Budget halbiert wird?'\n\nDu warst nicht auf diese Frage vorbereitet. Niemand bereitet sich auf diese Frage vor. Sie kommt immer.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Direkt antworten: Priorisierung der Top-3-Maßnahmen erklären.",
+          "effects": { "kompetenz": 7, "prestige": 5 },
+          "flags": { "budget_question_aced": true },
+          "next": "b_06",
+          "feedback": "Harald nickt. Langsam aber tatsächlich. Müller-Brandt hört auf zu unterbrechen. Kevin schreibt. Du denkst: das war gut. Es war gut."
+        },
+        {
+          "id": "c2",
+          "text": "\"Das hängt von vielen Faktoren ab, die wir gemeinsam—\"",
+          "effects": { "bullshit": 6, "kompetenz": -3 },
+          "next": "b_06",
+          "feedback": "Harald schreibt etwas in seinen Block. Er zeigt es nicht. Müller-Brandt sagt: 'Gut, weiter.' Es klingt nicht wie ein Lob."
+        },
+        {
+          "id": "c3",
+          "text": "Gegenfrage: \"Was würde das Board priorisieren?\"",
+          "effects": { "kompetenz": 5, "bullshit": 3 },
+          "next": "b_06",
+          "feedback": "Harald lächelt. Fast. 'Kluge Frage.' Er beantwortet sie trotzdem nicht. Er nickt einmal und schreibt weiter. Das ist keine schlechte Reaktion."
+        }
+      ]
+    },
+    {
+      "id": "b_06",
+      "location": "zug",
+      "locationEmoji": "✈️",
+      "locationName": "Flug — Economy Class, 2 Stunden bis Frankfurt",
+      "npc": null,
+      "mood": "neutral",
+      "text": "Flug zum Hauptsitz. Economy. Müller-Brandt hatte Business gebucht — für sich. Er hat trotzdem Economy-Kosten eingereicht. Das weißt du, weil du die Reisekostenabrechnung gesehen hast. Du sagst nichts.\n\nDein Laptop ist vollgeladen. Die Präsentation ist fertig. Deine Notizen liegen ausgedruckt auf dem Schoß.\n\nDer Mann neben dir tippt dir auf die Schulter. 'Was machen Sie beruflich?'\n\nDu sagst: 'IT-Beratung.'\n\nEr sagt: 'Ah. Die die Projekte immer zu teuer machen?'\n\nDu schaust aus dem Fenster. Wolken.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Kopfhörer rein — nochmal alle Folien durchgehen.",
+          "effects": { "kompetenz": 3, "burnout": 5 },
+          "next": "b_07",
+          "feedback": "Du kennst die Präsentation jetzt auswendig. Inklusive Fußnoten. Inklusive der Seitenzahlen. Inklusive der Dinge, die Müller-Brandt in Kommentar 27 geschrieben hat und die du bis heute nicht vollständig verstehst."
+        },
+        {
+          "id": "c2",
+          "text": "Augen zu. Ausruhen.",
+          "effects": { "burnout": -10, "kompetenz": -1 },
+          "next": "b_07",
+          "feedback": "Du schläfst sofort ein. Du träumst von einer Lizenzmatrix, die sich endlos nach unten scrollt. Es ist kein schöner Traum. Es ist Schlaf. Das zählt."
+        }
+      ]
+    },
+    {
+      "id": "b_07",
+      "location": "konferenz",
+      "locationEmoji": "🏛️",
+      "locationName": "Boardroom — Reinhold Industries AG, Hauptsitz",
+      "npc": "ms_auditor",
+      "npcOverrideName": "Das Board — Reinhold Industries AG",
+      "mood": "tense",
+      "text": "Neun Personen. Ein langer Tisch aus dunklem Holz. Der Raum hat kein Fenster.\n\nCEO Wolfgang Reinhold (70): liest dein Executive Summary. Zweimal. Sagt noch nichts.\nCFO Petra Scholl (55): hat deine Kostenseite bereits auf ihrem eigenen Laptop geöffnet.\nCOO Bernd Lauer (61): stellt eine Frage bevor du Folie 2 beendet hast.\nCTO Dr. Sandra Vogt (48): nickt bei Folie 4. Das ist das erste Nicken im Raum.\nCHRO Ulrike Braun (52): fragt nach der 'menschlichen Komponente' bei jeder Maßnahme.\nKontrollgremium 1: schläft definitiv oder denkt sehr tief nach.\nKontrollgremium 2: ist auf E-Mail.\nKontrollgremium 3: hört zu. Intensiv.\n\nFolie 6. Budget. €2,3 Millionen über drei Jahre.\n\nDie CFO schließt ihren Laptop.\n\n'Diese Zahl — wie kommen Sie da drauf?'\n\nDas Zimmer wird still. Alle schauen dich an. Auch Kontrollgremium 1.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Die Kalkulation Zeile für Zeile erklären — ruhig, präzise.",
+          "effects": { "kompetenz": 10, "prestige": 8, "kundenliebe": 5 },
+          "next": "b_08",
+          "feedback": "Die CFO stellt drei Folgefragen. Du beantwortest alle. Nach der dritten sagt sie: 'Gut.' Dr. Sandra Vogt nickt nochmal. Das ist jetzt zweimal. Der COO lehnt sich zurück. Das bedeutet hier: zufrieden."
+        },
+        {
+          "id": "c2",
+          "text": "Auf den Anhang verweisen — die Details stehen auf Seite 3 des Anhangs.",
+          "effects": { "bullshit": 5, "kompetenz": -3 },
+          "next": "b_08",
+          "feedback": "Der COO blättert zum Anhang. Er findet die Zahl. Er findet auf dem Weg dorthin auch vier weitere Fragen. Zwei davon sind schwieriger als die ursprüngliche CFO-Frage."
+        },
+        {
+          "id": "c3",
+          "text": "Harald das Wort übergeben — er kennt die Kostentreiber besser als jeder andere.",
+          "requires_flag": "harald_trusted",
+          "effects": { "kompetenz": 6, "kundenliebe": 10, "prestige": 6 },
+          "next": "b_08",
+          "feedback": "Harald spricht drei Minuten. Kein Zögern. Jede Zahl sitzt. Die CFO hört auf zu tippen. Der COO hört auf sich zurückzulehnen. Kontrollgremium 1 öffnet die Augen. Kontrollgremium 3 nickt."
+        }
+      ]
+    },
+    {
+      "id": "b_08",
+      "location": "kundenbüro",
+      "locationEmoji": "🤝",
+      "locationName": "Reinhold Industries — Besprechungsraum, nach der Präsentation",
+      "npc": "dr_mueller",
+      "mood": "neutral",
+      "text": "Das Board hat sich zur geschlossenen Sitzung zurückgezogen. 25 Minuten. Du und Müller-Brandt sitzen im Besprechungsraum nebenan. Er ist am Telefon. Sein Gesichtsausdruck ist professionell leer.\n\nHarald bringt Kaffee. Er setzt sich kurz. Sagt nichts. Trinkt einen Schluck. Steht auf. Geht.\n\nDu weißt nicht ob das gut oder schlecht war.\n\nDann geht die Tür auf.\n\nWolfgang Reinhold schaut dich an. 'Wir nehmen das unter Beratung.' Er sagt es ruhig. Dann geht er.\n\nMüller-Brandt beendet das Telefonat. Sein Telefon klingelt sofort wieder. Er nimmt an. Er hört zu. Sein Gesicht verändert sich.\n\nEr legt auf.\n\n'Das Board hat zugestimmt.'",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Kurz, professionell gratulieren — dem Team danken.",
+          "effects": { "prestige": 5, "kundenliebe": 5 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt nickt. Es ist ein Nicken das bedeutet: gut gemacht. Von ihm ist das viel."
+        },
+        {
+          "id": "c2",
+          "text": "Sofort fragen was als nächstes kommt.",
+          "effects": { "prestige": 8, "kompetenz": 3 },
+          "next": "ending_success_extended",
+          "feedback": "Müller-Brandt lacht. Wirklich, kurz, echt. 'Das nächste Projekt ist schon in Sicht.' Er schaut auf sein Telefon. 'Schon sehr in Sicht.'"
+        },
+        {
+          "id": "c3",
+          "text": "Kevin anrufen und es ihm sagen.",
+          "effects": { "kundenliebe": 5, "burnout": -5 },
+          "next": "ending_success",
+          "feedback": "Kevin sagt sofort: 'ICH WUSSTE ES!' Pause. 'Können wir jetzt eine App bauen?' Pause. 'Ich hab schon ein Deck angefangen.' Du legst auf. Irgendwie bist du froh, dass er da ist."
+        },
+        {
+          "id": "c4",
+          "text": "Warten. Müller-Brandt schaut dich an. 'Leider. Das Board geht in eine andere Richtung.'",
+          "requires_flag": "premature_ppt",
+          "effects": { "burnout": 15, "prestige": -8 },
+          "next": "ending_disaster",
+          "feedback": "Wolfgang Reinhold hatte Folie 7 gesehen. Den Clipart-Pfeil. 'Das war nicht das Niveau das wir erwartet hatten.' Fünf Wochen. Müller-Brandt ist bereits am Telefon mit dem nächsten Kunden. Der Kaffee auf dem Tisch ist noch warm."
+        }
+      ]
+    }
+  ],
+  "endings": {
+    "ending_success": {
+      "type": "success",
+      "title": "🏆 BOARD APPROVED",
+      "text": "Das Board hat zugestimmt. Die ITAM-Strategie für Reinhold Industries AG wird umgesetzt. €2,3 Millionen. Drei Jahre. 23 Länder.\n\nHarald schickt dir eine Karte. Handgeschrieben. Er erwähnt den Kaffee.\n\nMüller-Brandt postet die Erfolgsgeschichte auf LinkedIn. Er erwähnt sich selbst siebenmal. Er erwähnt dich nicht. In der Danksagung steht: 'Das Team von Greysuit & Partner.' Das bist du. Irgendwie.\n\nKevin fragt ob er das Deck jetzt für die Phase-2-Präsentation anpassen kann. Es hat inzwischen 89 Folien.",
+      "xp": 250,
+      "achievement": "board_approved"
+    },
+    "ending_success_extended": {
+      "type": "success",
+      "title": "🏆 BOARD APPROVED + FOLGEAUFTRAG",
+      "text": "Genehmigt. Und Phase 2 startet bereits im nächsten Quartal. Du leitest das Projekt.\n\nMüller-Brandt sagt: 'Ihre Beförderung zum Principal ist in Sicht.' Er sagt es wie eine Tatsache. Es klingt nach Montag.\n\nHarald schickt dir zwei Karten. Eine für die Präsentation. Eine für das Follow-up. Beide handgeschrieben. Beide erwähnen den Kaffee.\n\nDer Ordner für dieses Jahr auf seiner Wand trägt deinen Namen. Greysuit & Partner, 2026. Er steht zwischen McKinsey 2019 und dem leeren Ordner von 2021. Das ist keine schlechte Nachbarschaft.",
+      "xp": 280,
+      "achievement": "board_approved"
+    },
+    "ending_disaster": {
+      "type": "disaster",
+      "title": "💥 BOARD REJECTED",
+      "text": "Wolfgang Reinhold: 'Wir gehen in eine andere Richtung.'\n\nDas ist alles. Fünf Wochen. Die Post-its. Harald's Kaffee. Kevins 73 Folien. Dein Deck mit dem Clipart-Pfeil auf Folie 7.\n\nMüller-Brandt telefoniert bereits, als du den Raum verlässt. Der nächste Auftrag. Er nickt dir im Vorbeigehen zu. Das ist mehr als erwartet.\n\nKevin schickt dir später eine Nachricht: 'Ich hab das Deck nochmal angeschaut. Folie 7 war vielleicht nicht optimal.' Er hat recht. Er hat fast alles richtig eingeschätzt.\n\nHarald's Wand hat jetzt einen neuen Ordner. Er hat noch keinen Namen. Das ist vielleicht gut so.",
+      "xp": 100,
+      "achievement": "hall_6"
+    }
+  }
+}

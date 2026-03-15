@@ -2,6 +2,12 @@
   "gameTitle": "License To Bill",
   "version": "0.1-MVP",
   "startProject": "projekt_dieter",
+
+  "totalProjects": 6,
+  "totalAchievements": 22,
+  "mvpProjects": ["projekt_dieter", "projekt_sap_zombies", "projekt_shadow_it"],
+  "extendedProjects": ["projekt_cloud", "projekt_ki", "projekt_board"],
+
   "careerTitles": [
     "Junior Consultant",
     "Consultant",
@@ -10,14 +16,17 @@
     "Principal",
     "Partner"
   ],
-  "xpThresholds": [100, 250, 450, 700, 1000],
+
+  "xpThresholds": [150, 350, 550, 800, 1100],
+
   "locations": {
-    "buero":       { "emoji": "🏢", "name": "Das Büro" },
-    "zug":         { "emoji": "🚂", "name": "Zug zum Kunden" },
-    "kundenbüro":  { "emoji": "👔", "name": "Kundenbüro Acme Corp" },
-    "mittagessen": { "emoji": "🍕", "name": "Mittagspause" },
-    "konferenz":   { "emoji": "📱", "name": "Konferenzraum" },
-    "homeoffice":  { "emoji": "🏠", "name": "Home Office" },
-    "flugzeug":    { "emoji": "✈️", "name": "Flugzeug" }
+    "buero":        { "emoji": "🏢", "name": "Das Büro" },
+    "zug":          { "emoji": "🚂", "name": "Zug zum Kunden" },
+    "kundenbüro":   { "emoji": "👔", "name": "Kundenbüro" },
+    "mittagessen":  { "emoji": "🍕", "name": "Mittagspause" },
+    "konferenz":    { "emoji": "📱", "name": "Konferenzraum" },
+    "homeoffice":   { "emoji": "🏠", "name": "Home Office" },
+    "flugzeug":     { "emoji": "✈️", "name": "Flugzeug" },
+    "keller":       { "emoji": "🔦", "name": "Keller UG-3" }
   }
 }

@@ -47,9 +47,12 @@ const GameState = {
   flags: {},
   achievements: [],
   projectsCompleted: [],
+  projectEndings: {},
   emailsAnswered: [],
   meetingsAttended: 0,
   meetingsAvoided: 0,
+  disasterCount: 0,
+  sessionCount: 0,
   counters: {
     emails_ignored: 0,
     client_ignored: 0,
@@ -89,9 +92,12 @@ function buildDefaultState() {
     flags: {},
     achievements: [],
     projectsCompleted: [],
+    projectEndings: {},
     emailsAnswered: [],
     meetingsAttended: 0,
     meetingsAvoided: 0,
+    disasterCount: 0,
+    sessionCount: 0,
     counters: {
       emails_ignored: 0,
       client_ignored: 0,
@@ -143,6 +149,8 @@ function initGame() {
   if (saved) {
     mergeState(GameState, saved);
   }
+
+  GameState.sessionCount = (GameState.sessionCount || 0) + 1;
 }
 
 /**
@@ -362,8 +370,16 @@ function makeChoice(choice) {
     });
   }
 
-  if (typeof Renderer !== 'undefined' && choice.feedback) {
-    Renderer.showFeedback(choice.feedback);
+  let feedbackText = choice.feedback || '';
+  if (
+    choice.feedback_prefix_if_flag &&
+    GameState.flags[choice.feedback_prefix_if_flag] &&
+    choice.feedback_prefix
+  ) {
+    feedbackText = choice.feedback_prefix + feedbackText;
+  }
+  if (typeof Renderer !== 'undefined' && feedbackText) {
+    Renderer.showFeedback(feedbackText);
   }
 
   if (isGameOver()) {
@@ -391,15 +407,32 @@ function completeProject(projectId, endingType, xpReward) {
     GameState.projectsCompleted.push(projectId);
   }
 
+  GameState.projectEndings[projectId] = endingType ?? 'neutral';
+
+  if (endingType === 'disaster') {
+    GameState.disasterCount = (GameState.disasterCount || 0) + 1;
+  }
+
   addXP(xpReward);
 
   if (window.Achievements) {
     window.Achievements.checkTrigger(`project_complete_${projectId}`);
     window.Achievements.checkTrigger(`ending_${endingType}_${projectId}`);
 
-    const MVP_PROJECTS = ['projekt_dieter', 'projekt_sap_zombies', 'projekt_shadow_it'];
-    const allDone = MVP_PROJECTS.every(id => GameState.projectsCompleted.includes(id));
+    const ALL_PROJECTS = [
+      'projekt_dieter', 'projekt_sap_zombies', 'projekt_shadow_it',
+      'projekt_cloud', 'projekt_ki', 'projekt_board',
+    ];
+    const allDone = ALL_PROJECTS.every(id => GameState.projectsCompleted.includes(id));
     if (allDone) window.Achievements.checkTrigger('all_projects_complete');
+
+    const MVP_PROJECTS = ['projekt_dieter', 'projekt_sap_zombies', 'projekt_shadow_it'];
+    const mvpDone = MVP_PROJECTS.every(id => GameState.projectsCompleted.includes(id));
+    if (mvpDone) window.Achievements.checkTrigger('all_mvp_projects_complete');
+
+    if (GameState.disasterCount >= 6) {
+      window.Achievements.checkTrigger('all_disasters_complete');
+    }
   }
 
   if (window.Storage && typeof window.Storage.saveGame === 'function') {
@@ -422,19 +455,58 @@ function isGameOver() {
  * @param {function} onComplete - Called with the minigame result value when done.
  */
 function triggerMinigame(id, onComplete) {
-  const registry = {
-    excel:       window.ExcelMinigame,
-    reisekosten: window.ReisekostenMinigame,
+  document.querySelectorAll('.choice-btn').forEach(btn => { btn.disabled = true; });
+
+  const wrappedCallback = (result) => {
+    if (result && result.effects) {
+      applyEffects(result.effects);
+    }
+    if (result && result.achievementTrigger) {
+      window.Achievements?.checkTrigger(result.achievementTrigger);
+    }
+    if (result && result.xpBonus) {
+      addXP(result.xpBonus);
+    }
+    if (result && result.flag) {
+      setFlag(result.flag, true);
+    }
+    if (typeof onComplete === 'function') onComplete();
   };
 
-  const game = registry[id];
-  if (!game || typeof game.start !== 'function') {
-    console.warn(`[Engine] Minigame "${id}" not found or missing start().`);
-    if (typeof onComplete === 'function') onComplete(null);
-    return;
-  }
+  const safe = (game) => {
+    if (game && typeof game.start === 'function') {
+      game.start(wrappedCallback);
+    } else {
+      console.warn(`[Engine] Minigame "${id}" not found — Kevin war wahrscheinlich beteiligt.`);
+      wrappedCallback(null);
+    }
+  };
 
-  game.start(onComplete);
+  switch (id) {
+    case 'excel':
+    case 'excel_puzzle':
+      safe(window.ExcelMinigame);
+      break;
+    case 'zombie_check':
+      safe(window.ZombieCheckMinigame);
+      break;
+    case 'software_scan':
+      safe(window.SoftwareScanMinigame);
+      break;
+    case 'reisekosten':
+      safe(window.ReisekostenMinigame);
+      break;
+    case 'ki_assessment':
+      safe(window.KIAssessmentMinigame);
+      break;
+    case 'powerpoint':
+    case 'powerpoint_cleanup':
+      safe(window.PowerpointMinigame);
+      break;
+    default:
+      console.warn(`[Engine] Unknown minigame type: "${id}" — Kevin war wahrscheinlich beteiligt.`);
+      wrappedCallback(null);
+  }
 }
 
 /**

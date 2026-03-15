@@ -153,8 +153,19 @@ function renderScene(scene) {
     `${scene.locationEmoji ?? ''} ${scene.locationName ?? ''}`.trim();
 
   if (window.NPCs) {
-    window.NPCs.renderNPCDisplay(scene.npc ?? null);
-    window.NPCs.applyNPCModifiers(scene.npc ?? null);
+    if (scene.npcInline) {
+      window.NPCs.renderNPCInline(scene.npcInline);
+    } else if (scene.npcOverrideName && scene.npc) {
+      const npc = window.NPCs.getNPC(scene.npc);
+      if (npc) {
+        const accentColor = window.NPCs.NPC_ACCENT_COLORS?.[scene.npc] ?? 'var(--color-text-primary)';
+        window.NPCs.renderNPCInline({ emoji: npc.emoji, name: scene.npcOverrideName, title: npc.title, accentColor });
+      }
+      window.NPCs.applyNPCModifiers(scene.npc);
+    } else {
+      window.NPCs.renderNPCDisplay(scene.npc ?? null);
+      window.NPCs.applyNPCModifiers(scene.npc ?? null);
+    }
   }
 
   $('#feedback-text').textContent = '';

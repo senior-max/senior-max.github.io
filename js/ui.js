@@ -12,6 +12,9 @@ const ALL_PROJECT_IDS = [
   'projekt_dieter',
   'projekt_sap_zombies',
   'projekt_shadow_it',
+  'projekt_cloud',
+  'projekt_ki',
+  'projekt_board',
 ];
 
 // ── DOM helpers ───────────────────────────────────────────
@@ -138,11 +141,16 @@ function buildAvailableCard(project) {
 }
 
 /**
- * Builds a faded card for an already-completed project.
+ * Builds a faded card for an already-completed project, showing its ending type.
  * @param {Object} project
  * @returns {HTMLElement}
  */
 function buildCompletedCard(project) {
+  const endingType = window.Engine?.GameState?.projectEndings?.[project.id] ?? 'neutral';
+  const endingLabel = endingType === 'disaster'
+    ? '<span style="color:var(--color-accent-red);">💥 Desaster</span>'
+    : '<span style="color:var(--color-accent-green);">✅ Erfolg</span>';
+
   const card = document.createElement('div');
   card.style.cssText = [
     'background:var(--color-surface)',
@@ -151,15 +159,50 @@ function buildCompletedCard(project) {
     'padding:var(--space-lg)',
     'display:flex', 'flex-direction:column', 'gap:var(--space-sm)',
     'max-width:480px', 'width:100%',
-    'opacity:0.5',
+    'opacity:0.6',
   ].join(';');
 
   card.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-sm);">
       <div style="font-size:var(--font-size-base);">${project.title}</div>
-      <div style="font-size:var(--font-size-sm);color:var(--color-accent-green);">✓ Abgeschlossen</div>
+      <div style="font-size:var(--font-size-sm);white-space:nowrap;">✓ Abgeschlossen</div>
     </div>
     <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);">${project.subtitle ?? ''}</div>
+    <div style="font-size:var(--font-size-sm);">${endingLabel}</div>
+  `;
+  return card;
+}
+
+/**
+ * Builds a locked card for a project the player hasn't reached the level for yet.
+ * @param {Object} project
+ * @returns {HTMLElement}
+ */
+function buildLockedCard(project) {
+  const CAREER_TITLES = [
+    'Junior Consultant', 'Consultant', 'Senior Consultant',
+    'Manager', 'Principal', 'Partner',
+  ];
+  const requiredTitle = CAREER_TITLES[(project.requiredLevel ?? 1) - 1] ?? 'Senior Consultant';
+
+  const card = document.createElement('div');
+  card.style.cssText = [
+    'background:var(--color-surface)',
+    'border:1px solid var(--color-border)',
+    'border-radius:var(--radius-lg)',
+    'padding:var(--space-lg)',
+    'display:flex', 'flex-direction:column', 'gap:var(--space-sm)',
+    'max-width:480px', 'width:100%',
+    'opacity:0.4',
+  ].join(';');
+
+  card.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-sm);">
+      <div style="font-size:var(--font-size-base);color:var(--color-text-secondary);">${project.title}</div>
+      <div style="font-size:var(--font-size-sm);white-space:nowrap;">🔒 Gesperrt</div>
+    </div>
+    <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);">${project.subtitle ?? ''}</div>
+    <div style="font-size:10px;color:var(--color-text-secondary);">Verfügbar ab: ${requiredTitle}</div>
   `;
   return card;
 }
@@ -168,43 +211,278 @@ function buildCompletedCard(project) {
 
 /**
  * Renders the full-screen project selection overlay.
- * Shows available and completed projects; triggers ending if all done.
+ * Shows all 6 projects with available/completed/locked states.
+ * Triggers renderFullGameComplete() when all 6 are done.
  * @returns {Promise<void>}
  */
 async function renderProjectSelection() {
-  const projects = await loadAllProjects();
+  const projects  = await loadAllProjects();
   const state     = window.Engine?.GameState;
   const completed = state?.projectsCompleted ?? [];
   const level     = state?.career?.level ?? 1;
 
-  const playable = projects.filter(p =>
-    (p.requiredLevel ?? 1) <= level && p.id !== 'test',
-  );
+  const sortedProjects = ALL_PROJECT_IDS
+    .map(id => projects.find(p => p.id === id))
+    .filter(Boolean);
 
-  const available  = playable.filter(p => !completed.includes(p.id));
-  const done       = playable.filter(p =>  completed.includes(p.id));
-
-  if (available.length === 0 && done.length > 0) {
-    renderGameComplete();
+  if (completed.length >= 6 && sortedProjects.every(p => completed.includes(p.id))) {
+    renderFullGameComplete();
     return;
   }
 
   const screen = createScreen('project-select-overlay');
 
+  const projectsDone = sortedProjects.filter(p => completed.includes(p.id)).length;
+
   screen.innerHTML = `
-    <div style="font-size:var(--font-size-xl);text-align:center;">📂 Neuer Auftrag eingegangen</div>
+    <div style="font-size:var(--font-size-xl);text-align:center;">📂 Neuer Auftrag</div>
     <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);text-align:center;">
       ${getSelectionSubtitle(level)}
+    </div>
+    <div style="font-size:var(--font-size-sm);color:var(--color-accent-cyan);text-align:center;">
+      Projekte: ${projectsDone} / 6 abgeschlossen
+      &nbsp;·&nbsp;
+      Karrierestufe: ${state?.career?.title ?? 'Junior Consultant'}
     </div>
   `;
 
   const grid = document.createElement('div');
   grid.style.cssText = 'display:flex;flex-direction:column;gap:var(--space-md);align-items:center;width:100%;';
 
-  available.forEach(p => grid.appendChild(buildAvailableCard(p)));
-  done.forEach(p => grid.appendChild(buildCompletedCard(p)));
+  sortedProjects.forEach(p => {
+    if (completed.includes(p.id)) {
+      grid.appendChild(buildCompletedCard(p));
+    } else if ((p.requiredLevel ?? 1) <= level) {
+      grid.appendChild(buildAvailableCard(p));
+    } else {
+      grid.appendChild(buildLockedCard(p));
+    }
+  });
 
   screen.appendChild(grid);
+}
+
+// ── Full game complete screen ─────────────────────────────
+
+/**
+ * Renders an ASCII bar for a stat value (0-100) using 10 block characters.
+ * @param {number} value
+ * @returns {string}
+ */
+function asciBar(value) {
+  const filled = Math.round(Math.min(100, Math.max(0, value)) / 10);
+  return '█'.repeat(filled) + '░'.repeat(10 - filled);
+}
+
+/**
+ * Renders the full-screen completion summary shown when all 6 projects are done.
+ * @returns {Promise<void>}
+ */
+async function renderFullGameComplete() {
+  const state    = window.Engine?.GameState ?? {};
+  const career   = state.career ?? { title: 'Partner', level: 6, xp: 0 };
+  const stats    = state.stats ?? {};
+  const unlocked = state.achievements ?? [];
+  const session  = state.sessionCount ?? 1;
+  const disCount = state.disasterCount ?? 0;
+
+  let allAchievements = [];
+  try {
+    const res = await fetch('/data/achievements.json');
+    allAchievements = await res.json();
+  } catch (_) { /* graceful fallback */ }
+
+  const screen = createScreen('game-complete-overlay');
+
+  screen.innerHTML = `
+    <div style="font-size:48px;text-align:center;animation:levelUpEmoji 0.5s ease both;">🎖️</div>
+    <div style="font-size:var(--font-size-xl);text-align:center;color:var(--color-accent-cyan);">VOLLSTÄNDIG ABGESCHLOSSEN</div>
+    <div id="complete-flavor" style="font-size:var(--font-size-sm);color:var(--color-text-secondary);text-align:center;min-height:4em;line-height:1.8;"></div>
+  `;
+
+  const FLAVOR_LINES = [
+    'Sie haben alle 6 Projekte abgeschlossen.',
+    'Greysuit & Partner ist stolz auf Sie.',
+    'Dr. Müller-Brandt hat das auf LinkedIn gepostet.',
+    'Er hat sich selbst in der Überschrift erwähnt.',
+    'Kevin hat eine App darüber gebaut. Die Daten sind diesmal echt.',
+  ];
+  let lineIdx = 0;
+  const flavorEl = screen.querySelector('#complete-flavor');
+  function typeNextLine() {
+    if (lineIdx >= FLAVOR_LINES.length) return;
+    const line = FLAVOR_LINES[lineIdx++];
+    let i = 0;
+    const interval = setInterval(() => {
+      flavorEl.textContent += line[i++] ?? '';
+      if (i >= line.length) {
+        clearInterval(interval);
+        flavorEl.textContent += '\n';
+        setTimeout(typeNextLine, 300);
+      }
+    }, 28);
+  }
+  typeNextLine();
+
+  const statDefs = [
+    ['🧠 Kompetenz', stats.kompetenz ?? 0, 'var(--color-accent-cyan)'],
+    ['💬 Bullshit',  stats.bullshit  ?? 0, 'var(--color-accent-amber)'],
+    ['🤝 Kundenliebe', stats.kundenliebe ?? 0, 'var(--color-accent-green)'],
+    ['🔥 Burnout',   stats.burnout   ?? 0, 'var(--color-accent-red)'],
+    ['🏆 Prestige',  stats.prestige  ?? 0, 'var(--color-accent-purple)'],
+  ];
+  const barsWrap = document.createElement('div');
+  barsWrap.style.cssText = [
+    'width:100%;max-width:460px',
+    'background:var(--color-surface-elevated)',
+    'border:1px solid var(--color-border)',
+    'border-radius:var(--radius-lg)',
+    'padding:var(--space-lg)',
+    'display:flex', 'flex-direction:column', 'gap:var(--space-sm)',
+  ].join(';');
+  barsWrap.innerHTML = `<div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-bottom:var(--space-xs);">FINAL STATS</div>`;
+  statDefs.forEach(([label, val, color]) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:var(--space-sm);font-size:12px;font-family:var(--font-mono);';
+    row.innerHTML = `
+      <span style="width:130px;color:var(--color-text-secondary);">${label}</span>
+      <span style="color:${color};letter-spacing:1px;">${asciBar(val)}</span>
+      <span style="color:${color};min-width:28px;text-align:right;">${val}</span>
+    `;
+    barsWrap.appendChild(row);
+  });
+  screen.appendChild(barsWrap);
+
+  const summaryWrap = document.createElement('div');
+  summaryWrap.style.cssText = [
+    'width:100%;max-width:460px',
+    'background:var(--color-surface-elevated)',
+    'border:1px solid var(--color-border)',
+    'border-radius:var(--radius-lg)',
+    'padding:var(--space-lg)',
+    'display:flex', 'flex-direction:column', 'gap:var(--space-sm)',
+    'font-size:var(--font-size-sm)',
+  ].join(';');
+  const totalXP = state.career?.xp ?? 0;
+  const totalXPEver = [0, 150, 200, 200, 250, 300].slice(0, career.level - 1).reduce((a, b) => a + b, 0) + totalXP;
+  summaryWrap.innerHTML = `
+    <div style="color:var(--color-text-secondary);">KARRIERE-ZUSAMMENFASSUNG</div>
+    <div>Endtitel: <span style="color:var(--color-accent-amber);">${career.title}</span></div>
+    <div>Karrierestufe: <span style="color:var(--color-accent-cyan);">${career.level} von 6</span></div>
+    <div>Geschätzte Spielzeit: ~${session * 15} Minuten
+      <span style="color:var(--color-text-secondary);font-size:10px;">(nicht mitgezählt: die Zeit die Dieter Sie am Telefon hatte)</span>
+    </div>
+  `;
+  screen.appendChild(summaryWrap);
+
+  if (allAchievements.length > 0) {
+    const achWrap = document.createElement('div');
+    achWrap.style.cssText = [
+      'width:100%;max-width:460px',
+      'background:var(--color-surface-elevated)',
+      'border:1px solid var(--color-border)',
+      'border-radius:var(--radius-lg)',
+      'padding:var(--space-lg)',
+      'display:flex', 'flex-direction:column', 'gap:var(--space-sm)',
+    ].join(';');
+    achWrap.innerHTML = `<div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);">ACHIEVEMENTS: ${unlocked.length} von ${allAchievements.length} freigeschaltet</div>`;
+    const grid = document.createElement('div');
+    grid.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--space-xs);';
+    allAchievements.forEach(a => {
+      const el = document.createElement('span');
+      el.style.cssText = `font-size:22px;${unlocked.includes(a.id) ? '' : 'filter:grayscale(1);opacity:0.25;'}`;
+      el.title = unlocked.includes(a.id) ? `${a.name}: ${a.description}` : '???';
+      el.textContent = unlocked.includes(a.id) ? a.emoji : '⬜';
+      grid.appendChild(el);
+    });
+    achWrap.appendChild(grid);
+    screen.appendChild(achWrap);
+  }
+
+  if (disCount > 0) {
+    const disasters = Object.entries(state.projectEndings ?? {})
+      .filter(([, t]) => t === 'disaster')
+      .map(([id]) => id);
+
+    if (disasters.length > 0) {
+      const shameWrap = document.createElement('div');
+      shameWrap.style.cssText = [
+        'width:100%;max-width:460px',
+        'border:1px solid var(--color-accent-red)',
+        'border-radius:var(--radius-lg)',
+        'padding:var(--space-lg)',
+        'display:flex', 'flex-direction:column', 'gap:var(--space-sm)',
+      ].join(';');
+      shameWrap.innerHTML = `<div style="font-size:var(--font-size-lg);color:var(--color-accent-red);">🏚️ Hall of Shame</div>`;
+      const EPITAPHS = {
+        projekt_dieter:      { emoji: '💥', epitaph: 'Operation Dieter. €47.000. Steinbach notiert alles. RIP.' },
+        projekt_sap_zombies: { emoji: '🧟', epitaph: 'Die Lizenzen sind weg. Der CFO ist nicht amüsiert. Niemals.' },
+        projekt_shadow_it:   { emoji: '🏚️', epitaph: 'Der Minecraft-Server läuft noch. Alles andere nicht.' },
+        projekt_cloud:       { emoji: '☁️', epitaph: 'BUCHHALTUNG 2006 war 3 Tage offline. Kevin war beteiligt.' },
+        projekt_ki:          { emoji: '🤖', epitaph: 'Vendor A hat geliefert. Dr. Sasse hat das Unternehmen verlassen.' },
+        projekt_board:       { emoji: '😶', epitaph: 'Wolfgang Reinhold: "Wir gehen in eine andere Richtung." Ende.' },
+      };
+      disasters.forEach(pid => {
+        const data = EPITAPHS[pid] ?? { emoji: '💀', epitaph: 'Details sind dem Betroffenen unangenehm.' };
+        const entry = document.createElement('div');
+        entry.style.cssText = 'display:flex;gap:var(--space-md);align-items:flex-start;font-size:var(--font-size-sm);';
+        entry.innerHTML = `<span style="font-size:20px;">${data.emoji}</span><span style="color:var(--color-text-secondary);font-style:italic;">${data.epitaph}</span>`;
+        shameWrap.appendChild(entry);
+      });
+      screen.appendChild(shameWrap);
+    }
+  }
+
+  if (disCount >= 6) {
+    window.Achievements?.checkTrigger('all_disasters_complete');
+    const chaosEl = document.createElement('div');
+    chaosEl.style.cssText = [
+      'width:100%;max-width:460px',
+      'background:rgba(248,81,73,0.1)',
+      'border:1px solid var(--color-accent-red)',
+      'border-radius:var(--radius-lg)',
+      'padding:var(--space-lg)',
+      'text-align:center',
+      'font-size:var(--font-size-sm)',
+    ].join(';');
+    chaosEl.innerHTML = `
+      <div style="font-size:32px;margin-bottom:var(--space-sm);">🌪️</div>
+      <div style="color:var(--color-accent-red);margin-bottom:var(--space-sm);">Vollständiges Chaos — Achievement freigeschaltet</div>
+      <div style="color:var(--color-text-secondary);line-height:1.8;">
+        Sie haben alle 6 Projekte mit Desaster beendet.<br>
+        Das ist statistisch fast unmöglich.<br>
+        Dieter weint. Dr. Sasse hat das Unternehmen verlassen.<br>
+        Kevin hat trotzdem eine App gebaut.
+      </div>
+    `;
+    screen.appendChild(chaosEl);
+  }
+
+  const btnWrap = document.createElement('div');
+  btnWrap.style.cssText = 'display:flex;gap:var(--space-md);flex-wrap:wrap;justify-content:center;margin-top:var(--space-md);';
+
+  const replayBtn = document.createElement('button');
+  replayBtn.className = 'choice-btn';
+  replayBtn.textContent = '🔄 Nochmal spielen';
+  replayBtn.style.cssText = 'width:220px;';
+  replayBtn.addEventListener('click', () => {
+    const confirmed = window.confirm('Spielstand löschen und neu beginnen?');
+    if (!confirmed) return;
+    window.Storage?.clearSave();
+    document.getElementById('game-complete-overlay')?.remove();
+    window.Engine?.initGame();
+    window.startProject?.('projekt_dieter');
+  });
+
+  const achBtn = document.createElement('button');
+  achBtn.className = 'choice-btn';
+  achBtn.textContent = '🏅 Alle Achievements';
+  achBtn.style.cssText = 'width:220px;background:var(--color-surface-elevated);';
+  achBtn.addEventListener('click', () => window.Achievements?.renderAchievementsScreen?.());
+
+  btnWrap.appendChild(replayBtn);
+  btnWrap.appendChild(achBtn);
+  screen.appendChild(btnWrap);
 }
 
 // ── Stat summary helpers ──────────────────────────────────
@@ -406,6 +684,7 @@ function renderHallOfShame() {
 
 window.UI = {
   renderProjectSelection,
+  renderFullGameComplete,
   renderGameComplete,
   renderHallOfShame,
 };

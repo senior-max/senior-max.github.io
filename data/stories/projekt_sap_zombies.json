@@ -71,8 +71,9 @@
       "locationEmoji": "📱",
       "locationName": "Konferenzraum — Globex Industries",
       "npc": "phantom",
+      "minigame": "zombie_check",
       "mood": "tense",
-      "text": "Du präsentierst dem IT-Team von Globex Industries deine Zwischenergebnisse. Die Stühle am Tisch: vier. Erschienen: zwei Personen, die sich nicht vorstellen.\n\nDu zeigst die Zahl: 132 SAP-User, die in keiner HR-Liste auftauchen.\n\n\"Können Sie mir sagen, wer diese Nutzer sind?\"\n\nStille. Einer der beiden schaut auf seinen Laptop. Der andere schaut an die Wand.\n\nDann, vorsichtig: \"Manche sind vielleicht... ausgeschieden.\"\n\"Manche?\"\n\"Naja.\" Eine längere Pause. \"Viele eigentlich.\"\n\nDu schreibst 'viele eigentlich' wörtlich in dein Protokoll.",
+      "text": "Du präsentierst dem IT-Team von Globex Industries deine Zwischenergebnisse. Die Stühle am Tisch: vier. Erschienen: zwei Personen, die sich nicht vorstellen.\n\nDu zeigst die Zahl: 132 SAP-User, die in keiner HR-Liste auftauchen.\n\n\"Können Sie mir sagen, wer diese Nutzer sind?\"\n\nStille. Einer der beiden schaut auf seinen Laptop. Der andere schaut an die Wand.\n\nDann, vorsichtig: \"Manche sind vielleicht... ausgeschieden.\"\n\"Manche?\"\n\"Naja.\" Eine längere Pause. \"Viele eigentlich.\"\n\nDu schreibst 'viele eigentlich' wörtlich in dein Protokoll.\n\nJetzt die Arbeit: Wer ist wirklich aktiv — und wer ist ein Zombie?",
       "choices": [
         {
           "id": "c1",
@@ -112,7 +113,9 @@
           "effects": { "kompetenz": 5, "prestige": 3, "burnout": 5 },
           "flags": { "security_incident": true },
           "next": "s_05",
-          "feedback": "IT-Security reagiert innerhalb von 20 Minuten. Das ist ein Rekord. Sie schauen auch nicht glücklicher dabei aus."
+          "feedback": "IT-Security reagiert innerhalb von 20 Minuten. Das ist ein Rekord. Sie schauen auch nicht glücklicher dabei aus.",
+          "feedback_prefix_if_flag": "ghost_login_found",
+          "feedback_prefix": "Du hattest das schon vermutet. "
         },
         {
           "id": "c2",

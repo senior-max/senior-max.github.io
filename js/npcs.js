@@ -136,6 +136,36 @@ function renderNPCDisplay(npcId) {
   el.innerHTML = buildNPCDisplayHTML(npc, accentColor, npcId);
 }
 
+/**
+ * Renders a one-off NPC defined inline in a scene (no registry lookup needed).
+ * Useful for scene-specific characters like CEOs or guest speakers.
+ * @param {{ emoji: string, name: string, title: string, accentColor?: string }} npcData
+ */
+function renderNPCInline(npcData) {
+  const el = document.getElementById('npc-display');
+  if (!el || !npcData) return;
+
+  const accentColor = npcData.accentColor ?? 'var(--color-text-primary)';
+
+  el.setAttribute('data-npc', 'inline');
+  el.style.cssText = [
+    'display:flex',
+    'align-items:center',
+    'gap:var(--space-sm)',
+    'animation:fadeInUp 0.3s ease both',
+    `border-left:3px solid ${accentColor}`,
+    'padding-left:var(--space-sm)',
+  ].join(';');
+
+  el.innerHTML = `
+    <span style="font-size:2rem;line-height:1;" aria-hidden="true">${npcData.emoji ?? '👤'}</span>
+    <span style="display:flex;flex-direction:column;gap:1px;">
+      <span style="color:${accentColor};font-size:var(--font-size-sm);">${npcData.name ?? ''}</span>
+      <span style="color:var(--color-text-secondary);font-size:10px;text-transform:uppercase;letter-spacing:1px;">${npcData.title ?? ''}</span>
+    </span>
+  `;
+}
+
 // ── Passive stat modifiers ────────────────────────────────
 
 /**
@@ -179,6 +209,7 @@ window.NPCs = {
   getNPC,
   getRandomCatchphrase,
   renderNPCDisplay,
+  renderNPCInline,
   applyNPCModifiers,
   resetNPCModifierGuard,
   NPC_ACCENT_COLORS,

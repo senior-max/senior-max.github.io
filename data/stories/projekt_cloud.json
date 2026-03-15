@@ -1,0 +1,309 @@
+{
+  "id": "projekt_cloud",
+  "title": "Alles in die Cloud!",
+  "subtitle": "Welche Cloud? Weiß noch nicht. Wann? Gestern.",
+  "difficulty": "hard",
+  "comedyLevel": 4,
+  "requiredLevel": 3,
+  "unlockMessage": "Sie sind jetzt Senior Consultant. Herzlichen Glückwunsch. Die Projekte werden absurder.",
+  "xpReward": 200,
+  "scenes": [
+    {
+      "id": "c_01",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum — Greysuit & Partner",
+      "npc": "dr_mueller",
+      "mood": "panic",
+      "text": "Dr. Müller-Brandt wartet bereits, als du den Raum betrittst. Kein Kaffee. Kein Smalltalk. Ein schlechtes Zeichen.\n\nDas Briefing: Hoffmann & Söhne GmbH, 600 Mitarbeiter, Metallverarbeitung, Sitz in Solingen. Der CEO — Torsten Hoffmann, 58 — hat auf einem Flug nach Barcelona einen Artikel gelesen: 'Cloud-First: Warum jedes Unternehmen jetzt migrieren muss'.\n\nEr hat den Artikel seinen IT-Leiter weitergeleitet. Mit einem Kommentar: 'Machen wir das auch. Bis Q3.'\n\nQ3 beginnt in drei Wochen.\n\nMüller-Brandt schiebt dir ein Dokument rüber. 'Wir haben zugesagt.' Er vermeidet Blickkontakt. Das Dokument ist ein unterschriebenes Letter of Intent über 'vollständige Cloud-Migration der IT-Infrastruktur'. Er hatte es selbst aufgesetzt.\n\nDeine Aufgabe: Infrastruktur bewerten, Roadmap entwickeln, und — das sind seine genauen Worte — 'es so aussehen lassen, als wäre Q3 erreichbar.'",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "\"Was genau soll in die Cloud?\"",
+          "effects": { "kompetenz": 4 },
+          "next": "c_02",
+          "feedback": "Müller-Brandt blinzelt. 'Das ist... eine gute Frage. Das klären wir beim Kunden.' Er hatte es selbst nicht gefragt. Das Schweigen danach ist informativ."
+        },
+        {
+          "id": "c2",
+          "text": "\"Welcher Cloud-Anbieter ist gesetzt — Azure, AWS, GCP?\"",
+          "effects": { "kompetenz": 3, "prestige": 2 },
+          "next": "c_02",
+          "feedback": "Müller-Brandt: 'Der CEO hat die Amazon-Cloud gesagt. Er meinte vermutlich AWS. Oder er kauft bei Amazon ein. Wir wissen es nicht.' Pause. 'Klären Sie das bitte vor Ort.'"
+        },
+        {
+          "id": "c3",
+          "text": "\"Q3 ist in 3 Wochen. Das ist nicht machbar.\"",
+          "effects": { "kompetenz": 5, "prestige": -5, "kundenliebe": -3 },
+          "next": "c_02",
+          "feedback": "Müller-Brandt sagt: 'Natürlich ist es machbar. Mit dem richtigen Mindset.' Du fragst dich ob er das glaubt. Er glaubt es nicht. Er weiß dass du recht hast. Das macht es schlimmer."
+        },
+        {
+          "id": "c4",
+          "text": "Nicken. Nichts sagen.",
+          "effects": { "bullshit": 5, "burnout": 5 },
+          "next": "c_02",
+          "feedback": "Du nickst. Müller-Brandt nickt zurück. Keiner von euch weiß was gerade vereinbart wurde. Das nennt man im Consulting 'Alignment'. Klassisch."
+        }
+      ]
+    },
+    {
+      "id": "c_02",
+      "location": "kundenbüro",
+      "locationEmoji": "🏭",
+      "locationName": "Serverraum — Hoffmann & Söhne GmbH",
+      "npc": "dieter",
+      "npcOverrideName": "Bernd Wacker, IT-Leiter",
+      "mood": "tense",
+      "text": "Bernd Wacker, IT-Leiter seit 14 Jahren, hat dich an der Rezeption abgeholt. Er hat von der Cloud-Migration aus dem Unternehmens-Newsletter erfahren. Letzten Dienstag. Er ist nicht glücklich.\n\nEr führt dich durch den Serverraum. 47 physische Server. 31 sind dokumentiert. 17 nennt er 'historisch gewachsen'. Drei davon beschreibt er mit den Worten: 'Läuft — bitte nicht anfassen.'\n\nEin Server macht ein Geräusch. Bernd nennt es 'das Geräusch'. Er schaut dabei zum Boden.\n\nIn der Ecke steht ein Server mit einem handgeschriebenen Schild: 'BUCHHALTUNG 2006 — NUR IM NOTFALL'.\n\nDas ERP-System wurde 2004 intern entwickelt. Der Entwickler heißt Jürgen. Jürgen arbeitet nicht mehr für das Unternehmen. Jürgen ist nicht auffindbar. Das ERP läuft auf Windows Server 2003. Es verarbeitet täglich 340 Aufträge.\n\nBernd schaut dich an. Seine Augen sagen: Du weißt was ich dir gerade gezeigt habe. Erzähl es mir nicht.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Vollständige Infrastruktur-Inventur starten.",
+          "effects": { "kompetenz": 5, "burnout": 8 },
+          "flags": { "inventory_done": true },
+          "next": "c_03",
+          "feedback": "48 Server. 31 dokumentiert. 17 'historisch gewachsen'. Das Geräusch ist lauter als erwartet. Es kommt aus Server 23. Server 23 hat kein Inventar-Tag. Server 23 ist auf keinem Netzwerkplan. Server 23 ist warm."
+        },
+        {
+          "id": "c2",
+          "text": "Bernd fragen, was SEINER Meinung nach in die Cloud kann.",
+          "effects": { "kompetenz": 3, "kundenliebe": 5 },
+          "flags": { "bernd_trusted": true },
+          "next": "c_03",
+          "feedback": "Bernd entspannt sich zum ersten Mal. 'Nichts', sagt er. Lange Pause. 'Na ja. Vielleicht die Testumgebung.' Dann: 'Die hat eh niemand in drei Jahren angefasst.' Du nimmst das als Ausgangspunkt."
+        },
+        {
+          "id": "c3",
+          "text": "CEO Torsten direkt ansprechen — an Bernd vorbei.",
+          "effects": { "prestige": 3, "kompetenz": -2, "kundenliebe": -8 },
+          "next": "c_03",
+          "feedback": "Bernd schaut dich an mit einem Blick, den du nicht vergessen wirst. Torsten sagt begeistert: 'Ja genau! ALLES in die Cloud!' Du hast Bernd verloren. Du hast nichts gewonnen."
+        }
+      ]
+    },
+    {
+      "id": "c_03",
+      "location": "homeoffice",
+      "locationEmoji": "💻",
+      "locationName": "Video-Call — AWS Solution Architecture",
+      "npc": null,
+      "mood": "funny",
+      "text": "Tyler Henderson, AWS Solution Architect, Region West Coast EMEA Enablement, joinst pünktlich um 14 Uhr aus Seattle. Hinter ihm: ein Whiteboard mit 'Day 1' drauf. Er lächelt. Er hat eine Menge Energie für jemanden, der sechs Stunden Zeitverschiebung hat.\n\nTyler hat eine Slide-Deck. 47 Slides. Er verwendet das Wort 'synergies' in den ersten 90 Sekunden.\n\nTylers Angebot: Vollmigration auf AWS. EC2-Instanzen, RDS, S3, CloudFront. Preis: 340.000 Euro pro Jahr.\n\nHoffmann & Söhne gibt derzeit 28.000 Euro pro Jahr für ihre On-Premise-Infrastruktur aus.\n\nTyler hat ein Diagramm, das zeigt, dass Cloud langfristig immer günstiger ist. Die X-Achse des Diagramms beginnt bei Jahr 7.\n\nEr pausiert erwartungsvoll. 'Any questions?'\n\nBernd, der still neben dir sitzt, tippt etwas. Du kannst es lesen. Es ist die Zahl '340.000'. Darunter: drei Fragezeichen.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Tylers Angebot sachlich analysieren und kritisch nachfragen.",
+          "effects": { "kompetenz": 5, "bullshit": -2 },
+          "next": "c_04",
+          "feedback": "Tyler ist auf Frage drei nicht vorbereitet. Er sagt 'great question' und schaut kurz links unten auf seinen Bildschirm. Er tippt schnell. Die Antwort kommt nach 90 Sekunden und ist eine andere Frage."
+        },
+        {
+          "id": "c2",
+          "text": "Begeistert mitmachen — das Angebot vor Ort befürworten.",
+          "effects": { "bullshit": 8, "kompetenz": -5, "prestige": 3 },
+          "flags": { "aws_endorsed": true },
+          "next": "c_04",
+          "feedback": "Tyler liebt dich. Du hasst dich gerade ein bisschen. Bernd hat die Kamera ausgeschaltet. Du weißt nicht wann er das gemacht hat."
+        },
+        {
+          "id": "c3",
+          "text": "Das Meeting höflich beenden und eine eigene Analyse ankündigen.",
+          "effects": { "kompetenz": 6, "prestige": 2, "kundenliebe": 3 },
+          "next": "c_04",
+          "feedback": "Tyler ist kurz verwirrt. Dann: 'Absolutely, circle back anytime!' Du schließt Teams. Stille. Das Geräusch von Bernd, der leise nickt. Es ist schön."
+        }
+      ]
+    },
+    {
+      "id": "c_04",
+      "location": "homeoffice",
+      "locationEmoji": "🏠",
+      "locationName": "Home Office — 22:14 Uhr",
+      "npc": null,
+      "mood": "tense",
+      "text": "Dein Bildschirm leuchtet. Draußen ist es dunkel. Du baust die Roadmap.\n\nDie Realität, die sich aus der Analyse ergibt:\n\n— Das ERP-System von 2004 kann nicht migriert werden. Es setzt Windows Server 2003 voraus. Windows Server 2003 hat seit 2015 keinen Support.\n— 'BUCHHALTUNG 2006' betreibt das gesamte Buchhaltungsmodul. Niemand hat den Quellcode. Jürgen ist auf XING nicht auffindbar.\n— 6 Server laufen Anwendungen, die niemand benennen kann, aber 'die sind wichtig, glaube ich'.\n— 'Das Geräusch' kommt von einem RAID-Controller, der in 4–8 Wochen ausfallen wird.\n— Realistische Migrations-Timeline: 18–24 Monate.\n— Q3 ist in 14 Tagen.\n\nDu musst entscheiden was in den Roadmap-Entwurf kommt, den du morgen bei Bernd präsentierst.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Ehrlichen Roadmap erstellen: 18 Monate, realistische Phasen.",
+          "effects": { "kompetenz": 8, "prestige": -3, "bullshit": -5 },
+          "flags": { "honest_roadmap": true },
+          "next": "c_05",
+          "feedback": "Ein solider Plan. Jürgens ERP kriegt ein eigenes Kapitel. 'BUCHHALTUNG 2006' bekommt eine Risikoklasse. Torsten wird ihn nicht mögen. Aber du kannst nachts schlafen."
+        },
+        {
+          "id": "c2",
+          "text": "Hybridansatz vorschlagen: Cloud wo möglich, On-Premise wo nötig.",
+          "effects": { "kompetenz": 5, "bullshit": 3, "prestige": 3 },
+          "flags": { "hybrid_approach": true },
+          "next": "c_05",
+          "feedback": "Das Wort 'hybrid' macht jeden glücklich. Es bedeutet für jeden etwas anderes. Das ist der Punkt. Du malst ein Diagramm mit einem Pfeil von On-Premise zu Cloud. Der Pfeil ist gepunktet. Das ist bewusst."
+        },
+        {
+          "id": "c3",
+          "text": "Q3-kompatiblen Roadmap schreiben — mit stillen Vorbehalten in den Fußnoten.",
+          "effects": { "bullshit": 10, "kompetenz": -3, "burnout": 12 },
+          "flags": { "optimistic_roadmap": true },
+          "next": "c_05",
+          "feedback": "Seite 8, Fußnote 4: 'Vorbehaltlich technischer Machbarkeitsprüfung (laufend).' Seite 12, Fußnote 7: 'Timeline setzt Verfügbarkeit Jürgens oder gleichwertiger Ressource voraus.' Du bist ein Künstler. Ein erschöpfter Künstler."
+        }
+      ]
+    },
+    {
+      "id": "c_05",
+      "location": "kundenbüro",
+      "locationEmoji": "🏭",
+      "locationName": "Besprechungsraum — Hoffmann & Söhne",
+      "npc": "dieter",
+      "npcOverrideName": "Bernd Wacker, IT-Leiter",
+      "mood": "tense",
+      "text": "Bernd hat den Roadmap-Entwurf gelesen. Alle 47 Seiten. Er hat ihn ausgedruckt. Er hat einen roten Stift benutzt. Er hat 14 Anmerkungen. Du kannst sie von hier aus schon sehen — Seite 3 trägt mehr Rot als Schwarz.\n\nEr legt das Dokument auf den Tisch. Dreht es zu dir.\n\nSeite 1, Anmerkung 1, in Großbuchstaben: 'WAS IST MIT BUCHHALTUNG 2006?'\n\nEr schaut dich an. Nicht feindselig. Er will wissen ob du es weißt. Ob du ehrlich bist. Er hat in 14 Jahren zu viele Consultants kommen und gehen gesehen, die nie eine ehrliche Antwort gegeben haben.\n\nDu hast jetzt eine.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Ehrlich: BUCHHALTUNG 2006 bleibt on-premise bis ein Ersatz gefunden wird.",
+          "effects": { "kompetenz": 4, "kundenliebe": 5 },
+          "next": "c_06",
+          "feedback": "Bernd nickt. Langsam. Dann: 'Endlich sagt das mal jemand.' Er legt den roten Stift weg. Kurz. Dann hebt er ihn wieder auf — er hat noch 13 Anmerkungen."
+        },
+        {
+          "id": "c2",
+          "text": "\"BUCHHALTUNG 2006 wird in Phase 3 behandelt.\" (Phase 3: sehr weit weg.)",
+          "effects": { "bullshit": 5, "burnout": 5 },
+          "next": "c_06",
+          "feedback": "Bernd schreibt etwas auf. Er unterstreicht es. Zweimal. Er schaut dich an. Du schaust auf Seite 4. Ihr wisst beide was gerade passiert ist."
+        },
+        {
+          "id": "c3",
+          "text": "Kevin fragen ob er sich BUCHHALTUNG 2006 mal anschaut.",
+          "effects": { "bullshit": 3, "kompetenz": -4 },
+          "flags": { "kevin_found_pascal": true },
+          "next": "c_06",
+          "feedback": "Kevin verbringt drei Stunden in dem Serverraum. Er kommt heraus. Er sagt nur: 'Da ist noch Pascal drin.' Niemand spricht. Bernd schaut auf Server 23. Das Geräusch ist lauter als heute Morgen."
+        }
+      ]
+    },
+    {
+      "id": "c_06",
+      "location": "kundenbüro",
+      "locationEmoji": "🤵",
+      "locationName": "Chefbüro — Torsten Hoffmann",
+      "npc": null,
+      "mood": "tense",
+      "text": "Torstens Büro: Glastisch, ein Stehtisch (er steht nicht daran), ein Segelboot-Bild von einem Boot das er nicht segelt, und an der Wand — handgeschrieben, eingerahmt — 'Think big.'\n\nEr kommt 12 Minuten zu spät. Er sagt 'Entschuldigung, kurzes Call'. Es war kein kurzes Call.\n\nEr hat den Roadmap-Entwurf nicht gelesen. Du siehst das daran, dass er noch in der Plastikfolie ist.\n\n'Fassen Sie mir das kurz zusammen. Einen Satz.'\n\nDann klingelt sein Handy. Er hebt die Hand — 'Einen Moment' — und geht ans Telefon. Sieben Minuten.\n\nAls er zurückkommt, setzt er sich. Er schaut dich an wie jemanden, den er gerade erst kennengelernt hat. 'Also — Q3. Das ist machbar, oder?'",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "\"Q3 für Phase 1 ist machbar. Die Gesamtmigration dauert länger.\"",
+          "effects": { "kompetenz": 5, "kundenliebe": 2, "prestige": 2 },
+          "next": "c_07",
+          "feedback": "Torsten hört 'Q3 ist machbar' und hört auf zuzuhören. Das ist nicht gut. Er nickt bereits. Du hast den zweiten Satzteil verloren."
+        },
+        {
+          "id": "c2",
+          "text": "\"Q3 ist ambitioniert, aber mit den richtigen Ressourcen...\"",
+          "effects": { "bullshit": 8, "burnout": 5 },
+          "next": "c_07",
+          "feedback": "Torsten: 'Perfekt!' Du hast nichts gesagt und trotzdem etwas versprochen. Das ist Senior-Level Consulting. Du bist nicht stolz. Du bist auch nicht überrascht."
+        },
+        {
+          "id": "c3",
+          "text": "\"Nein. Q3 ist für eine vollständige Migration nicht machbar.\"",
+          "effects": { "kompetenz": 8, "prestige": -8, "kundenliebe": -5 },
+          "flags": { "ceo_unhappy": true },
+          "next": "c_07",
+          "feedback": "Torsten schaut dich an wie du sein Auto zerkratzt hättest. Sein Handy klingelt. Er nimmt es an. 'Ich meld mich', sagt er zu dir. Das Meeting ist vorbei. Er meint es nicht böse. Er meint es auch nicht gut."
+        }
+      ]
+    },
+    {
+      "id": "c_07",
+      "location": "zug",
+      "locationEmoji": "🚂",
+      "locationName": "ICE Solingen → Düsseldorf HBF",
+      "npc": null,
+      "mood": "neutral",
+      "text": "Du sitzt im Zug. Fensterplatz. Draußen: Felder. Eine Windkraftanlage. Ein Gewerbegebiet. Noch eine Windkraftanlage.\n\nDein Handy zeigt 47 ungelesene Nachrichten.\n\nBernd: 3 (er hat noch Fragen. Zu den Fußnoten.)\nTyler von AWS: 8 (er hat 'ein paar Slides' aktualisiert. Es sind wahrscheinlich neue Slides.)\nKevin: 12 ('hab da noch was gefunden in BUCHHALTUNG 2006 — du willst das wissen, oder? oder doch nicht? ich schicks mal' — dann 11 weitere Nachrichten, alle ohne Text, nur Anhänge. Dateiname: pascal_legacy_v2_FINAL_neu.zip)\nDr. Müller-Brandt: 1 Nachricht. Kein Text. Nur: 'Bitte ruf mich an.'\n\nDraußen: noch eine Windkraftanlage.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Müller-Brandt sofort anrufen.",
+          "effects": { "prestige": 3, "burnout": 10 },
+          "next": "c_08",
+          "feedback": "Das Gespräch dauert 34 Minuten. 17 Minuten davon erklärt Müller-Brandt was 'proaktive Stakeholder-Kommunikation' bedeutet. Dein Akku ist bei 4%. Du weißt immer noch nicht was Torsten gesagt hat."
+        },
+        {
+          "id": "c2",
+          "text": "Alle Nachrichten ignorieren und schlafen.",
+          "effects": { "burnout": -15, "kompetenz": -2, "prestige": -3 },
+          "next": "c_08",
+          "feedback": "Du schläfst von Wuppertal bis Düsseldorf. Es ist der beste Schlaf seit drei Wochen. Morgen früh sind es 61 Nachrichten. Kevin hat inzwischen BUCHHALTUNG 2006 'kurz geöffnet'. Nur angeschaut. Versprochen."
+        }
+      ]
+    },
+    {
+      "id": "c_08",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Greysuit & Partner, Projektabschluss",
+      "npc": "dr_mueller",
+      "mood": "neutral",
+      "text": "Müller-Brandt hat den Abschlussbericht auf dem Tisch. Er schaut dich an. 'Das war ein... komplexes Projekt.'\n\nIm Consulting bedeutet das: es ist in mindestens einer Dimension schlecht gelaufen.\n\nWas bisher migriert ist:\n— E-Mail: ✓ (war schon Office 365, seit 2021)\n— Zwei Testserver: ✓\n— BUCHHALTUNG 2006: läuft noch. Jürgen wurde auf LinkedIn gefunden. Er lebt in Portugal und hat 'Freelance Pascal Developer' im Profil. Er hat nicht geantwortet.\n— ERP auf Windows Server 2003: läuft. Niemand hat es angefasst. Das war die richtige Entscheidung.\n— Das Geräusch: weg. Bernd hat den RAID-Controller getauscht. Er wirkt dabei nicht erleichtert.\n— Tylers AWS-Vertrag: liegt noch auf dem Tisch.\n\nMüller-Brandt wartet. Wie rahmst du das Ergebnis ein.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Erfolge betonen: Hybrid-Strategie etabliert, Bernd überzeugt, realistische Planung steht.",
+          "effects": { "kompetenz": 3, "prestige": 3 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt nickt. 'Solide Basis.' Er blättert zu Seite 12. 'Jürgen ist also in Portugal.' Er blättert weiter. Er stellt keine weiteren Fragen. Das ist das Beste was passieren konnte."
+        },
+        {
+          "id": "c2",
+          "text": "Alles als Transformation Journey vermarkten — Sprache, Folien, Executive Summary.",
+          "effects": { "bullshit": 8, "prestige": 5 },
+          "next": "ending_neutral",
+          "feedback": "Müller-Brandt schreibt 'Transformation Journey' auf seinen Block. Er unterstreicht es. Er lächelt kurz — das erste Lächeln seit Projektbeginn. Du weißt nicht ob das gut ist."
+        },
+        {
+          "id": "c3",
+          "text": "Ehrlich über Herausforderungen berichten und Lessons Learned dokumentieren.",
+          "effects": { "kompetenz": 5, "prestige": 2 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt ist einen Moment still. Dann: 'Das ist... eigentlich nützlich.' Er tippt etwas. 'Machen wir daraus ein White Paper. Für interne Zwecke.' Du nimmst das als Kompliment. Es ist eines."
+        },
+        {
+          "id": "c4",
+          "text": "Kevin hat BUCHHALTUNG 2006 'kurz geöffnet'. Die Buchhaltung läuft nicht mehr.",
+          "requires_flag": "kevin_found_pascal",
+          "effects": { "kompetenz": -5, "burnout": 15 },
+          "next": "ending_disaster",
+          "feedback": "Müller-Brandt legt den Stift hin. Sehr langsam. 'Seit wann?' 'Drei Tage.' Er nimmt sein Telefon. Er ruft jemanden an. Du bist nicht sicher wen. Jürgens Nummer hat er nicht."
+        }
+      ]
+    }
+  ],
+  "endings": {
+    "ending_success": {
+      "type": "success",
+      "title": "Cloud-Migration: Phase 1 launched",
+      "text": "Hoffmann & Söhne hat eine realistische Cloud-Strategie. Nicht die, die Torsten auf dem Flug nach Barcelona gelesen hat. Eine, die funktioniert.\n\nBUCHHALTUNG 2006 läuft noch. Bernd hat ihr ein Notstromaggregat angeschlossen. 'Nur zur Sicherheit', sagt er. Er fragt nicht nach der Cloud. Du fragst nicht zurück.\n\nDas ERP auf Windows Server 2003 hat ein offizielles Wartungsfenster. Jürgen hat auf die fünfte LinkedIn-Nachricht geantwortet: 'Ich schau mir das an. Kosten wir dann.' Jürgen will 280 Euro pro Stunde. Müller-Brandt hat 'Okay, aber' getippt und dann nichts abgeschickt.\n\nTyler von AWS schickt eine Weihnachtskarte. Bernd schickt eine handgeschriebene. Mit einer Anmerkung in Rot.",
+      "xp": 200,
+      "achievement": "cloud_realist"
+    },
+    "ending_neutral": {
+      "type": "neutral",
+      "title": "Cloud-Migration: Strategische Neuausrichtung",
+      "text": "Das Projekt ist technisch offen. Q3 wurde auf Q1 des nächsten Jahres angepasst. Torsten hat das in einem LinkedIn-Post als 'strategische Neuausrichtung in einem sich verändernden Technologie-Ökosystem' bezeichnet. Der Post hat 47 Likes. Keiner der Liker arbeitet bei Hoffmann & Söhne.\n\nBUCHHALTUNG 2006 läuft. Tyler wartet. Bernd wartet. Jürgen antwortet nicht.\n\nDu hast ein White Paper geschrieben. Es heißt: 'Cloud Readiness in mittelständischen Produktionsunternehmen — Eine Transformation Journey'. Müller-Brandt hat es auf der Unternehmens-Website veröffentlicht.\n\nEs war ein komplexes Projekt. Das steht auch so im Abschlussbericht.",
+      "xp": 120,
+      "achievement": null
+    },
+    "ending_disaster": {
+      "type": "disaster",
+      "title": "💥 CLOUD-DESASTER: BUCHHALTUNG 2006 ist offline",
+      "text": "Kevin hat BUCHHALTUNG 2006 'kurz geöffnet'. Er wollte nur schauen. Der Pascal-Code hat auf das Öffnen mit einem Datenbankfehler reagiert. Kevin hat den Fehler 'behoben'. Die Datenbank läuft nicht mehr.\n\nDie Buchhaltung von Hoffmann & Söhne ist seit drei Tagen offline. Der Steuerberater ist im Urlaub. Der Ersatz-Steuerberater ist auch im Urlaub. 340 Aufträge hängen.\n\nTorsten spricht nicht mehr mit Müller-Brandt. Müller-Brandt spricht nicht mehr mit dir. Du sprichst mit Kevin. Kevin sagt: 'Ich hab noch eine Idee.' Du sagst: Nein.\n\nJürgen hat auf LinkedIn geantwortet: 'Das hätte ich euch gesagt. Der Connection-Pool muss beim Start manuell initialisiert werden. Seit 2009.' Er schickt eine Rechnung für diese Information.",
+      "xp": 90,
+      "achievement": "hall_4"
+    }
+  }
+}

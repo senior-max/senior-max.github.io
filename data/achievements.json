@@ -103,5 +103,54 @@
     "emoji": "🎖️",
     "description": "Alle 3 MVP-Projekte abgeschlossen. Du bist ein echter Berater jetzt.",
     "trigger": "all_projects_complete"
+  },
+  {
+    "id": "cloud_realist",
+    "name": "Cloud-Realist",
+    "emoji": "☁️",
+    "description": "Cloud-Migrationsprojekt abgeschlossen ohne unrealistische Versprechen. BUCHHALTUNG 2006 läuft noch.",
+    "trigger": "project_complete_projekt_cloud"
+  },
+  {
+    "id": "hall_4",
+    "name": "BUCHHALTUNG 2006 RIP",
+    "emoji": "💀",
+    "description": "Cloud-Migrationsprojekt im Chaos geendet. Die Buchhaltung war 3 Tage offline.",
+    "trigger": "ending_disaster_projekt_cloud"
+  },
+  {
+    "id": "ki_realist",
+    "name": "KI ohne Buzzwords",
+    "emoji": "🤖",
+    "description": "KI-Projekt abgeschlossen. Du hast 'Disruption' nur zweimal gesagt. Einmal war ironisch.",
+    "trigger": "project_complete_projekt_ki"
+  },
+  {
+    "id": "hall_5",
+    "name": "KI-Apokalypse",
+    "emoji": "🤯",
+    "description": "KI-Projekt desaströs beendet. Vendor A hat geliefert. Dr. Sasse ist gegangen.",
+    "trigger": "ending_disaster_projekt_ki"
+  },
+  {
+    "id": "board_approved",
+    "name": "Board Approved",
+    "emoji": "🏆",
+    "description": "Das Board hat zugestimmt. Wolfgang Reinhold hat dich angeschaut. Er hat genickt. Das zählt.",
+    "trigger": "project_complete_projekt_board"
+  },
+  {
+    "id": "hall_6",
+    "name": "Board Rejected",
+    "emoji": "😶",
+    "description": "Wolfgang Reinhold: 'Wir gehen in eine andere Richtung.' Alles gesagt.",
+    "trigger": "ending_disaster_projekt_board"
+  },
+  {
+    "id": "vollstaendiges_chaos",
+    "name": "Vollständiges Chaos",
+    "emoji": "🌪️",
+    "description": "Alle 6 Projekte mit Desaster-Ending abgeschlossen. Das ist statistisch fast unmöglich. Und doch.",
+    "trigger": "all_disasters_complete"
   }
 ]

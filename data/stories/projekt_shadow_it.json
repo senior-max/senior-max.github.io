@@ -38,8 +38,9 @@
       "locationEmoji": "🔦",
       "locationName": "Keller UG-3",
       "npc": "hal",
+      "minigame": "software_scan",
       "mood": "funny",
-      "text": "UG-3 riecht nach altem Teppich, Ambitionen aus dem Jahr 2016 und einem Hauch von abgestandenem Red Bull.\n\nIn der Mitte des Raumes: ein Dell PowerEdge R730. Er läuft. Vier Netzwerkkabel. Ein Post-it:\n\n\"MARKETING CLOUD — NICHT AUSSCHALTEN — Björn\"\n\nDu googelst Björn. LinkedIn sagt: Björn Hartmann, seit 2021 bei einer Agentur in München. Sein letzter LinkedIn-Post ist ein Zitat über 'digitale Souveränität'. Das Datum: drei Wochen vor seinem Abgang bei Acme.\n\nDer Server blinkt gleichmäßig. Er wirkt zufrieden. Er hat keine Ahnung, was als nächstes passiert.",
+      "text": "UG-3 riecht nach altem Teppich, Ambitionen aus dem Jahr 2016 und einem Hauch von abgestandenem Red Bull.\n\nIn der Mitte des Raumes: ein Dell PowerEdge R730. Er läuft. Vier Netzwerkkabel. Ein Post-it:\n\n\"MARKETING CLOUD — NICHT AUSSCHALTEN — Björn\"\n\nDu googelst Björn. LinkedIn sagt: Björn Hartmann, seit 2021 bei einer Agentur in München. Sein letzter LinkedIn-Post ist ein Zitat über 'digitale Souveränität'. Das Datum: drei Wochen vor seinem Abgang bei Acme.\n\nDer Server blinkt gleichmäßig. Er wirkt zufrieden. Er hat keine Ahnung, was als nächstes passiert.\n\nDu öffnest das Terminal. Zeit für einen Scan.",
       "choices": [
         {
           "id": "c1",
@@ -74,7 +75,7 @@
       "locationName": "Keller UG-3",
       "npc": "kevin",
       "mood": "funny",
-      "text": "Du hast die Inventur des Servers abgeschlossen. Befund:\n\n— Adobe Creative Cloud: 8 Nutzerinstallationen. Keine gültige Lizenz.\n— Zoom Pro: 3 Accounts, Kreditkarte von Björn hinterlegt (abgelaufen).\n— Slack Premium Workspace \"Marketing-Secrets\": 47 Mitglieder. Das ist die gesamte Marketing-Abteilung.\n— Minecraft Java Edition Server: \"MineCorp\". 23 registrierte Spieler. Letzter Sessionstart: gestern, 14:23 Uhr. Uptime: 2 Jahre, 7 Monate.\n\nKevin steht neben dir. Er hat den letzten Punkt gesehen.\n\n\"Warte — ist das ein Survival- oder Creative-Server?\"\n\nDu schließt den Laptop.",
+      "text": "Der Scan hat es bestätigt. Du schaust Kevin an.\n\nBefund:\n\n— Adobe Creative Cloud: 8 Nutzerinstallationen. Keine gültige Lizenz.\n— Zoom Pro: 3 Accounts, Kreditkarte von Björn hinterlegt (abgelaufen).\n— Slack Premium Workspace \"Marketing-Secrets\": 47 Mitglieder. Das ist die gesamte Marketing-Abteilung.\n— Minecraft Java Edition Server: \"MineCorp\". 23 registrierte Spieler. Letzter Sessionstart: gestern, 14:23 Uhr. Uptime: 2 Jahre, 7 Monate.\n\nKevin steht neben dir. Er hat den letzten Punkt gesehen.\n\n\"Warte — ist das ein Survival- oder Creative-Server?\"\n\nDu schließt den Laptop.",
       "choices": [
         {
           "id": "c1",
@@ -98,7 +99,9 @@
           "effects": { "bullshit": 5, "burnout": -8, "kompetenz": -3, "kundenliebe": 3 },
           "flags": { "minecraft_joined": true },
           "next": "sh_04",
-          "feedback": "Kevin hat bereits einen Account erstellt. Du bist 40 Minuten weg. Die Map ist tatsächlich sehr gut. Björn hatte Recht. Das macht es nicht besser."
+          "feedback": "Kevin hat bereits einen Account erstellt. Du bist 40 Minuten weg. Die Map ist tatsächlich sehr gut. Björn hatte Recht. Das macht es nicht besser.",
+          "feedback_prefix_if_flag": "minecraft_approved",
+          "feedback_prefix": "Du hast es ja schon für lizenziert erklärt. Konsequent. "
         }
       ]
     },
@@ -230,7 +233,9 @@
           "text": "\"Es läuft noch. Aber ab nächsten Monat mit offizieller Minecraft: Bedrock Server Lizenz.\"",
           "effects": { "kompetenz": 3, "kundenliebe": 5, "prestige": -2, "bullshit": 3 },
           "next": "ending_success",
-          "feedback": "Müller-Brandt starrt dich an. Dann: ein kurzes, echtes Lachen. \"Schreiben Sie das nicht in den Bericht.\" Er schreibt sich selbst etwas auf. Du weißt nicht was."
+          "feedback": "Müller-Brandt starrt dich an. Dann: ein kurzes, echtes Lachen. \"Schreiben Sie das nicht in den Bericht.\" Er schreibt sich selbst etwas auf. Du weißt nicht was.",
+          "feedback_prefix_if_flag": "minecraft_approved",
+          "feedback_prefix": "'Es läuft noch. Aber jetzt mit Lizenz.' — Du hattest es ja bereits abgesegnet. "
         }
       ]
     }

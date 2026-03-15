@@ -1,0 +1,329 @@
+{
+  "id": "projekt_ki",
+  "title": "Wir brauchen KI. Sofort.",
+  "subtitle": "Was soll die KI machen? 'Alles optimieren.'",
+  "difficulty": "hard",
+  "comedyLevel": 5,
+  "requiredLevel": 3,
+  "unlockMessage": "Das hier wird... interessant.",
+  "xpReward": 240,
+  "scenes": [
+    {
+      "id": "ki_01",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Greysuit & Partner",
+      "npc": "dr_mueller",
+      "mood": "panic",
+      "text": "Dr. Müller-Brandt hat den Laptop offen, als du reinkommst. Er liest etwas. Sein Gesicht zeigt einen Ausdruck, den du noch nicht gesehen hast: konzentriertes Unverständnis.\n\nDer neue Auftrag: MedioPharma AG. 1.200 Mitarbeiter. Pharmazeutischer Großhandel. Sitz in Heidelberg. Der CEO — Marcus Frei, 51, Ausdauersportler — hat auf einer 14-Kilometer-Morgenrunde einen Podcast gehört. 'The AI-First Company'. Episode 47. 62 Minuten.\n\nEr hat seitdem beschlossen: MedioPharma braucht KI. In allen Abteilungen. Ab nächstem Monat.\n\nMüller-Brandt liest von seinen Notizen vor: 'KI für E-Mails. KI für Entscheidungen. KI für das Lager. KI für HR, damit wir weniger HR brauchen. Und...' Er pausiert. Er schaut nochmal auf den Block. 'KI die KI managed.'\n\nStille.\n\n'Das Budget ist flexibel.' Er macht Anführungszeichen mit den Fingern. 'Das heißt es gibt keins. Ihre Aufgabe: KI-Readiness Assessment und Lizenzierungsstrategie.'\n\nKein Kaffee. Kein Smalltalk.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "\"Welche konkreten Probleme soll die KI lösen?\"",
+          "effects": { "kompetenz": 6 },
+          "next": "ki_02",
+          "feedback": "Stille. Dann Müller-Brandt: 'Das... ist der Auftrag. Das herauszufinden.' Er schaut auf seine Notizen. Dann auf dich. Es scheint ihm gerade selbst aufzufallen, dass das die falsche Reihenfolge ist."
+        },
+        {
+          "id": "c2",
+          "text": "Begeistert einsteigen: GenAI, Maturity Model, Transformation Roadmap.",
+          "effects": { "bullshit": 8, "prestige": 5, "kompetenz": -3 },
+          "next": "ki_02",
+          "feedback": "Müller-Brandt ist begeistert. Du hast in vier Minuten dreimal 'GenAI' gesagt und einmal 'Large Language Model'. Kevin schaut aus dem Flur bewundernd zu. Du verlässt den Raum ohne einen einzigen Fakt."
+        },
+        {
+          "id": "c3",
+          "text": "\"Haben die überhaupt saubere Daten für KI?\"",
+          "effects": { "kompetenz": 8, "prestige": 2 },
+          "flags": { "data_quality_raised": true },
+          "next": "ki_02",
+          "feedback": "Müller-Brandt schreibt etwas auf seinen Block. 'Gute Frage.' Er klingt nicht überzeugt, dass es eine gute Frage ist. Es ist trotzdem die einzig richtige Frage."
+        },
+        {
+          "id": "c4",
+          "text": "Kevin fragen ob er KI kennt.",
+          "effects": { "bullshit": 3, "kompetenz": -2, "burnout": 3 },
+          "next": "ki_02",
+          "feedback": "Kevin hält sofort einen achtminütigen Vortrag. Er erwähnt 'Agentic Workflows' viermal. Er sagt 'das Modell halluziniert dann halt' wie jemand der 'manchmal regnet es' sagt. Niemand stoppt ihn."
+        }
+      ]
+    },
+    {
+      "id": "ki_02",
+      "location": "kundenbüro",
+      "locationEmoji": "👩‍💻",
+      "locationName": "MedioPharma AG — CTO-Büro",
+      "npc": null,
+      "npcInline": {
+        "emoji": "👩‍💻",
+        "name": "Dr. Ingrid Sasse",
+        "title": "CTO, MedioPharma AG"
+      },
+      "mood": "tense",
+      "text": "Dr. Ingrid Sasse ist technisch brillant, klar im Denken und seit drei Wochen sichtbar erschöpft. Sie wurde am Freitag um 17:55 Uhr über das KI-Projekt informiert. Sie hat seitdem eine 12-seitige technische Risikoanalyse geschrieben.\n\nNiemand hat sie gelesen.\n\nSie legt dir eine Kopie auf den Tisch. Das Dokument ist präzise formatiert. Es hat ein Inhaltsverzeichnis. Seite 2 enthält den Satz: 'Ohne Datenstrategie ist KI-Implementierung Cargo Cult.'\n\nSie schaut dich an.\n\n'Lesen Sie das. Bitte. Ich flehe Sie an.'\n\nDiese drei Sätze klingen wie der letzte vernünftige Satz, den jemand in diesem Gebäude sagen wird.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Das Dokument sofort vollständig lesen.",
+          "effects": { "kompetenz": 8, "burnout": 5 },
+          "flags": { "read_sasse_doc": true },
+          "next": "ki_03",
+          "feedback": "12 Seiten. Dicht. Brillant. Datenqualität: 3/10. IT-Infrastruktur: nicht KI-tauglich. Change-Management-Reife: niedrig. Du unterstreichst 'Cargo Cult'. Du fotografierst es. Du schickst es dir selbst."
+        },
+        {
+          "id": "c2",
+          "text": "Kurz überfliegen und Highlights markieren.",
+          "effects": { "kompetenz": 4, "burnout": 2 },
+          "next": "ki_03",
+          "feedback": "Du erfasst 70% der Risiken. Das ist mehr als jeder andere in diesem Gebäude. Dr. Sasse beobachtet dich. Du kannst nicht sagen ob sie enttäuscht oder erleichtert ist."
+        },
+        {
+          "id": "c3",
+          "text": "Dr. Sasse fragen ob sie die Kernpunkte kurz zusammenfassen kann.",
+          "effects": { "kompetenz": 2, "kundenliebe": 5 },
+          "flags": { "sasse_ally": true },
+          "next": "ki_03",
+          "feedback": "Sie seufzt. Dann: ein kurzes, echtes Lächeln. 'Endlich fragt das jemand.' Sie fasst in drei Minuten zusammen, was vier Monate Analyse ergab. Du schreibst mit. Du schreibst sehr schnell."
+        }
+      ]
+    },
+    {
+      "id": "ki_03",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum A4 — Vendor Day",
+      "npc": null,
+      "mood": "funny",
+      "text": "Vendor Day. Drei KI-Anbieter präsentieren nacheinander. Alle drei behaupten, 'die führende KI-Plattform für Pharmaunternehmen' zu sein. Alle drei haben Fallstudien, die sich verdächtig ähneln. Alle drei haben eine Folie mit dem Wort 'REVOLUTION' in sehr großen Buchstaben.\n\nAnbieter A: 180.000 Euro pro Jahr. 'KI-powered everything.' Demo bricht zweimal ab. Der Vertriebsmann sagt beide Male: 'Das sehen Sie live nur so selten.'\n\nAnbieter B: 95.000 Euro pro Jahr. 'Purpose-built for pharma AI.' Demo funktioniert, ist aber sehr langsam. Der Fortschrittsbalken friert bei 73% ein. Er bewegt sich nach 90 Sekunden wieder. Niemand spricht in dieser Zeit.\n\nAnbieter C: 40.000 Euro pro Jahr. Ein OpenAI-API-Wrapper mit einer schönen Benutzeroberfläche. Der Gründer ist 24. Er sagt 'disruption' alle 90 Sekunden. Die Präsentation hat kein Inhaltsverzeichnis. Sie hat eine Spotify-Playlist-Empfehlung auf der letzten Folie.\n\nDr. Sasse sitzt neben dir. Sie schreibt nach jedem Anbieter genau ein Wort auf ihren Block:\n'Nein.'\n'Vielleicht.'\n'Kevin könnte das bauen.'",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Dr. Sasses Einschätzung folgen — Anbieter B weiterverfolgen.",
+          "effects": { "kompetenz": 6, "kundenliebe": 4 },
+          "flags": { "vendor_b_preferred": true },
+          "next": "ki_04",
+          "feedback": "Du und Dr. Sasse nicken bei denselben Punkten synchron. Es ist das erste Mal heute, dass du dich nicht allein fühlst. Sie sieht das. Sie nickt kurz. Das ist ihr Äquivalent zu einem High-Five."
+        },
+        {
+          "id": "c2",
+          "text": "Anbieter A empfehlen — bekannte Marke, professioneller Auftritt.",
+          "effects": { "bullshit": 6, "prestige": 3, "kompetenz": -4 },
+          "flags": { "vendor_a_endorsed": true },
+          "next": "ki_04",
+          "feedback": "Der Markenname beruhigt Marcus Frei. Er nennt das 'ein gutes Gefühl'. Dr. Sasse schreibt etwas auf ihren Block. Sie dreht ihn um. Du wirst es nicht lesen."
+        },
+        {
+          "id": "c3",
+          "text": "Anbieter C als innovativen Startup-Ansatz positionieren.",
+          "effects": { "bullshit": 8, "kompetenz": -2 },
+          "flags": { "vendor_c_chaos": true },
+          "next": "ki_04",
+          "feedback": "Der 24-jährige Gründer freut sich sehr. Er sagt 'let's disrupt this.' Er meint das ernst. Dr. Sasse verlässt kurz den Raum. Sie kommt nach fünf Minuten zurück. Sie setzt sich. Sie sagt nichts. Das sagt alles."
+        }
+      ]
+    },
+    {
+      "id": "ki_04",
+      "location": "homeoffice",
+      "locationEmoji": "🏠",
+      "locationName": "Home Office — KI-Readiness Assessment",
+      "npc": null,
+      "mood": "tense",
+      "text": "Du schreibst den KI-Readiness Assessment. Die Fakten laut Dr. Sasses Dokument:\n\n— Datenqualität: 3/10. Sechs Systeme, keine einheitliche Datenstrategie, manuelle Prozesse in der Bestandsführung.\n— IT-Infrastruktur: nicht KI-tauglich. On-Premise, kein GPU-Capacity, Legacy-APIs.\n— Change-Management-Reife: niedrig. Das letzte Transformationsprojekt wurde 2021 nach vier Monaten eingestellt.\n— KI-Kompetenz der Belegschaft: minimal. Drei Personen haben ein Webinar besucht. Das Webinar hieß: 'ChatGPT für den Alltag.'\n— Realistische KI-Readiness-Timeline: 12–18 Monate Vorbereitung — bevor irgendwas mit KI anfängt.\n\nMarcus Frei erwartet bis Ende des Monats einen 'KI-Rollout-Plan'.\n\nEs ist Ende des Monats in neun Tagen.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Ehrliche Readiness-Bewertung: 3/10, klare Maßnahmen, reale Timeline.",
+          "effects": { "kompetenz": 8, "prestige": 2 },
+          "flags": { "honest_assessment": true },
+          "next": "ki_05",
+          "feedback": "Seite 2, erster Satz: 'MedioPharma AG ist derzeit nicht für eine KI-Implementierung bereit.' Du speicherst das Dokument. Dateiname: FINAL_v1.docx. Es ist das mutigste Ding, das du je als FINAL_v1 gespeichert hast."
+        },
+        {
+          "id": "c2",
+          "text": "Readiness auf 6/10 hochschreiben mit 'strategischem Optimierungspotenzial'.",
+          "effects": { "bullshit": 6, "burnout": 8 },
+          "next": "ki_05",
+          "feedback": "Jedes '3/10' ist jetzt '6/10 mit identifiziertem Upside-Potenzial'. Jede Schwäche ist eine 'Transformationschance'. Du hast die deutsche Sprache auf ein neues Niveau gebracht. Es ist kein gutes Niveau."
+        },
+        {
+          "id": "c3",
+          "text": "Dr. Sasse fragen ob sie Co-Autorin sein will.",
+          "effects": { "kompetenz": 5, "kundenliebe": 8, "prestige": 3 },
+          "flags": { "sasse_coauthor": true },
+          "next": "ki_05",
+          "feedback": "Sie sagt ohne Zögern ja. Das Dokument wird in 48 Stunden das Beste, das du je gesehen hast. Präzise, mutig, quellenbasiert. Ihr Name steht zuerst drauf. Das ist fair. Das ist sehr fair."
+        }
+      ]
+    },
+    {
+      "id": "ki_05",
+      "location": "konferenz",
+      "locationEmoji": "🎯",
+      "locationName": "Konferenzraum B1 — CEO-Meeting",
+      "npc": null,
+      "npcInline": {
+        "emoji": "🎯",
+        "name": "Marcus Frei",
+        "title": "CEO, MedioPharma AG"
+      },
+      "mood": "funny",
+      "text": "Marcus Frei betritt den Raum mit der Energie von jemandem, der gerade joggen war. Er war gerade joggen.\n\nEr öffnet mit: 'Ich war heute morgen laufen und hatte eine Idee. Was wenn wir die KI die Lagerlogistik komplett autonom steuern lassen? Ohne Menschen?'\n\nEr sagt das wie man sagt: 'Was wenn wir den Drucker in den anderen Raum stellen?'\n\nDr. Sasse macht ein Geräusch. Es ist kein Wort. Es ist das Geräusch von jemandem, der versucht, kein Wort zu sagen.\n\nMarcus schaut euch beide an. Er ist ernsthaft begeistert. Er hat das auf seinen restlichen fünf Kilometern durchgedacht. Er hat sogar eine Skizze auf einer Serviette. Die Skizze zeigt: 'KI' mit einem Pfeil zu 'Lager' mit einem Pfeil zu 'Profit'. Zwischen KI und Lager: ein Blitzsymbol.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Ruhig die regulatorischen Anforderungen in der Pharmabranche erklären.",
+          "effects": { "kompetenz": 8, "prestige": 4 },
+          "next": "ki_06",
+          "feedback": "Du erklärst: autonome Lagersteuerung in Pharma braucht FDA/EMA-Validierung, GxP-Compliance, vollständigen Audit Trail — per EU-Recht. Marcus nickt wie jemand der wartet bis du fertig bist. Aber der CFO neben ihm macht sich Notizen."
+        },
+        {
+          "id": "c2",
+          "text": "Begeistert die Vision aufgreifen und ausbauen.",
+          "effects": { "bullshit": 10, "kundenliebe": 5, "kompetenz": -6 },
+          "flags": { "ceo_vision_endorsed": true },
+          "next": "ki_06",
+          "feedback": "Marcus ist SEHR glücklich. Ihr redet 20 Minuten über 'autonome Pharmalogistik der Zukunft'. Du hörst Dr. Sasse leise 'nein' sagen. Nur du hörst es. Das macht es schlimmer."
+        },
+        {
+          "id": "c3",
+          "text": "Dr. Sasse das Wort geben.",
+          "effects": { "kompetenz": 5, "kundenliebe": 4 },
+          "next": "ki_06",
+          "feedback": "Dr. Sasse sagt in 90 Sekunden mehr Substanzielles als in den letzten zwei Stunden zusammen. Regulatorik. Haftung. Validierungspflicht. Marcus schaut auf sein Handy. Der CFO hört weiter zu."
+        }
+      ]
+    },
+    {
+      "id": "ki_06",
+      "location": "konferenz",
+      "locationEmoji": "📊",
+      "locationName": "Konferenzraum A4 — KI-Readiness Review",
+      "npc": "kevin",
+      "minigame": "ki_assessment",
+      "mood": "funny",
+      "text": "Kevin hat über Nacht ein 'KI Readiness Dashboard' gebaut. Er hat dafür ein Template von GitHub verwendet. Es sieht beeindruckend aus: Speedometer-Grafiken, Radarcharts, eine animierte Fortschrittsleiste. Der Score steht groß in der Mitte: 78/100.\n\nDie Daten dahinter stammen aus dem Demo-Dataset, das mit dem Template mitgeliefert wurde. Kevin hat das nicht geändert. Er fand die Zahlen 'realistisch'.\n\nDr. Sasse schaut auf den Bildschirm. Dann auf Kevin. Dann auf dich. Ihr Blick sagt: 'Ich war dabei. Das ist in meinem Abschlussbericht.'\n\nBevor du die Zahlen präsentierst — Zeit für den echten Assessment.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Kevins Dashboard korrigieren — echte Zahlen aus dem Assessment einsetzen.",
+          "effects": { "kompetenz": 5, "bullshit": -5 },
+          "next": "ki_07",
+          "feedback": "Die echte Gesamtzahl liegt — je nach Minigame-Ergebnis — deutlich unter 78. Kevin ist kurz traurig. Dann: 'Ich kann das Farbschema noch anpassen.' Du lässt ihn nicht."
+        },
+        {
+          "id": "c2",
+          "text": "Kevins Zahlen 'angleichen' — Gewichtungsanpassung der Metriken.",
+          "effects": { "bullshit": 8, "burnout": 8 },
+          "next": "ki_07",
+          "feedback": "31 wird zu 58 nach 'kontextueller Metrik-Gewichtung unter Berücksichtigung des Transformations-Upside-Potenzials'. Das ist Consulting-Mathematik. Kevin staunt. Du bist nicht stolz."
+        },
+        {
+          "id": "c3",
+          "text": "Kevins Dashboard gar nicht zeigen — stattdessen Dr. Sasses Dokument.",
+          "effects": { "kompetenz": 3, "prestige": 2 },
+          "flags": { "sasse_doc_presented": true },
+          "next": "ki_07",
+          "feedback": "Du öffnest das 12-seitige Dokument. Es ist nicht bunt. Es hat kein Speedometer. Es ist aber richtig. Marcus schaut. Der CFO liest. Das ist ein Unterschied."
+        }
+      ]
+    },
+    {
+      "id": "ki_07",
+      "location": "konferenz",
+      "locationEmoji": "🏛️",
+      "locationName": "Boardroom — MedioPharma AG",
+      "npc": null,
+      "mood": "tense",
+      "text": "Board-Meeting. Acht Personen um einen langen Tisch. Sieben haben den Assessment-Bericht nicht gelesen — du weißt das, weil er gestern Abend verschickt wurde und drei der Lesebestätigungen 'nicht geöffnet' zeigen. Zwei Board-Mitglieder schauen auf ihre Handys. Eines schläft oder denkt sehr tief nach. Unklar.\n\nMarcus präsentiert. Folie 1: 'MedioPharma — Becoming AI-First'. Er verwendet dabei das Wort 'disruptiv' ohne Augenzwinkern.\n\nFolie 7: er zeigt DEIN Assessment. Er nennt es 'unsere Analyse'. Er hat seinen Namen drübergeschrieben.\n\nEr dreht sich zu dir. Er nickt. Er erwartet ein bestätigendes Nicken zurück.\n\nDr. Sasse sitzt neben dir. Sie schaut geradeaus. Sie wartet.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Nicken. Die Präsentation unterstützen.",
+          "effects": { "bullshit": 5, "kundenliebe": 3, "kompetenz": -2 },
+          "next": "ki_08",
+          "feedback": "Du nickst. Marcus nickt. Das Board nickt. Niemand hat die Risiko-Folie gesehen — sie war auf Seite 14 von 16. Das Geräusch, das du hörst, ist Dr. Sasse, die ihren Stift ablegt."
+        },
+        {
+          "id": "c2",
+          "text": "Auf die wichtigsten Risiken hinweisen — diplomatisch, klar.",
+          "effects": { "kompetenz": 6, "prestige": 4 },
+          "next": "ki_08",
+          "feedback": "Zwei Board-Mitglieder legen ihre Handys weg. Der CFO fragt nach. Marcus lächelt nicht mehr — aber der CFO nickt anerkennend. Du hast die Risiko-Folie gerettet."
+        },
+        {
+          "id": "c3",
+          "text": "Dr. Sasse ansehen. Ihr zunicken. Sie spricht.",
+          "requires_flag": "sasse_ally",
+          "effects": { "kompetenz": 8, "prestige": 6, "kundenliebe": 8 },
+          "next": "ki_08",
+          "feedback": "Dr. Sasse spricht vier Minuten. Das Board ist ruhig. Echte Stille. Drei Board-Mitglieder stellen ihre Handys weg. Das Schlafende/Denkende wacht auf. Es stellt eine Frage. Es ist die beste Frage des Tages."
+        }
+      ]
+    },
+    {
+      "id": "ki_08",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Greysuit & Partner, Projektdebrief",
+      "npc": "dr_mueller",
+      "mood": "neutral",
+      "text": "Müller-Brandt hat den Abschlussbericht auf dem Tisch. Er schaut dich an.\n\n'Das war ein... interessantes Projekt.'\n\nIm Consulting bedeutet 'interessant': es war irgendwo zwischen brillant und Chaos. Manchmal beides.\n\nDr. Sasses zweites Dokument liegt daneben — 18 Seiten, 'KI-Implementierung: Zwischenbilanz und Kurskorrektur'. Drei Personen haben es gelesen. Müller-Brandt ist eine davon. Er hat Seite 4 markiert.\n\nStatus: MedioPharma hat nun ein KI-Strategie-Dokument, einen Board-Beschluss, und die vage Zusage von Anbieter B für eine Pilotphase. Das Lager ist noch nicht autonom. Marcus hat das als 'Phase 0' bezeichnet.\n\nWie rahmst du das ab.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Ehrliche Ergebnisse präsentieren — was funktioniert hat, was nicht.",
+          "effects": { "kompetenz": 5, "prestige": 3 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt nickt. 'Das ist... solide.' Er legt den Bericht weg. 'Dr. Sasse hat übrigens gefragt ob sie beim nächsten Projekt wieder dabei sein kann.' Er sagt das beiläufig. Es ist nicht beiläufig."
+        },
+        {
+          "id": "c2",
+          "text": "Projekt als Erfolg verkaufen — KI-Strategie steht, Pilot startet.",
+          "effects": { "bullshit": 8, "prestige": 2 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt liest das Executive Summary. Er macht keine Anmerkungen. Das ist entweder gut oder er hat aufgehört Anmerkungen zu machen. Du bist dir nicht sicher welches schlimmer wäre."
+        },
+        {
+          "id": "c3",
+          "text": "Follow-up mit Dr. Sasse vorschlagen: gemeinsames Folgeprojekt, Phase 2.",
+          "requires_flag": "sasse_ally",
+          "effects": { "prestige": 10, "kompetenz": 3 },
+          "next": "ending_success_extended",
+          "feedback": "Dr. Sasse antwortet innerhalb von vier Minuten. Das passiert nicht oft. 'Ja. Aber ich schreibe diesmal den Scope.' Du sagst: selbstverständlich. Das ist das Richtige."
+        },
+        {
+          "id": "c4",
+          "text": "Vendor A hat den Auftrag bekommen. Marcus hat unterschrieben. Letzte Woche.",
+          "requires_flag": "ceo_vision_endorsed",
+          "effects": { "burnout": 12, "prestige": -6 },
+          "next": "ending_disaster",
+          "feedback": "Müller-Brandt schließt die Augen. Eine Sekunde. 'Wann?' 'Letzte Woche Donnerstag.' 'Hat er das mit uns abgesprochen?' Du antwortest nicht. Du musst nicht."
+        }
+      ]
+    }
+  ],
+  "endings": {
+    "ending_success": {
+      "type": "success",
+      "title": "KI-Strategie: Fundament gelegt",
+      "text": "MedioPharma hat eine ehrliche KI-Roadmap. 18 Monate Vorbereitung, Datenstrategie zuerst, dann ein Pilot mit Anbieter B. Dr. Sasse leitet das Programm intern.\n\nMarcus hat es auf LinkedIn gepostet: 'MedioPharma — Our AI Journey has begun. 🚀 Proud to lead this transformation.' 3.400 Impressions. Er hat dabei ein Bild von sich beim Joggen verwendet.\n\nTechnisch ist der Post nicht falsch. Das ist das Beste was man sagen kann.\n\nDer Fortschrittsbalken von Anbieter B ist übrigens bei 73% stecken. Er hat sich noch nicht bewegt. Bernd — der IT-Leiter — sagt das sei 'normal für Phase 1'.",
+      "xp": 210,
+      "achievement": "ki_realist"
+    },
+    "ending_success_extended": {
+      "type": "success",
+      "title": "Follow-up gesichert: Dr. Sasse als Projektpartnerin",
+      "text": "Phase 2 entsteht. Dr. Sasse schreibt den Scope — alle 23 Seiten davon. Du liest ihn. Vollständig. Du fotografierst zwei Seiten.\n\nMedioPharma hat jetzt jemanden, der intern den Kurs hält. Das ist seltener als es sein sollte.\n\nKevin hat ein neues Dashboard gebaut. Die Daten kommen diesmal aus dem echten System. Der Score steht bei 47/100. Kevin findet das 'realistisch'. Das stimmt. Das ist auch das erste Mal, dass Kevin etwas realistisch findet.\n\nMarcus schreibt einen weiteren LinkedIn-Post. Diesmal über 'authentische KI-Führung'. Er hat das Wort 'authentisch' gelernt. Irgendwo.",
+      "xp": 240,
+      "achievement": "ki_realist"
+    },
+    "ending_disaster": {
+      "type": "disaster",
+      "title": "💥 KI-DESASTER: Vendor A liefert. Das Falsche.",
+      "text": "Die 180.000-Euro-Lösung wurde implementiert. Sie wurde auf das Testsystem aufgesetzt. Das Testsystem war tatsächlich ein Produktivsystem — niemand hatte das dokumentiert.\n\nDie Daten wurden nie bereinigt. Das Modell hat auf unbereinigten Daten trainiert. Es optimiert jetzt das Lager nach Mustern aus 2019, als es eine Lieferkettenunterbrechung gab.\n\nMarcus postet weiter über KI auf LinkedIn. Seine Beitragsaufrufe steigen. Das Unternehmen nicht.\n\nDr. Sasse hat das Unternehmen verlassen. Ihre Abschluss-E-Mail war 847 Wörter lang. Die ersten 12 Wörter: 'Ich hatte das in meinem ersten Dokument dokumentiert, Seite 3, Absatz 2.'\n\nSie hatte recht. Sie hatte immer recht.",
+      "xp": 90,
+      "achievement": "hall_5"
+    }
+  }
+}
