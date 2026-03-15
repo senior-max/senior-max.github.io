@@ -32,6 +32,9 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ── HUD ────────────────────────────────────────────────── */
@@ -47,6 +50,9 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #hud-title {
@@ -54,6 +60,7 @@ body {
   font-size: var(--font-size-sm);
   text-transform: uppercase;
   letter-spacing: 2px;
+  flex-shrink: 0;
 }
 
 #hud-stats {
@@ -212,6 +219,10 @@ body {
   flex-direction: column;
   gap: var(--space-md);
   flex: 1;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 #scene-location {
@@ -224,6 +235,45 @@ body {
 #npc-display {
   font-size: var(--font-size-lg);
   padding: var(--space-sm) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+  flex: 1 1 auto;
+  max-width: 200px;
+  overflow: hidden;
+}
+
+#npc-display .npc-portrait {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+#npc-display .npc-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow: hidden;
+}
+
+#npc-display .npc-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#npc-display .npc-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #story-text {
@@ -436,6 +486,8 @@ input[type="range"] {
 
   #npc-display {
     text-align: center;
+    max-width: none;
+    flex: 1 1 auto;
   }
 
   #game-container {

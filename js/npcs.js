@@ -92,10 +92,10 @@ function buildNPCDisplayHTML(npc, accentColor, npcId) {
     ? 'color:var(--color-accent-red);font-size:9px;text-transform:uppercase;letter-spacing:1px;animation:flickerLoop 0.4s infinite;'
     : 'color:var(--color-text-secondary);font-size:10px;text-transform:uppercase;letter-spacing:1px;';
   return `
-    <span style="font-size:2rem;line-height:1;" aria-hidden="true">${npc.emoji}</span>
-    <span style="display:flex;flex-direction:column;gap:1px;">
-      <span style="color:${accentColor};font-size:var(--font-size-sm);">${npc.name}</span>
-      <span style="${titleStyle}">${titleText}</span>
+    <span class="npc-portrait" aria-hidden="true">${npc.emoji}</span>
+    <span class="npc-info">
+      <span class="npc-name" style="color:${accentColor};font-size:var(--font-size-sm);">${npc.name}</span>
+      <span class="npc-title" style="${titleStyle}">${titleText}</span>
     </span>
   `;
 }
@@ -158,10 +158,10 @@ function renderNPCInline(npcData) {
   ].join(';');
 
   el.innerHTML = `
-    <span style="font-size:2rem;line-height:1;" aria-hidden="true">${npcData.emoji ?? '👤'}</span>
-    <span style="display:flex;flex-direction:column;gap:1px;">
-      <span style="color:${accentColor};font-size:var(--font-size-sm);">${npcData.name ?? ''}</span>
-      <span style="color:var(--color-text-secondary);font-size:10px;text-transform:uppercase;letter-spacing:1px;">${npcData.title ?? ''}</span>
+    <span class="npc-portrait" aria-hidden="true">${npcData.emoji ?? '👤'}</span>
+    <span class="npc-info">
+      <span class="npc-name" style="color:${accentColor};font-size:var(--font-size-sm);">${npcData.name ?? ''}</span>
+      <span class="npc-title" style="color:var(--color-text-secondary);font-size:10px;text-transform:uppercase;letter-spacing:1px;">${npcData.title ?? ''}</span>
     </span>
   `;
 }
