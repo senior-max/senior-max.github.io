@@ -13,7 +13,7 @@ function debugLog(msg, data) {
 }
 
 const FLEXERA_ORANGE = '#E8622A';
-const TIMER_SECONDS = 75;
+const FLEXERA_FLEXERA_TIMER_SECONDS = 75;
 const LOADING_CHANCE = 0.3;
 const LOADING_MS = 800;
 const SESSION_WARNING_AT = 30;
@@ -89,7 +89,7 @@ window.FlexeraMinigame = (function () {
     sessionWarningTimeout: null,
     loadingTimeout: null,
     onComplete: null,
-    timeLeft: TIMER_SECONDS,
+    timeLeft: FLEXERA_TIMER_SECONDS,
     overlayEl: null,
     contentEl: null,
     sidebarEl: null,
@@ -609,7 +609,7 @@ window.FlexeraMinigame = (function () {
     debugLog('Minigame started');
 
     state.onComplete = onComplete;
-    state.timeLeft = TIMER_SECONDS;
+    state.timeLeft = FLEXERA_TIMER_SECONDS;
     state.breadcrumb = [];
     state.currentNode = NAV_TREE;
     state.clickCount = 0;

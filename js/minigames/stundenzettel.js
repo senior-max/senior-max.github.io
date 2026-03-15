@@ -15,7 +15,7 @@ const ACTIVITY_BLOCKS = [
   { id: 'a7', description: 'Diverse Tätigkeiten, die zu keiner Kategorie passen', suggestedHours: 6, correctKST: 'KST-0001' },
 ];
 
-const DURATION = 90;
+const STZ_DURATION = 90;
 const FALLBACK_KST = 'KST-0001';
 
 window.StundenzettelMinigame = (function () {
@@ -23,7 +23,7 @@ window.StundenzettelMinigame = (function () {
   let kostenstellen = [];
   let assignments = {}; // blockId -> { hours, kstId }
   let timerHandle = null;
-  let timeLeft = DURATION;
+  let timeLeft = STZ_DURATION;
   let overlayEl = null;
   let onCompleteCallback = null;
 
@@ -87,7 +87,7 @@ window.StundenzettelMinigame = (function () {
       </div>
       <div style="display:flex;align-items:center;gap:var(--space-md);">
         <button id="stz-abort" class="choice-btn" style="font-size:var(--font-size-sm);padding:var(--space-sm) var(--space-md);background:var(--color-surface-elevated);color:var(--color-text-secondary);">Abbrechen</button>
-        <div id="stz-timer" style="font-size:var(--font-size-lg);color:var(--color-accent-amber);">${DURATION}s</div>
+        <div id="stz-timer" style="font-size:var(--font-size-lg);color:var(--color-accent-amber);">${STZ_DURATION}s</div>
       </div>
     `;
     overlayEl.appendChild(hdr);
@@ -257,7 +257,7 @@ window.StundenzettelMinigame = (function () {
   // ── Timer ───────────────────────────────────────────────
 
   function startTimer() {
-    timeLeft = DURATION;
+    timeLeft = STZ_DURATION;
     timerHandle = setInterval(() => {
       timeLeft--;
       const el = overlayEl?.querySelector('#stz-timer');

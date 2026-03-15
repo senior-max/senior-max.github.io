@@ -6,7 +6,7 @@
  */
 
 const SN_GREEN = '#62D84E';
-const TIMER_SECONDS = 90;
+const SERVICENOW_SERVICENOW_TIMER_SECONDS = 90;
 const CI_SEARCH_FAILS_BEFORE_MESSAGE = 3;
 
 const VENDORS = [
@@ -30,7 +30,7 @@ window.ServiceNowMinigame = (function () {
   let formEl = null;
   let onCompleteCallback = null;
   let timerHandle = null;
-  let timeLeft = TIMER_SECONDS;
+  let timeLeft = SERVICENOW_TIMER_SECONDS;
   let submitCount = 0;
   let draftCount = 0;
   let ciSearchCount = 0;
@@ -495,7 +495,7 @@ window.ServiceNowMinigame = (function () {
 
   function start(onComplete) {
     onCompleteCallback = onComplete;
-    timeLeft = TIMER_SECONDS;
+    timeLeft = SERVICENOW_TIMER_SECONDS;
     submitCount = 0;
     draftCount = 0;
     ciSearchCount = 0;

@@ -7,7 +7,7 @@
  */
 
 const SNOW_BLUE = '#00B4D8';
-const TIMER_SECONDS = 60;
+const SNOW_REPORT_SNOW_REPORT_TIMER_SECONDS = 60;
 const CORRECT_ANSWER = -89;
 
 window.SnowReportMinigame = (function () {
@@ -16,7 +16,7 @@ window.SnowReportMinigame = (function () {
   let overlayEl = null;
   let onCompleteCallback = null;
   let timerHandle = null;
-  let timeLeft = TIMER_SECONDS;
+  let timeLeft = SNOW_REPORT_TIMER_SECONDS;
   let tabsRead = { tab1: false, tab2: false, tab3: false };
   let answered = false;
 
@@ -283,7 +283,7 @@ window.SnowReportMinigame = (function () {
 
   function start(onComplete) {
     onCompleteCallback = onComplete;
-    timeLeft = TIMER_SECONDS;
+    timeLeft = SNOW_REPORT_TIMER_SECONDS;
     tabsRead = { tab1: false, tab2: false, tab3: false };
     answered = false;
 

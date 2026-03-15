@@ -5,7 +5,7 @@
  * Player scrolls through fake server logs and marks suspicious entries.
  */
 
-const DURATION = 90;
+const LOGFILE_DURATION = 90;
 const MAX_MARKS = 8;
 const AUTO_SCROLL_INTERVAL = 15000;
 const AUTO_SCROLL_PX = 200;
@@ -20,7 +20,7 @@ window.LogfileSearchMinigame = (function () {
   let onCompleteCallback = null;
   let timerHandle = null;
   let autoScrollHandle = null;
-  let timeLeft = DURATION;
+  let timeLeft = LOGFILE_DURATION;
   let marked = new Set();
   let buchhaltungMarked = false;
   let autoScrollCount = 0;
@@ -388,7 +388,7 @@ window.LogfileSearchMinigame = (function () {
 
   function start(onComplete) {
     onCompleteCallback = onComplete;
-    timeLeft = DURATION;
+    timeLeft = LOGFILE_DURATION;
     marked = new Set();
     buchhaltungMarked = false;
     autoScrollCount = 0;

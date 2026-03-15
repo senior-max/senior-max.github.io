@@ -44,7 +44,7 @@ const SOFTWARE_ITEMS = [
 
 /** @type {(string|null)[]} Player answers indexed by SOFTWARE_ITEMS position. */
 let answers = [];
-let timerInterval = null;
+let excelTimerInterval = null;
 let timeLeft = 60;
 /** @type {Function|null} */
 let onCompleteCallback = null;
@@ -183,11 +183,11 @@ function selectAnswer(index, value, color, card, btnRow) {
  */
 function startTimer() {
   timeLeft = 60;
-  timerInterval = setInterval(() => {
+  excelTimerInterval = setInterval(() => {
     timeLeft -= 1;
     updateTimerBar(timeLeft);
     if (timeLeft <= 0) {
-      clearInterval(timerInterval);
+      clearInterval(excelTimerInterval);
       finish();
     }
   }, 1000);
@@ -287,10 +287,10 @@ function showResult(score) {
  * @param {number} score
  */
 function cleanup(score) {
-  clearInterval(timerInterval);
+  clearInterval(excelTimerInterval);
   overlayEl?.remove();
   overlayEl = null;
-  timerInterval = null;
+  excelTimerInterval = null;
   answers = [];
 
   if (typeof onCompleteCallback === 'function') {
@@ -302,7 +302,7 @@ function cleanup(score) {
  * Stops the timer, calculates the score, and shows the result screen.
  */
 function finish() {
-  clearInterval(timerInterval);
+  clearInterval(excelTimerInterval);
   const score = calculateScore();
   showResult(score);
 }

@@ -33,7 +33,7 @@ const CATEGORIES = [
 let assignments = [];
 /** @type {number|null} Currently selected receipt index, or null. */
 let selectedIndex = null;
-let timerInterval = null;
+let reisekostenTimerInterval = null;
 let timeLeft = 90;
 /** @type {Function|null} */
 let onCompleteCallback = null;
@@ -288,11 +288,11 @@ function setStatus(text) {
 /** Starts the 90-second countdown. */
 function startTimer() {
   timeLeft = 90;
-  timerInterval = setInterval(() => {
+  reisekostenTimerInterval = setInterval(() => {
     timeLeft -= 1;
     updateTimerBar(timeLeft);
     if (timeLeft <= 0) {
-      clearInterval(timerInterval);
+      clearInterval(reisekostenTimerInterval);
       finish();
     }
   }, 1000);
@@ -405,7 +405,7 @@ function showResult(score) {
  * Stops the timer, calculates the score, and shows the result screen.
  */
 function finish() {
-  clearInterval(timerInterval);
+  clearInterval(reisekostenTimerInterval);
   const score = calculateScore();
   showResult(score);
 }
@@ -417,7 +417,7 @@ function finish() {
 function cleanup(score) {
   overlayEl?.remove();
   overlayEl      = null;
-  timerInterval  = null;
+  reisekostenTimerInterval  = null;
   selectedIndex  = null;
   assignments    = [];
 
