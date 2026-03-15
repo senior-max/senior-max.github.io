@@ -126,6 +126,46 @@ function typeText(text, selector, speed = 28) {
   });
 }
 
+/** Stat config for effect badges: emoji, label, invertColor (positive = bad). */
+const EFFECT_BADGE_CONFIG = {
+  kompetenz:   { emoji: '🧠', label: 'Kompetenz',   invertColor: false },
+  bullshit:    { emoji: '💬', label: 'Bullshit',    invertColor: true },
+  kundenliebe: { emoji: '❤️', label: 'Kundenliebe', invertColor: false },
+  burnout:     { emoji: '🔥', label: 'Burnout',     invertColor: true },
+  prestige:    { emoji: '⭐', label: 'Prestige',    invertColor: false },
+};
+
+/**
+ * Renders effect badges for a choice. Returns empty string if no effects or hideEffects.
+ * @param {Object} choice
+ * @returns {string} HTML for effect bar or empty
+ */
+function renderEffectBadges(choice) {
+  if (choice.hideEffects) {
+    return '<div class="effect-bar effect-hidden"><span class="effect-unknown">? ? ?</span></div>';
+  }
+  const effects = choice.effects;
+  if (!effects || Object.keys(effects).length === 0) return '';
+
+  const entries = Object.entries(effects).filter(([, v]) => v !== 0);
+  if (entries.length === 0) return '';
+
+  const badges = entries
+    .map(([stat, value]) => {
+      const config = EFFECT_BADGE_CONFIG[stat];
+      if (!config) return '';
+      const isPositive = value > 0;
+      const prefix = isPositive ? '+' : '';
+      const colorClass = config.invertColor
+        ? (isPositive ? 'effect-bad' : 'effect-good')
+        : (isPositive ? 'effect-good' : 'effect-bad');
+      return `<span class="effect-badge ${colorClass}">${config.emoji} ${prefix}${value}</span>`;
+    })
+    .join('');
+
+  return badges ? `<div class="effect-bar">${badges}</div>` : '';
+}
+
 /**
  * Renders a set of choice buttons into #choices-container.
  * Staggered entrance animation applied via inline delay.
@@ -148,11 +188,22 @@ function renderChoices(choices) {
     const label = (lastScore >= 70 && choice.text_fast) ? choice.text_fast
       : (lastScore < 70 && choice.text_slow) ? choice.text_slow
       : choice.text;
-    btn.textContent = label;
     btn.style.animationDelay = `${index * 80}ms`;
 
     btn.setAttribute('aria-describedby', 'story-text');
     btn.setAttribute('data-choice-index', String(index));
+
+    const textSpan = document.createElement('span');
+    textSpan.className = 'choice-text';
+    textSpan.textContent = label;
+    btn.appendChild(textSpan);
+
+    const effectHtml = renderEffectBadges(choice);
+    if (effectHtml) {
+      const effectWrap = document.createElement('div');
+      effectWrap.innerHTML = effectHtml;
+      btn.appendChild(effectWrap.firstElementChild);
+    }
 
     btn.addEventListener('click', () => {
       window.Sound?.play('choice_made');

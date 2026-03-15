@@ -175,7 +175,8 @@
           "effects": { "kompetenz": 2, "prestige": 2 },
           "next": "ob_05_mittagspause",
           "feedback": "Er sieht dich kurz an.\nRespekt oder Gleichgültigkeit —\nschwer zu sagen.\nBeides ist möglich.",
-          "achievementTrigger": "stille_botschaft"
+          "achievementTrigger": "stille_botschaft",
+          "hideEffects": true
         }
       ]
     },
@@ -250,7 +251,8 @@
           "flags": { "kevin_warned_buchhaltung": true },
           "next": "ob_07_email",
           "feedback": "Kevin: 'Das? Das ist immer da.\nIch glaub das braucht niemand mehr.\nAber anfassen würde ich es nicht.'\nDas ist die klügste Aussage\ndie Kevin je gemacht hat.",
-          "achievementTrigger": "first_buchhaltung_warning"
+          "achievementTrigger": "first_buchhaltung_warning",
+          "hideEffects": true
         }
       ]
     },
@@ -317,7 +319,8 @@
           "effects": { "burnout": 2, "kompetenz": 3, "prestige": 3 },
           "next": "ob_09_end",
           "feedback": "Er steht 10 Sekunden in der Tür.\nDann geht er weiter.\nRespekt oder Irritation.\nSchwer zu sagen. Beides nützlich.",
-          "achievementTrigger": "stille_botschaft_2"
+          "achievementTrigger": "stille_botschaft_2",
+          "hideEffects": true
         }
       ]
     },

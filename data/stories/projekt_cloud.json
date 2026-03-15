@@ -43,7 +43,8 @@
           "text": "Nicken. Nichts sagen.",
           "effects": { "bullshit": 5, "burnout": 5 },
           "next": "c_02",
-          "feedback": "Du nickst. Müller-Brandt nickt zurück. Keiner von euch weiß was gerade vereinbart wurde. Das nennt man im Consulting 'Alignment'. Klassisch."
+          "feedback": "Du nickst. Müller-Brandt nickt zurück. Keiner von euch weiß was gerade vereinbart wurde. Das nennt man im Consulting 'Alignment'. Klassisch.",
+          "hideEffects": true
         }
       ]
     },

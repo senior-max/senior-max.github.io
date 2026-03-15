@@ -153,7 +153,8 @@ function buildSaveBanner(save) {
  */
 function _initGameSystems() {
   window.Engine?.initGame();
-  window.Stats?.initStatBars();
+  window.Stats?.initStatBars?.();
+  window.Stats?.updateStatBars?.();
   window.UI?.renderHUD?.();
   window.Career?.renderCareerHUD();
 }

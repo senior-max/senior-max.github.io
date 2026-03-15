@@ -43,7 +43,8 @@
           "effects": { "bullshit": 5, "burnout": -3 },
           "flags": { "first_ignore": true },
           "next": "wb_02_ignore",
-          "feedback": "Du legst den Umschlag in die unterste Schublade. Er ist immer noch da."
+          "feedback": "Du legst den Umschlag in die unterste Schublade. Er ist immer noch da.",
+          "hideEffects": true
         },
         {
           "id": "c4",
@@ -146,7 +147,8 @@
           "effects": { "bullshit": 8, "burnout": -5 },
           "flags": { "full_ignore": true },
           "next": "wb_04_audit_surprise",
-          "feedback": "Du legst auch den zweiten Umschlag in die Schublade. Sie schließt nicht mehr richtig."
+          "feedback": "Du legst auch den zweiten Umschlag in die Schublade. Sie schließt nicht mehr richtig.",
+          "hideEffects": true
         }
       ]
     },
@@ -216,7 +218,8 @@
           "effects": { "bullshit": 10, "burnout": -10, "prestige": -8 },
           "flags": { "covered_up": true },
           "next": "wb_04_coverup",
-          "feedback": "Dateien gelöscht. Cache geleert. Der Umschlag verbrennt nicht so einfach wie du dachtest."
+          "feedback": "Dateien gelöscht. Cache geleert. Der Umschlag verbrennt nicht so einfach wie du dachtest.",
+          "hideEffects": true
         },
         {
           "id": "c4",
@@ -365,7 +368,8 @@
           "text": "Nichts sagen — ihn reden lassen",
           "effects": { "kompetenz": 7, "burnout": 4 },
           "next": "wb_05_confession",
-          "feedback": "Schweigen. 30 Sekunden. Er redet zuerst. Menschen die schuldig sind reden immer zuerst."
+          "feedback": "Schweigen. 30 Sekunden. Er redet zuerst. Menschen die schuldig sind reden immer zuerst.",
+          "hideEffects": true
         }
       ]
     },
@@ -390,7 +394,8 @@
           "text": "Zurückrudern — vielleicht war es ein Fehler",
           "effects": { "bullshit": 8, "prestige": -5, "burnout": -4 },
           "next": "wb_05_backpedal",
-          "feedback": "Müller-Brandt hört auf zu lächeln. Er weiß jetzt, dass du weich wirst. Das ist schlimmer."
+          "feedback": "Müller-Brandt hört auf zu lächeln. Er weiß jetzt, dass du weich wirst. Das ist schlimmer.",
+          "hideEffects": true
         }
       ]
     },
@@ -415,7 +420,8 @@
           "text": "Weiter vertuschen — bis zum Ende",
           "effects": { "bullshit": 15, "prestige": -10, "burnout": -8 },
           "next": "ending_disaster_coverup",
-          "feedback": "Du bist jetzt Mittäter. Das fühlt sich überraschend normal an. Das macht dir am meisten Angst."
+          "feedback": "Du bist jetzt Mittäter. Das fühlt sich überraschend normal an. Das macht dir am meisten Angst.",
+          "hideEffects": true
         }
       ]
     },
@@ -438,7 +444,8 @@
           "text": "'Nein.' — Unwissenheit vortäuschen",
           "effects": { "bullshit": 10, "prestige": -8, "burnout": 5 },
           "next": "ending_disaster_audit",
-          "feedback": "Marcus tippt etwas. Er glaubt dir nicht. Das steht in seinem Gesicht."
+          "feedback": "Marcus tippt etwas. Er glaubt dir nicht. Das steht in seinem Gesicht.",
+          "hideEffects": true
         },
         {
           "id": "c2",
@@ -482,7 +489,8 @@
           "effects": { "bullshit": 12, "prestige": 5, "burnout": -8, "kompetenz": -5 },
           "flags": { "deal_accepted": true },
           "next": "ending_deal",
-          "feedback": "Du unterschreibst. Er unterschreibt. Jeder weiß was der andere weiß. Niemand sagt es laut."
+          "feedback": "Du unterschreibst. Er unterschreibt. Jeder weiß was der andere weiß. Niemand sagt es laut.",
+          "hideEffects": true
         },
         {
           "id": "c2",
@@ -490,7 +498,8 @@
           "effects": { "prestige": 8, "kompetenz": 8, "burnout": 10, "bullshit": -5 },
           "flags": { "deal_refused": true },
           "next": "wb_05_deal_refused",
-          "feedback": "Müller-Brandt sieht dich lange an. 'Interessant.' Er faltet das Blatt zusammen. 'Dann machen wir es anders.'"
+          "feedback": "Müller-Brandt sieht dich lange an. 'Interessant.' Er faltet das Blatt zusammen. 'Dann machen wir es anders.'",
+          "hideEffects": true
         }
       ]
     },
