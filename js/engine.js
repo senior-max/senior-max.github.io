@@ -377,7 +377,7 @@ function makeChoice(choice) {
 
   setTimeout(() => {
     loadScene(choice.next, null);
-  }, 3200);
+  }, 5000);
 }
 
 /**

@@ -338,89 +338,146 @@ function showFeedback(text) {
 
 /** @type {Object.<number, string>} Quirk text unlocked at each career level. */
 const LEVEL_QUIRKS = {
-  2: 'Du kennst jetzt den Unterschied zwischen Named User und Concurrent. Meistens.',
-  3: 'Du hast einen eigenen PowerPoint-Template. Es hat dein Logo.',
-  4: 'Dein Kalender ist jetzt 80% Meetings. Du nennst das "Leadership".',
-  5: 'Du hast aufgehört, Excel selbst zu öffnen. Das machen jetzt andere.',
-  6: 'Du erinnerst dich nicht mehr an den letzten Kunden. Ist das schlimm?',
+  2: {
+    emoji: '📋',
+    title: 'Consultant',
+    line1: 'Du verlässt das Plateau des Junior-Daseins.',
+    line2: 'Ab jetzt sagst du "ich schaue mir das an" und meinst damit Google. Niemand merkt es. Noch nicht.',
+  },
+  3: {
+    emoji: '📊',
+    title: 'Senior Consultant',
+    line1: 'Du darfst jetzt offiziell andere Leute in Meetings einladen.',
+    line2: 'Sie kommen nicht immer. Du nennst das "Meeting-Kultur". Es ist keine.',
+  },
+  4: {
+    emoji: '📅',
+    title: 'Manager',
+    line1: 'Dein Kalender ist zu 80% blockiert. Du selbst weißt nicht mehr warum.',
+    line2: 'Kevin fragt dich nach Feedback. Du gibst ihm drei Wochen später eine Stichpunktliste. Er ist dankbar. Das ist das Schlimmste daran.',
+  },
+  5: {
+    emoji: '🎤',
+    title: 'Principal',
+    line1: 'Du sprichst jetzt bei Konferenzen. Über "Disruption".',
+    line2: 'Du meinst damit nicht das, was Dieter heute Morgen mit dem Druckertoner angerichtet hat. Du öffnest Excel nicht mehr selbst. Du "enablest" andere darin.',
+  },
+  6: {
+    emoji: '🤝',
+    title: 'Partner',
+    line1: 'Du benutzt das Wort "skalieren" in jedem zweiten Satz.',
+    line2: 'Dieter schickt dir jetzt E-Mails mit "Sehr geehrter Herr/Frau Partner". Er weiß deinen Vornamen noch. Glaub er.',
+  },
 };
 
 /**
  * Displays a level-up overlay celebrating the player's promotion.
- * Shows confetti, the old title struck through, the new title with a typewriter
- * effect, the career bonus unlocked, and a quirky level flavour line.
- * Auto-dismisses after 4 seconds with a fade-out.
+ * Shows confetti, old title struck through, new title typewriter effect,
+ * career bonus, a funny two-line level description, and a dismiss button.
  * @param {string} newTitle - The new career title.
  * @param {number} [newLevel] - The new career level (1-based).
  */
 function showLevelUp(newTitle, newLevel) {
-  const overlay = createOverlay('levelup-overlay', 'Beförderung');
+  const quirk = LEVEL_QUIRKS[newLevel ?? 0];
 
-  Object.assign(overlay.style, {
-    inset:           'auto',
-    top:             '50%',
-    left:            '50%',
-    transform:       'translate(-50%, -50%)',
-    width:           '460px',
-    maxWidth:        '92vw',
-    background:      'var(--color-surface)',
-    border:          '2px solid var(--color-accent-cyan)',
-    borderRadius:    'var(--radius-lg)',
-    padding:         'var(--space-xl)',
-    textAlign:       'center',
-    overflow:        'hidden',
-    position:        'fixed',
-    zIndex:          '1050',
-    display:         'flex',
-    flexDirection:   'column',
-    alignItems:      'center',
-    gap:             'var(--space-md)',
-    animation:       'fadeInUp 0.4s ease both',
-  });
+  // ── Full-screen dimmed backdrop ──────────────────────────
+  const backdrop = document.createElement('div');
+  backdrop.id = 'levelup-overlay';
+  backdrop.setAttribute('role', 'dialog');
+  backdrop.setAttribute('aria-modal', 'true');
+  backdrop.setAttribute('aria-label', 'Beförderung');
+  backdrop.style.cssText = [
+    'position:fixed', 'inset:0', 'z-index:1050',
+    'display:flex', 'align-items:center', 'justify-content:center',
+    'background:rgba(13,17,23,0.88)',
+    'backdrop-filter:blur(4px)',
+    '-webkit-backdrop-filter:blur(4px)',
+    'animation:fadeIn 0.3s ease both',
+  ].join(';');
+  document.getElementById('app').appendChild(backdrop);
 
-  // Confetti layer (absolutely positioned inside the card)
+  // ── Centered card ────────────────────────────────────────
+  const card = document.createElement('div');
+  card.style.cssText = [
+    'position:relative', 'overflow:hidden',
+    'width:520px', 'max-width:94vw',
+    'background:var(--color-surface)',
+    'border:2px solid var(--color-accent-cyan)',
+    'border-radius:var(--radius-lg)',
+    'padding:var(--space-xl) var(--space-xl) var(--space-lg)',
+    'display:flex', 'flex-direction:column', 'align-items:center',
+    'gap:var(--space-md)', 'text-align:center',
+    'animation:levelUpCard 0.5s cubic-bezier(0.34,1.56,0.64,1) both',
+    'box-shadow:0 0 60px rgba(88,166,255,0.18), 0 0 120px rgba(88,166,255,0.06)',
+  ].join(';');
+  backdrop.appendChild(card);
+
+  // Confetti
   const confettiLayer = document.createElement('div');
   confettiLayer.style.cssText = 'position:absolute;inset:0;pointer-events:none;overflow:hidden;';
   createConfetti(confettiLayer);
-  overlay.appendChild(confettiLayer);
+  card.appendChild(confettiLayer);
 
-  // Heading
+  // Level pill
+  const maxLevel = 6;
+  const pillEl = document.createElement('div');
+  pillEl.style.cssText = [
+    'font-size:10px', 'letter-spacing:2px', 'text-transform:uppercase',
+    'color:var(--color-accent-cyan)', 'background:rgba(88,166,255,0.1)',
+    'border:1px solid rgba(88,166,255,0.3)',
+    'border-radius:var(--radius-sm)', 'padding:3px 10px',
+    'position:relative', 'z-index:1',
+  ].join(';');
+  pillEl.textContent = `Stufe ${newLevel ?? '?'} von ${maxLevel}`;
+  card.appendChild(pillEl);
+
+  // Big role emoji
+  if (quirk?.emoji) {
+    const emojiEl = document.createElement('div');
+    emojiEl.style.cssText = 'font-size:3.5rem;line-height:1;position:relative;z-index:1;animation:levelUpEmoji 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.15s both;';
+    emojiEl.textContent = quirk.emoji;
+    card.appendChild(emojiEl);
+  }
+
+  // "BEFÖRDERUNG!" header
   const heading = document.createElement('div');
-  heading.style.cssText = 'font-size:var(--font-size-xl);position:relative;z-index:1;';
+  heading.style.cssText = [
+    'font-size:var(--font-size-xl)', 'letter-spacing:3px',
+    'color:var(--color-accent-cyan)', 'position:relative', 'z-index:1',
+  ].join(';');
   heading.textContent = '🎉 BEFÖRDERUNG!';
-  overlay.appendChild(heading);
+  card.appendChild(heading);
 
-  // Old title (struck through) - only shown from level 2+
+  // Old title struck through (level 2+)
   if (newLevel && newLevel > 2) {
-    const oldTitles = [
-      'Junior Consultant', 'Consultant', 'Senior Consultant',
-      'Manager', 'Principal',
-    ];
+    const oldTitles = ['Junior Consultant', 'Consultant', 'Senior Consultant', 'Manager', 'Principal'];
     const oldTitle = oldTitles[newLevel - 2] ?? '';
     if (oldTitle) {
       const struck = document.createElement('div');
       struck.style.cssText = [
         'text-decoration:line-through', 'color:var(--color-text-secondary)',
         'font-size:var(--font-size-sm)', 'position:relative', 'z-index:1',
+        'opacity:0.6',
       ].join(';');
       struck.textContent = oldTitle;
-      overlay.appendChild(struck);
+      card.appendChild(struck);
     }
   }
 
-  // New title (typewriter)
+  // New title (typewriter, cyan glow)
   const newTitleEl = document.createElement('div');
   newTitleEl.style.cssText = [
     'color:var(--color-accent-cyan)',
-    'font-size:var(--font-size-lg)',
-    'letter-spacing:2px',
+    'font-size:var(--font-size-xl)',
+    'font-weight:bold',
+    'letter-spacing:3px',
     'text-transform:uppercase',
-    'min-height:1.4em',
-    'position:relative',
-    'z-index:1',
+    'min-height:1.5em',
+    'text-shadow:0 0 20px rgba(88,166,255,0.5)',
+    'position:relative', 'z-index:1',
   ].join(';');
-  overlay.appendChild(newTitleEl);
-  setTimeout(() => typeIntoEl(newTitleEl, newTitle, 40), 200);
+  card.appendChild(newTitleEl);
+  setTimeout(() => typeIntoEl(newTitleEl, newTitle, 45), 250);
 
   // Career bonus
   const bonus = window.Career?.getCareerBonus?.(newLevel ?? 1) ?? {};
@@ -428,39 +485,62 @@ function showLevelUp(newTitle, newLevel) {
   if (bonusEntries.length > 0) {
     const bonusStr = bonusEntries
       .map(([k, v]) => `${v > 0 ? '+' : ''}${v} ${k.charAt(0).toUpperCase() + k.slice(1)}`)
-      .join('  ');
+      .join('   ');
     const bonusEl = document.createElement('div');
     bonusEl.style.cssText = [
-      'font-size:var(--font-size-sm)',
-      'color:var(--color-accent-green)',
+      'font-size:var(--font-size-sm)', 'color:var(--color-accent-green)',
+      'background:rgba(63,185,80,0.08)',
+      'border:1px solid rgba(63,185,80,0.25)',
+      'border-radius:var(--radius-sm)', 'padding:4px 12px',
       'position:relative', 'z-index:1',
     ].join(';');
-    bonusEl.textContent = `✨ Bonus: ${bonusStr}`;
-    overlay.appendChild(bonusEl);
+    bonusEl.textContent = `✨ Passivbonus: ${bonusStr}`;
+    card.appendChild(bonusEl);
   }
 
-  // Quirk text
-  const quirk = LEVEL_QUIRKS[newLevel ?? 0];
+  // Separator
+  const sep = document.createElement('div');
+  sep.style.cssText = 'width:60%;height:1px;background:var(--color-border);position:relative;z-index:1;';
+  card.appendChild(sep);
+
+  // Funny two-line description
   if (quirk) {
-    const quirkEl = document.createElement('div');
-    quirkEl.style.cssText = [
-      'color:var(--color-text-secondary)',
-      'font-size:var(--font-size-sm)',
-      'font-style:italic',
-      'max-width:360px',
-      'line-height:1.6',
+    const q1 = document.createElement('div');
+    q1.style.cssText = [
+      'color:var(--color-text-primary)', 'font-size:var(--font-size-sm)',
+      'font-style:italic', 'max-width:400px', 'line-height:1.7',
       'position:relative', 'z-index:1',
     ].join(';');
-    quirkEl.textContent = `"${quirk}"`;
-    overlay.appendChild(quirkEl);
+    q1.textContent = quirk.line1;
+    card.appendChild(q1);
+
+    const q2 = document.createElement('div');
+    q2.style.cssText = [
+      'color:var(--color-text-secondary)', 'font-size:11px',
+      'max-width:400px', 'line-height:1.6',
+      'position:relative', 'z-index:1',
+    ].join(';');
+    q2.textContent = quirk.line2;
+    card.appendChild(q2);
   }
 
-  // Auto-dismiss after 4 seconds
-  setTimeout(() => {
-    overlay.style.transition = 'opacity 0.6s ease';
-    overlay.style.opacity = '0';
-    setTimeout(() => overlay.remove(), 600);
-  }, 4000);
+  // Dismiss button
+  const dismissBtn = document.createElement('button');
+  dismissBtn.className = 'choice-btn';
+  dismissBtn.style.cssText = 'width:200px;margin-top:var(--space-xs);position:relative;z-index:1;';
+  dismissBtn.textContent = 'Danke, weiter geht\'s';
+  const dismiss = () => {
+    backdrop.style.transition = 'opacity 0.4s ease';
+    backdrop.style.opacity = '0';
+    setTimeout(() => backdrop.remove(), 400);
+  };
+  dismissBtn.addEventListener('click', dismiss);
+  card.appendChild(dismissBtn);
+
+  // Auto-dismiss after 8 seconds if player ignores the button
+  setTimeout(dismiss, 8000);
+
+  setTimeout(() => window.KeyboardController?.trapFocus(backdrop), 0);
 }
 
 /** Flavour lines shown on the burnout screen, picked randomly. */

@@ -208,8 +208,15 @@ kbd.key-hint {
   padding: var(--space-sm) var(--space-md);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  text-align: right;
   border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#btn-exit-to-menu {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ── Touch improvements (all viewports) ─────────────────── */

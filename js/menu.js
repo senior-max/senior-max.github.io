@@ -586,10 +586,100 @@ function checkSaveAndStart(config) {
   }
 }
 
+// ── Exit confirmation ──────────────────────────────────────
+
+/**
+ * Shows a small confirmation dialog before returning to the main menu.
+ * The current game state is saved first so the player can continue later.
+ */
+function confirmExitToMenu() {
+  if (document.getElementById('exit-confirm-overlay')) return;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'exit-confirm-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'Spiel verlassen?');
+  overlay.style.cssText = [
+    'position:fixed', 'inset:0', 'z-index:3000',
+    'display:flex', 'align-items:center', 'justify-content:center',
+    'background:rgba(13,17,23,0.85)',
+    'backdrop-filter:blur(4px)',
+    '-webkit-backdrop-filter:blur(4px)',
+    'animation:fadeIn 0.2s ease both',
+  ].join(';');
+
+  const card = document.createElement('div');
+  card.style.cssText = [
+    'background:var(--color-surface)',
+    'border:1px solid var(--color-border)',
+    'border-radius:var(--radius-lg)',
+    'padding:var(--space-xl)',
+    'max-width:360px', 'width:90vw',
+    'display:flex', 'flex-direction:column',
+    'align-items:center', 'gap:var(--space-md)',
+    'text-align:center',
+    'animation:levelUpCard 0.3s cubic-bezier(0.34,1.56,0.64,1) both',
+  ].join(';');
+
+  card.innerHTML = `
+    <div style="font-size:2rem;">🚪</div>
+    <div style="font-size:var(--font-size-lg);color:var(--color-text-primary);">Zurück zum Menü?</div>
+    <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);line-height:1.6;">
+      Dein Fortschritt wird gespeichert.<br>Du kannst jederzeit weitermachen.
+    </div>
+  `;
+
+  const btnRow = document.createElement('div');
+  btnRow.style.cssText = 'display:flex;gap:var(--space-sm);width:100%;';
+
+  const cancelBtn = document.createElement('button');
+  cancelBtn.className = 'choice-btn';
+  cancelBtn.textContent = 'Weiterspielen';
+  cancelBtn.style.flex = '1';
+  cancelBtn.addEventListener('click', () => overlay.remove());
+
+  const confirmBtn = document.createElement('button');
+  confirmBtn.className = 'choice-btn';
+  confirmBtn.textContent = '← Zum Menü';
+  confirmBtn.style.cssText = [
+    'flex:1',
+    'border-color:var(--color-accent-red)',
+    'color:var(--color-accent-red)',
+  ].join(';');
+  confirmBtn.addEventListener('click', () => {
+    window.Storage?.saveGame(window.Engine?.GameState);
+    overlay.remove();
+
+    // Remove any open overlays from gameplay
+    ['burnout-overlay', 'levelup-overlay', 'project-complete-overlay',
+      'email-overlay', 'minigame-overlay', 'achievement-overlay'].forEach((id) => {
+      document.getElementById(id)?.remove();
+    });
+
+    renderMainMenu();
+  });
+
+  btnRow.appendChild(cancelBtn);
+  btnRow.appendChild(confirmBtn);
+  card.appendChild(btnRow);
+  overlay.appendChild(card);
+  document.getElementById('app').appendChild(overlay);
+
+  // ESC = cancel
+  const esc = new AbortController();
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { overlay.remove(); esc.abort(); }
+  }, { signal: esc.signal });
+
+  setTimeout(() => cancelBtn.focus(), 50);
+}
+
 // ── Public API ────────────────────────────────────────────
 
 window.Menu = {
   renderMainMenu,
   renderCredits,
   checkSaveAndStart,
+  confirmExitToMenu,
 };

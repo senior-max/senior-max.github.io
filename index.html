@@ -94,6 +94,25 @@
 
       <footer id="game-footer" role="contentinfo" aria-label="Spielinfo">
         <span>v0.1-MVP</span>
+        <button
+          id="btn-exit-to-menu"
+          aria-label="Zurück zum Hauptmenü"
+          onclick="window.Menu?.confirmExitToMenu()"
+          style="
+            background: none;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            border-radius: var(--radius-sm);
+            padding: 2px 10px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            white-space: nowrap;
+            transition: border-color 0.2s, color 0.2s;
+          "
+          onmouseenter="this.style.borderColor='var(--color-accent-red)';this.style.color='var(--color-accent-red)';"
+          onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-secondary)';"
+        >← Menü</button>
       </footer>
 
     </div>
