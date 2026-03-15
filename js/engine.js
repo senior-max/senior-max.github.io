@@ -53,6 +53,7 @@ const GameState = {
   meetingsAvoided: 0,
   disasterCount: 0,
   sessionCount: 0,
+  reisekostenPlayed: false,
   counters: {
     emails_ignored: 0,
     client_ignored: 0,
@@ -98,6 +99,7 @@ function buildDefaultState() {
     meetingsAvoided: 0,
     disasterCount: 0,
     sessionCount: 0,
+    reisekostenPlayed: false,
     counters: {
       emails_ignored: 0,
       client_ignored: 0,
@@ -493,6 +495,9 @@ function triggerMinigame(id, onComplete) {
     case 'software_scan':
       safe(window.SoftwareScanMinigame);
       break;
+    case 'stundenzettel':
+      safe(window.StundenzettelMinigame);
+      break;
     case 'reisekosten':
       safe(window.ReisekostenMinigame);
       break;
@@ -510,9 +515,37 @@ function triggerMinigame(id, onComplete) {
 }
 
 /**
+ * Post-project phase: Stundenzettel (always) → Reisekosten (40% or 1x guaranteed) → Email.
+ * Called by renderer.js showProjectComplete() "Weiter" button.
+ */
+function startPostProjectPhase() {
+  if (typeof window.Renderer?.showTransitionMessage !== 'function') {
+    startEmailPhase();
+    return;
+  }
+  window.Renderer.showTransitionMessage(
+    '🕐 Stunden buchen',
+    'Finance wartet auf Ihren Stundennachweis. Frist: gestern.',
+    () => {
+      triggerMinigame('stundenzettel', () => {
+        const shouldTriggerReisekosten =
+          !GameState.reisekostenPlayed || Math.random() < 0.4;
+        if (shouldTriggerReisekosten) {
+          GameState.reisekostenPlayed = true;
+          triggerMinigame('reisekosten', () => {
+            startEmailPhase();
+          });
+        } else {
+          startEmailPhase();
+        }
+      });
+    },
+  );
+}
+
+/**
  * Starts the email inbox phase after a project completes.
  * Delegates to Email.startInboxPhase; skips gracefully if unavailable.
- * Called by renderer.js showProjectComplete() "Weiter" button.
  */
 function startEmailPhase() {
   const projectId = GameState.currentProject ?? 'unknown';
@@ -523,6 +556,21 @@ function startEmailPhase() {
 
 /**
  * Called by Email.closeInbox() after the player dismisses the inbox.
+ * Shows the calendar week planner; on confirm, proceeds to project selection.
+ */
+function startCalendarPhase() {
+  if (window.Calendar && typeof window.Calendar.loadEvents === 'function') {
+    window.Calendar.loadEvents().then(() => {
+      window.Calendar.generateWeek();
+      window.Calendar.renderCalendar();
+    });
+  } else {
+    startNextProjectSelection();
+  }
+}
+
+/**
+ * Called after calendar phase (or directly from closeInbox if no calendar).
  * Fires meeting roulette then shows the project selection screen.
  */
 function startNextProjectSelection() {
@@ -627,6 +675,31 @@ function buildMeetingChoices(backdrop) {
   const wrap = document.createElement('div');
   wrap.style.cssText = 'display:flex;flex-direction:column;gap:var(--space-sm);margin-top:var(--space-sm);';
 
+  /**
+   * Shows the meeting outcome inside the modal, then auto-closes it.
+   * Does NOT write to the story feedback area so the scene feedback stays visible.
+   * @param {HTMLElement} backdrop
+   * @param {string} outcomeText
+   */
+  function showMeetingOutcome(backdrop, outcomeText) {
+    const modal = backdrop.querySelector('div');
+    if (!modal) { backdrop.remove(); return; }
+
+    modal.innerHTML = `
+      <div style="font-size:var(--font-size-lg);color:var(--color-accent-amber);">📅 Meeting-Ergebnis</div>
+      <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);line-height:1.6;font-style:italic;">${outcomeText}</div>
+    `;
+
+    const okBtn = document.createElement('button');
+    okBtn.className = 'choice-btn';
+    okBtn.textContent = 'OK, weiter';
+    okBtn.style.cssText = 'width:160px;margin-top:var(--space-sm);';
+    okBtn.addEventListener('click', () => backdrop.remove());
+    modal.appendChild(okBtn);
+
+    setTimeout(() => backdrop.remove(), 6000);
+  }
+
   const options = [
     {
       label: 'Teilnehmen',
@@ -634,8 +707,7 @@ function buildMeetingChoices(backdrop) {
       onPick: () => {
         applyEffects({ burnout: 8, prestige: 2 });
         GameState.meetingsAttended += 1;
-        backdrop.remove();
-        window.Renderer?.showFeedback('Das Meeting dauerte 90 Minuten. Niemand weiß warum.');
+        showMeetingOutcome(backdrop, 'Das Meeting dauerte 90 Minuten. Niemand weiß warum. +8 Burnout, +2 Prestige.');
       },
     },
     {
@@ -644,8 +716,7 @@ function buildMeetingChoices(backdrop) {
       onPick: () => {
         applyEffects({ prestige: -2, burnout: -3 });
         GameState.meetingsAvoided += 1;
-        backdrop.remove();
-        window.Renderer?.showFeedback('Du wirst nicht gefragt, was du stattdessen hattest.');
+        showMeetingOutcome(backdrop, 'Du wirst nicht gefragt, was du stattdessen hattest. -3 Burnout, -2 Prestige.');
       },
     },
     {
@@ -654,8 +725,7 @@ function buildMeetingChoices(backdrop) {
       onPick: () => {
         applyEffects({ bullshit: 3, burnout: -5 });
         GameState.meetingsAvoided += 1;
-        backdrop.remove();
-        window.Renderer?.showFeedback('Das Protokoll kommt nie. Das Meeting auch nicht mehr.');
+        showMeetingOutcome(backdrop, 'Das Protokoll kommt nie. Das Meeting auch nicht mehr. -5 Burnout, +3 Bullshit.');
       },
     },
   ];
@@ -759,7 +829,9 @@ window.Engine = {
   completeProject,
   isGameOver,
   triggerMinigame,
+  startPostProjectPhase,
   startEmailPhase,
+  startCalendarPhase,
   startNextProjectSelection,
   triggerMeetingRoulette,
   rollMeetingRoulette,

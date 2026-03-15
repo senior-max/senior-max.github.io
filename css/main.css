@@ -395,3 +395,17 @@ input[type="range"] {
   font-family: 'Comic Sans MS', 'Comic Sans', cursive !important;
   letter-spacing: 0.5px;
 }
+
+/* ── Calendar overlay: mobile stack columns ───────────────── */
+
+@media (max-width: 600px) {
+  #calendar-overlay #cal-grid {
+    flex-direction: column;
+    overflow-x: visible;
+    align-items: stretch;
+  }
+
+  #calendar-overlay #cal-grid > div {
+    min-width: 100%;
+  }
+}

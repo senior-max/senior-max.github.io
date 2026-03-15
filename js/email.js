@@ -648,7 +648,9 @@ function closeInbox() {
   const overlay = document.getElementById('email-overlay');
   if (overlay) overlay.remove();
 
-  if (typeof window.Engine?.startNextProjectSelection === 'function') {
+  if (typeof window.Engine?.startCalendarPhase === 'function') {
+    window.Engine.startCalendarPhase();
+  } else if (typeof window.Engine?.startNextProjectSelection === 'function') {
     window.Engine.startNextProjectSelection();
   }
 }

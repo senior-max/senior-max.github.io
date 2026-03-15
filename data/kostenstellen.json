@@ -1,0 +1,19 @@
+[
+  { "id": "KST-4471", "name": "Kundenprojekt Acme Corp — Phase 1", "active": true, "projectRef": "projekt_dieter" },
+  { "id": "KST-4472", "name": "Kundenprojekt Acme Corp — Phase 2 (GESPERRT)", "active": false, "projectRef": "projekt_dieter", "lockedReason": "Budget freigabe ausstehend seit 6 Wochen" },
+  { "id": "KST-5501", "name": "Globex Industries — SAP Analyse", "active": true, "projectRef": "projekt_sap_zombies" },
+  { "id": "KST-5502", "name": "Globex Industries — SAP Analyse ALT (umbenannt)", "active": false, "projectRef": "projekt_sap_zombies", "lockedReason": "Umbenannt in KST-5501. Bitte nicht mehr verwenden." },
+  { "id": "KST-6610", "name": "Shadow IT Audit — Allgemein", "active": true, "projectRef": "projekt_shadow_it" },
+  { "id": "KST-7700", "name": "Interne Weiterbildung", "active": true, "projectRef": null },
+  { "id": "KST-7701", "name": "Interne Weiterbildung (ALT — nicht buchen!)", "active": false, "projectRef": null, "lockedReason": "Seit Q2 deaktiviert. Finance hat das dreimal kommuniziert." },
+  { "id": "KST-8800", "name": "Verwaltung & Administration", "active": true, "projectRef": null },
+  { "id": "KST-8801", "name": "Verwaltung (intern) — NUR für Partner", "active": false, "projectRef": null, "lockedReason": "Nur für Partner-Level buchbar. Versuche es trotzdem nicht." },
+  { "id": "KST-9000", "name": "Reisezeiten", "active": true, "projectRef": null },
+  { "id": "KST-9001", "name": "Wartezeiten Bahnhof/Flughafen", "active": true, "projectRef": null },
+  { "id": "KST-9002", "name": "Wartezeiten (pauschal) — VERALTET", "active": false, "projectRef": null, "lockedReason": "Durch KST-9001 ersetzt. Steht so im Intranet. Irgendwo." },
+  { "id": "KST-0001", "name": "Sonstiges", "active": true, "projectRef": null },
+  { "id": "KST-MÜLLER", "name": "Direktbuchung Müller-Brandt (KEIN KOMMENTAR)", "active": true, "projectRef": null },
+  { "id": "KST-8810", "name": "Cloud-Migration Hoffmann & Söhne", "active": true, "projectRef": "projekt_cloud" },
+  { "id": "KST-8820", "name": "KI-Readiness MedioPharma", "active": true, "projectRef": "projekt_ki" },
+  { "id": "KST-8830", "name": "Board-Präsentation Reinhold", "active": true, "projectRef": "projekt_board" }
+]

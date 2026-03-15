@@ -152,5 +152,19 @@
     "emoji": "🌪️",
     "description": "Alle 6 Projekte mit Desaster-Ending abgeschlossen. Das ist statistisch fast unmöglich. Und doch.",
     "trigger": "all_disasters_complete"
+  },
+  {
+    "id": "stundenzettel_chaos",
+    "name": "Alles auf Müller-Brandt",
+    "emoji": "🧾",
+    "description": "Alle Stunden auf KST-MÜLLER gebucht. Das Gespräch war kurz. Sehr kurz.",
+    "trigger": "minigame_stundenzettel_all_mueller"
+  },
+  {
+    "id": "stundenzettel_perfekt",
+    "name": "Buchhalter des Jahres",
+    "emoji": "✅",
+    "description": "Stundenzettel perfekt ausgefüllt. Finance hat nachgefragt ob du ein Bot bist.",
+    "trigger": "minigame_stundenzettel_perfect"
   }
 ]

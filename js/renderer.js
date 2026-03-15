@@ -398,7 +398,7 @@ function showLevelUp(newTitle, newLevel) {
   backdrop.setAttribute('aria-modal', 'true');
   backdrop.setAttribute('aria-label', 'Beförderung');
   backdrop.style.cssText = [
-    'position:fixed', 'inset:0', 'z-index:1050',
+    'position:fixed', 'inset:0', 'z-index:3000',
     'display:flex', 'align-items:center', 'justify-content:center',
     'background:rgba(13,17,23,0.88)',
     'backdrop-filter:blur(4px)',
@@ -711,6 +711,37 @@ function showAchievement(achievement) {
 }
 
 /**
+ * Shows a brief transition overlay with title, subtitle, and a "Weiter" button.
+ * Used before post-project minigames (e.g. Stundenzettel).
+ * @param {string} title - e.g. "🕐 Stunden buchen"
+ * @param {string} subtitle - e.g. "Finance wartet auf Ihren Stundennachweis. Frist: gestern."
+ * @param {function} onContinue - Called when the user clicks "Weiter".
+ */
+function showTransitionMessage(title, subtitle, onContinue) {
+  const overlay = createOverlay('transition-message-overlay', 'Übergang');
+  overlay.style.backgroundColor = 'rgba(13,17,23,0.95)';
+  overlay.style.gap = 'var(--space-lg)';
+
+  const inner = document.createElement('div');
+  inner.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:var(--space-md);text-align:center;max-width:480px;';
+  inner.innerHTML = `
+    <div style="font-size:var(--font-size-xl);color:var(--color-accent-amber);">${title}</div>
+    <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);line-height:1.6;">${subtitle}</div>
+  `;
+
+  const btn = document.createElement('button');
+  btn.className = 'choice-btn';
+  btn.textContent = 'Weiter';
+  btn.style.cssText = 'width:200px;';
+  btn.addEventListener('click', () => {
+    overlay.remove();
+    if (typeof onContinue === 'function') onContinue();
+  });
+  inner.appendChild(btn);
+  overlay.appendChild(inner);
+}
+
+/**
  * Displays the full-screen project completion card.
  * Success variant: green accent, animated XP count-up, stat delta, email CTA.
  * Disaster variant: red flickering border, shame messaging.
@@ -830,7 +861,9 @@ function showProjectComplete(title, endingType, message, opts = {}) {
   btn.textContent = isSuccess ? '📬 Posteingang öffnen' : '😔 Weiter (in Schande)';
   btn.addEventListener('click', () => {
     overlay.remove();
-    if (typeof window.Engine?.startEmailPhase === 'function') {
+    if (typeof window.Engine?.startPostProjectPhase === 'function') {
+      window.Engine.startPostProjectPhase();
+    } else if (typeof window.Engine?.startEmailPhase === 'function') {
       window.Engine.startEmailPhase();
     }
   });
@@ -847,6 +880,7 @@ window.Renderer = {
   showLevelUp,
   showBurnoutScreen,
   showAchievement,
+  showTransitionMessage,
   showProjectComplete,
   animateXP,
 };
