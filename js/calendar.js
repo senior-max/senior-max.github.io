@@ -370,6 +370,15 @@ window.Calendar = (function () {
       applyWeekConsequences();
       overlayEl?.remove();
       overlayEl = null;
+      // Wenn Kalender-Burnout 100 erreicht, Fortsetzung erst nach Recovery (Bug: doppeltes Stunden buchen)
+      if (window.Engine?.GameState?.stats?.burnout >= 100) {
+        window.Engine.GameState.pendingBurnoutContinuation = () => {
+          if (typeof window.Engine?.startNextProjectSelection === 'function') {
+            window.Engine.startNextProjectSelection();
+          }
+        };
+        return;
+      }
       if (typeof window.Engine?.startNextProjectSelection === 'function') {
         window.Engine.startNextProjectSelection();
       }

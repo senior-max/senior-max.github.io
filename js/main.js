@@ -132,6 +132,7 @@ async function startProject(projectId, startSceneId = null) {
   const sceneId = startSceneId ?? projectData.scenes[0].id;
 
   window.Engine.GameState.currentProject = projectData.id;
+  window.Engine.GameState.postProjectPhaseDoneFor = null; // Reset für neues Projekt
   window.Engine.loadScene(sceneId, projectData);
 }
 

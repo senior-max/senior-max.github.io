@@ -438,6 +438,7 @@ function makeChoice(choice) {
  * @param {number} xpReward - XP points to award on completion.
  */
 function completeProject(projectId, endingType, xpReward) {
+  GameState.lastCompletedProjectId = projectId;
   if (!GameState.projectsCompleted.includes(projectId)) {
     GameState.projectsCompleted.push(projectId);
   }
@@ -597,6 +598,13 @@ function triggerMinigame(id, onComplete) {
  * Called by renderer.js showProjectComplete() "Weiter" button.
  */
 function startPostProjectPhase() {
+  // Guard: Post-Projekt-Phase nicht doppelt ausführen (Bug: Stunden buchen nach Kalender)
+  if (GameState.postProjectPhaseDoneFor === GameState.lastCompletedProjectId) {
+    startEmailPhase();
+    return;
+  }
+  GameState.postProjectPhaseDoneFor = GameState.lastCompletedProjectId;
+
   if (typeof window.Renderer?.showTransitionMessage !== 'function') {
     startEmailPhase();
     return;
