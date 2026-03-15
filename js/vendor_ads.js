@@ -270,6 +270,10 @@
    * @param {{ nextSceneId?: string }} [options]
    */
   function triggerIfApplicable(callback, options) {
+    if (window.Engine?.isOnboarding?.()) {
+      callback();
+      return;
+    }
     loadAds().then(() => {
       if (!shouldTrigger(options)) {
         callback();

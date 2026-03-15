@@ -743,10 +743,19 @@ const MEETING_SCENARIOS = [
 ];
 
 /**
+ * Returns true when the player is in the onboarding chapter.
+ * Used to block all random interruptions (Meeting Roulette, Vendor Ads, etc.).
+ */
+function isOnboarding() {
+  return GameState.currentProject === 'onboarding';
+}
+
+/**
  * Triggers an interactive meeting modal with a 30% probability on scene transitions.
  * Fires at most once per project. Skips if game over.
  */
 function triggerMeetingRoulette() {
+  if (isOnboarding()) return;
   if (isGameOver() || meetingFiredThisProject) return;
   if (Math.random() > 0.30) return;
 
@@ -963,6 +972,7 @@ function getProjectData() {
 
 window.Engine = {
   GameState,
+  isOnboarding,
   initGame,
   applyEffects,
   addXP,
