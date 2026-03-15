@@ -8,7 +8,7 @@
     "subline": "Ihr Enterprise Agreement läuft in 47 Tagen ab. Wir wissen was Sie installiert haben.",
     "badge": "DRINGEND",
     "badgeColor": "#d13438",
-    "bodyText": "Microsoft Enterprise Agreement — Ihre jährliche True-Up Verpflichtung nähert sich. Bitte stellen Sie sicher dass Ihre gemeldeten Lizenzzahlen mit der tatsächlichen Nutzung übereinstimmen. Bei Fragen wenden Sie sich an Ihren Account Executive Tyler.",
+    "bodyText": "Microsoft Enterprise Agreement — Ihre jährliche True-Up Verpflichtung nähert sich. Bitte stellen Sie sicher, dass Ihre gemeldeten Lizenzzahlen mit der tatsächlichen Nutzung übereinstimmen. Bei Fragen wenden Sie sich an Ihren Account Executive Tyler.",
     "smallPrint": "* Lizenzmengen die nach Einreichung abweichen werden automatisch nachgebucht. Microsoft behält sich eine Überprüfung vor.",
     "buttons": [
       { "label": "Jetzt True-Up einreichen", "style": "primary", "effects": { "kompetenz": 3, "burnout": 5 }, "feedback": "Tyler bestätigt den Erhalt. Er schickt sofort eine Upsell-Mail." },
@@ -30,7 +30,7 @@
     "buttons": [
       { "label": "Für alle 1.200 User aktivieren", "style": "primary", "effects": { "bullshit": 8, "burnout": 10, "prestige": 3 }, "feedback": "Aktiviert. Dr. Sasse schickt eine Mail mit 3 Fragen. Kevin aktiviert es zuerst für sich selbst." },
       { "label": "Pilotprojekt mit 10 Usern", "style": "secondary", "effects": { "kompetenz": 5, "burnout": 3 }, "feedback": "Vernünftig. Tyler ist enttäuscht. Er nennt das 'zu vorsichtig'." },
-      { "label": "Datenschutz-Bewertung zuerst", "style": "ghost", "effects": { "kompetenz": 6, "prestige": 2 }, "feedback": "Legal sagt: 'Gut dass Sie fragen.' Das war vor 6 Wochen. Keine Antwort seitdem." }
+      { "label": "Datenschutz-Bewertung zuerst", "style": "ghost", "effects": { "kompetenz": 6, "prestige": 2 }, "feedback": "Legal sagt: 'Gut, dass Sie fragen.' Das war vor 6 Wochen. Keine Antwort seitdem." }
     ]
   },
   {
@@ -77,11 +77,11 @@
     "badge": "VIP-ANGEBOT",
     "badgeColor": "#6B0FAD",
     "bodyText": "Adobe Creative Cloud Enterprise — lizenzieren Sie für alle 1.200 Mitarbeiter und sparen Sie 12% gegenüber einzelnen Lizenzen. Dass 1.197 Mitarbeiter es nie benutzen werden ist dabei vollkommen irrelevant.",
-    "smallPrint": "* Jahresvertrag. Keine vorzeitige Kündigung. Adobe behält sich das Recht vor die Preise jährlich anzupassen.",
+    "smallPrint": "* Jahresvertrag. Keine vorzeitige Kündigung. Adobe behält sich das Recht vor, die Preise jährlich anzupassen.",
     "buttons": [
       { "label": "Enterprise-Lizenz abschließen", "style": "primary", "effects": { "bullshit": 6, "prestige": 3, "burnout": 4 }, "feedback": "Vertrag unterzeichnet. Finance fragt warum 1.200 Personen Photoshop brauchen. Gute Frage." },
       { "label": "Named-User-Lizenzen für 8 User", "style": "secondary", "effects": { "kompetenz": 5 }, "feedback": "8 Lizenzen. Adobe schlägt vor 'für die Zukunft' auf 50 aufzustocken. Nur €890 mehr pro Jahr." },
-      { "label": "Nutzungsanalyse zuerst", "style": "ghost", "effects": { "kompetenz": 6, "bullshit": -2 }, "feedback": "3 User benutzen es aktiv. 2 haben es nie geöffnet. 3 wissen nicht mal dass sie es haben." }
+      { "label": "Nutzungsanalyse zuerst", "style": "ghost", "effects": { "kompetenz": 6, "bullshit": -2 }, "feedback": "3 User benutzen es aktiv. 2 haben es nie geöffnet. 3 wissen nicht mal, dass sie es haben." }
     ]
   },
   {
@@ -233,7 +233,7 @@
     "bodyText": "Tyler: 'Hey! Ich wollte nur kurz nachfassen wegen unserem letzten Gespräch — hatten wir ja ein super Alignment zu der Cloud-First Journey, und ich wollte fragen ob Sie schon Kapazitäten für den nächsten Schritt gesehen haben? Wir haben gerade ein Super-Angebot laufen das nur noch diese Woche gilt.'",
     "smallPrint": "Das Angebot gilt nächste Woche auch noch.",
     "buttons": [
-      { "label": "Annehmen und zuhören", "style": "primary", "effects": { "burnout": 8, "bullshit": 3 }, "feedback": "Das Gespräch dauert 34 Minuten. Tyler schickt danach eine Zusammenfassung die das Gespräch anders darstellt als es war." },
+      { "label": "Annehmen und zuhören", "style": "primary", "effects": { "burnout": 8, "bullshit": 3 }, "feedback": "Das Gespräch dauert 34 Minuten. Tyler schickt danach eine Zusammenfassung, die das Gespräch anders darstellt als es war." },
       { "label": "Kurz bleiben: 'Kein Budget gerade'", "style": "secondary", "effects": { "burnout": 2, "prestige": 1 }, "feedback": "Tyler: 'Verstehe, verstehe. Darf ich nächsten Monat nochmal melden?' Er meldet sich in 2 Wochen." },
       { "label": "Nicht rangehen", "style": "ghost", "effects": { "burnout": -3 }, "feedback": "Tyler hinterlässt eine Voicemail. 3 Minuten. Er schickt danach eine E-Mail mit der Zusammenfassung der Voicemail." }
     ]
@@ -313,7 +313,7 @@
     "color": "#4285F4",
     "logo": "🔵",
     "headline": "Google Workspace: Storage-Limit erreicht.",
-    "subline": "Alle 1.200 User teilen sich 30 TB. 28 TB sind Dieter's E-Mail-Anhänge von 2006-2019.",
+    "subline": "Alle 1.200 User teilen sich 30 TB. 28 TB sind Dieters E-Mail-Anhänge von 2006–2019.",
     "badge": "QUOTA",
     "badgeColor": "#d13438",
     "bodyText": "Google Workspace Business Plus — Ihr gemeinsamer Speicher ist voll. Neue E-Mails können nicht gesendet werden. Unser Analyse-Tool zeigt: 23 User verbrauchen 80% des Speichers. Dieter ist einer davon. Dieter hat 47.000 E-Mails im Posteingang.",

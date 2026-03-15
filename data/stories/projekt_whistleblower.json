@@ -97,7 +97,7 @@
       "locationName": "Büro — Flurfunk",
       "npc": "kevin",
       "mood": "neutral",
-      "text": "Kevin weiß nichts über MGMT-SRV-09.\nAber er weiß etwas anderes.\n\n\"Ich hab mal gehört dass die Partner-Etage einen eigenen Server haben. Für... ich weiß nicht. Niemand redet darüber.\"\n\nEr senkt die Stimme.\n\n\"Müller-Brandt war letzte Woche noch um 21:00 Uhr im Büro. Ich musste meinen Laptop holen.\"\n\nKevin sieht dich an.\n\"Ist irgendwas?\"",
+      "text": "Kevin weiß nichts über MGMT-SRV-09.\nAber er weiß etwas anderes.\n\n\"Ich hab mal gehört, dass die Partner-Etage einen eigenen Server haben. Für... ich weiß nicht. Niemand redet darüber.\"\n\nEr senkt die Stimme.\n\n\"Müller-Brandt war letzte Woche noch um 21:00 Uhr im Büro. Ich musste meinen Laptop holen.\"\n\nKevin sieht dich an.\n\"Ist irgendwas?\"",
       "choices": [
         {
           "id": "c1",
@@ -130,7 +130,7 @@
       "locationName": "Büro — Die Schublade",
       "npc": null,
       "mood": "tense",
-      "text": "Drei Tage später.\n\nEin zweiter Umschlag. Gleiche Handschrift.\n\n\"Sie haben den ersten ignoriert.\nDas verstehe ich. Ich hätte dasselbe getan.\nAber jetzt lädt Oracle einen Audit an.\nWegen MGMT-SRV-09.\nDer Audit ist in 14 Tagen.\nJetzt haben Sie ein Problem das ich nicht mehr lösen kann.\"",
+      "text": "Drei Tage später.\n\nEin zweiter Umschlag. Gleiche Handschrift.\n\n\"Sie haben den ersten ignoriert.\nDas verstehe ich. Ich hätte dasselbe getan.\nAber jetzt kündigt Oracle einen Audit an.\nWegen MGMT-SRV-09.\nDer Audit ist in 14 Tagen.\nJetzt haben Sie ein Problem das ich nicht mehr lösen kann.\"",
       "choices": [
         {
           "id": "c1",
@@ -154,7 +154,7 @@
       "id": "wb_02_hr",
       "location": "buero",
       "locationEmoji": "🏢",
-      "locationName": "Büro — Sandra's Notiz",
+      "locationName": "Büro — Sandras Notiz",
       "npc": "sandra",
       "mood": "neutral",
       "text": "Sandra Breuer sitzt dir gegenüber.\nSie hat ein Formular vor sich.\nDas Formular hat 8 Felder.\n\n\"Ich brauche den Namen des Absenders.\"\nDu: \"Anonym.\"\n\"Den Server-Namen.\"\nDu: \"MGMT-SRV-09.\"\n\nSandra hört auf zu schreiben.\n\n\"Das ist ein Partner-Server.\"\nPause.\n\"Ich gebe das weiter. An wen es weitergegeben wird...\"\nSie schaut auf ihr Formular.\n\"...ist nicht in meinem Zuständigkeitsbereich.\"",
@@ -344,7 +344,7 @@
       "npc": "dr_mueller",
       "npcOverrideName": "Dr. Müller-Brandt (allein, nach Feierabend)",
       "mood": "tense",
-      "text": "Das Büro ist leer. Nur ihr zwei.\nMüller-Brandt sitzt bereits. Er hat zwei Gläser Wasser auf den Tisch gestellt. Er wusste dass du kommst.\n\nDu legst die Ausdrucke auf den Tisch.\nEr schaut sie an. Lange.\n\nDann: \"Wie viele Personen wissen davon?\"\n\nNicht: \"Das ist ein Missverständnis.\"\nNicht: \"Das kann ich erklären.\"\n\nNur: \"Wie viele wissen davon?\"",
+      "text": "Das Büro ist leer. Nur ihr zwei.\nMüller-Brandt sitzt bereits. Er hat zwei Gläser Wasser auf den Tisch gestellt. Er wusste, dass du kommst.\n\nDu legst die Ausdrucke auf den Tisch.\nEr schaut sie an. Lange.\n\nDann: \"Wie viele Personen wissen davon?\"\n\nNicht: \"Das ist ein Missverständnis.\"\nNicht: \"Das kann ich erklären.\"\n\nNur: \"Wie viele wissen davon?\"",
       "choices": [
         {
           "id": "c1",
@@ -390,7 +390,7 @@
           "text": "Zurückrudern — vielleicht war es ein Fehler",
           "effects": { "bullshit": 8, "prestige": -5, "burnout": -4 },
           "next": "wb_05_backpedal",
-          "feedback": "Müller-Brandt hört auf zu lächeln. Er weiß jetzt dass du weich wirst. Das ist schlimmer."
+          "feedback": "Müller-Brandt hört auf zu lächeln. Er weiß jetzt, dass du weich wirst. Das ist schlimmer."
         }
       ]
     },
@@ -456,7 +456,7 @@
       "locationName": "Büro",
       "npc": null,
       "mood": "neutral",
-      "text": "Oracle hat die Logs. Sie haben MGMT-SRV-09 identifiziert.\n\nDer Audit läuft. Du bist nicht involviert. Du hast deinen Namen nicht genannt.\n\nMüller-Brandt weiß dass jemand die Logs weitergegeben hat. Er weiß nicht wer.\n\nDie Lizenzen werden nachgekauft. Offiziell. Der Vorstand wird informiert.\n\nDu schläfst. Nicht gut. Aber du schläfst.",
+      "text": "Oracle hat die Logs. Sie haben MGMT-SRV-09 identifiziert.\n\nDer Audit läuft. Du bist nicht involviert. Du hast deinen Namen nicht genannt.\n\nMüller-Brandt weiß, dass jemand die Logs weitergegeben hat. Er weiß nicht wer.\n\nDie Lizenzen werden nachgekauft. Offiziell. Der Vorstand wird informiert.\n\nDu schläfst. Nicht gut. Aber du schläfst.",
       "choices": [
         {
           "id": "c1",

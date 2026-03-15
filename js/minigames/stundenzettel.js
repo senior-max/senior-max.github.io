@@ -12,7 +12,7 @@ const ACTIVITY_BLOCKS = [
   { id: 'a4', description: 'Reisezeit Hin- und Rückfahrt', suggestedHours: 4, correctKST: 'KST-9000' },
   { id: 'a5', description: 'Warten am Bahnhof (Verspätung: 47 Min)', suggestedHours: 1, correctKST: 'KST-9001' },
   { id: 'a6', description: 'Pflichtschulung Sandra (Modul 8)', suggestedHours: 1, correctKST: 'KST-7700' },
-  { id: 'a7', description: 'Diverse Tätigkeiten die keiner Kategorie passen', suggestedHours: 6, correctKST: 'KST-0001' },
+  { id: 'a7', description: 'Diverse Tätigkeiten, die zu keiner Kategorie passen', suggestedHours: 6, correctKST: 'KST-0001' },
 ];
 
 const DURATION = 90;

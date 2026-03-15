@@ -1,0 +1,344 @@
+{
+  "id": "onboarding",
+  "title": "Tag 1",
+  "subtitle": "Willkommen bei Greysuit & Partner. Bitte nicht an BUCHHALTUNG 2006 anfassen.",
+  "isOnboarding": true,
+  "skippable": true,
+  "skipLabel": "Ersten Tag überspringen →",
+  "skipTooltip": "Direkt zum ersten Projekt. Stats starten auf Standardwerten.",
+  "xpReward": 0,
+  "difficulty": 0,
+  "comedyLevel": 5,
+  "requiredLevel": 0,
+  "scenes": [
+    {
+      "id": "ob_00",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Vor dem Eingang",
+      "npc": null,
+      "mood": "neutral",
+      "text": "08:47 Uhr. Dein erster Tag.\n\nDu bist zu früh. Das Gebäude ist offen.\nDie Rezeption ist nicht besetzt.\nEin handgeschriebenes Schild an der Tür:\n\n„Bitte warten. Oder auch nicht. Tür ist auf.\"\n\nIrgendwo im Gebäude summt ein Drucker.\nEr druckt nichts. Er summt einfach.\n\n[ℹ️ TIPP: Deine Entscheidungen beeinflussen 5 Werte:\nKompetenz, Bullshit, Kundenliebe, Burnout und Prestige.\nSie werden gleich erklärt. Von Kevin. Das tut uns leid.]",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Warten bis jemand kommt — korrekt ist korrekt",
+          "effects": { "prestige": 3, "burnout": 3 },
+          "next": "ob_01_sandra",
+          "feedback": "Du wartest 18 Minuten. Sandra kommt.\n'Oh — Sie sind schon da.' Sie klingt überrascht.\nNicht positiv überrascht."
+        },
+        {
+          "id": "c2",
+          "text": "Reingehen und umschauen — die Tür ist ja offen",
+          "effects": { "kompetenz": 3 },
+          "flags": { "explored_office": true },
+          "next": "ob_01_sandra",
+          "feedback": "Du findest den Meetingraum, die Küche,\nund einen Server-Raum dessen Tür einen\nZettel hat: 'BITTE NICHT ÖFFNEN (Kevin)'.\nDu öffnest ihn nicht. Diesmal."
+        },
+        {
+          "id": "c3",
+          "text": "Erstmal Kaffee suchen — Prioritäten",
+          "effects": { "burnout": -2 },
+          "flags": { "found_broken_coffee": true },
+          "next": "ob_01_sandra",
+          "feedback": "Der Kaffeeautomat ist kaputt.\nEin Zettel: 'Defekt seit Dienstag.\nBitte bei Sandra melden.'\nEs ist Montag."
+        }
+      ]
+    },
+    {
+      "id": "ob_01_sandra",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "HR-Einführung",
+      "npc": "sandra",
+      "mood": "neutral",
+      "text": "09:15 Uhr. Sandras Büro.\n\nVor dir: ein Stapel Dokumente, ein Laptop\nund ein Ausdruck mit der Überschrift\n„Pflichtschulungen Q1 — Bitte bis Freitag.\"\n\nEs ist Montag. Es sind 9 Schulungen.\n\nSandra erklärt die wichtigsten Regeln.\nDavon sind 4 relevant.\nDu weißt noch nicht welche 4.\n\n[ℹ️ TIPP: Burnout steigt wenn du zu viel tust.\nBei 100% Burnout endet das Projekt vorzeitig.\nSandra weiß das. Sie schickt trotzdem 9 Schulungen.]",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Alles sorgfältig lesen und Notizen machen",
+          "effects": { "kompetenz": 4, "burnout": 5 },
+          "next": "ob_02_laptop",
+          "feedback": "Du liest alles. Modul 1 ist bereits fällig.\nEs war fällig bevor du angefangen hast."
+        },
+        {
+          "id": "c2",
+          "text": "Überfliegen — die wichtigsten Punkte reichen",
+          "effects": { "kompetenz": 2, "burnout": 2 },
+          "flags": { "skipped_rule_7": true },
+          "next": "ob_02_laptop",
+          "feedback": "Reicht wahrscheinlich.\nPunkt 7 hättest du vielleicht lesen sollen.\nDu findest das später heraus."
+        },
+        {
+          "id": "c3",
+          "text": "Sandra direkt fragen: 'Was ist wirklich wichtig?'",
+          "effects": { "kompetenz": 3, "kundenliebe": 3 },
+          "flags": { "sandra_honest_tip": true },
+          "next": "ob_02_laptop",
+          "feedback": "Sandra überlegt. Lange.\n'Punkt 3. Und Punkt 11.\nDen Rest fragt niemand.'\nDas ist die ehrlichste Aussage\ndie Sandra je gemacht hat."
+        }
+      ]
+    },
+    {
+      "id": "ob_02_laptop",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Der Laptop",
+      "npc": "sandra",
+      "mood": "neutral",
+      "text": "Sandra schiebt dir den Laptop rüber.\n\nEr startet. Windows-Logo. Ladebalken.\nLadebalken bei 94%. Warten.\nImmer noch 94%.\n\nNach 4 Minuten: Desktop.\n47 Updates ausstehend.\nEin Pop-up: „Jetzt neu starten?\"\n\nSandra: „Das macht er manchmal.\nKevin weiß warum. Glaube ich.\"\n\n[ℹ️ TIPP: Prestige beeinflusst wie Müller-Brandt\nund Kunden dich wahrnehmen. Erste Eindrücke zählen.\nDieser Laptop macht keinen guten ersten Eindruck.]",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Updates sofort installieren — sauberer Start",
+          "effects": { "kompetenz": 3, "burnout": 4 },
+          "next": "ob_03_kevin",
+          "feedback": "25 Minuten. 3 Neustarts. 1 Update schlägt fehl.\nDer Laptop läuft jetzt.\nAuf 47 Updates sind 12 neue gekommen."
+        },
+        {
+          "id": "c2",
+          "text": "Updates ignorieren — später",
+          "effects": { "bullshit": 2 },
+          "flags": { "updates_ignored": true },
+          "next": "ob_03_kevin",
+          "feedback": "Du klickst 'Erinnere mich in 4 Stunden'.\nIn 4 Stunden bist du in einem Meeting.\nDas Pop-up erscheint mitten in der Präsentation."
+        },
+        {
+          "id": "c3",
+          "text": "Kevin fragen — er soll sich darum kümmern",
+          "effects": { "bullshit": 3, "kundenliebe": 2 },
+          "next": "ob_03_kevin",
+          "feedback": "Kevin ist in 10 Minuten da.\nEr sagt: 'Updates? Die mache ich nie.\nLäuft doch.' Es läuft. Irgendwie."
+        }
+      ]
+    },
+    {
+      "id": "ob_03_kevin",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Kevin erklärt alles",
+      "npc": "kevin",
+      "mood": "funny",
+      "text": "10:00 Uhr. Kevin steht in deiner Bürotür.\nEr ist seit 8 Monaten dabei.\nEr erklärt es so als wäre er seit 20 Jahren dabei.\n\n„Ich zeig dir wie wir hier arbeiten.\"\n\nKevin zeigt dir die 5 Stats auf dem HUD.\n\n„Kompetenz ist das Wichtigste. Ich hab fast 100.\"\n[Kevin hat 41.]\n\n„Bullshit ist... also das brauchst du nicht wirklich.\"\n[Kevin hat 78.]\n\n„Kundenliebe — Dieter mag mich sehr.\"\n[Dieter kennt Kevin kaum.]\n\n„Burnout. Passiert mir nie.\"\n[Kevin hat Burnout 67.]\n\n„Und Prestige. Müller-Brandt mag mich.\"\n[Müller-Brandt weiß nicht mehr wie Kevin heißt.]\n\n[ℹ️ TIPP: Alle 5 Stats sind sichtbar im HUD oben.\nKlicke darauf für Details. Kevins Werte kannst du\nnicht sehen — aber du kannst sie dir denken.]",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Höflich zuhören — er meint es gut",
+          "effects": { "kundenliebe": 3, "kompetenz": -1 },
+          "flags": { "kevin_method_learned": true },
+          "next": "ob_04_mueller",
+          "feedback": "Kevin redet 25 Minuten.\nDu lernst wie er Reports macht.\nDie Methode ist von 2019 und falsch.\nDu weißt das noch nicht."
+        },
+        {
+          "id": "c2",
+          "text": "Kritisch nachfragen — einige Aussagen stimmen nicht",
+          "effects": { "kompetenz": 4, "kundenliebe": -2 },
+          "next": "ob_04_mueller",
+          "feedback": "Kevin ist kurz still.\nDann: 'Ich mach das schon so.'\nEr macht es immer noch so.\nDu machst es anders."
+        },
+        {
+          "id": "c3",
+          "text": "Eigene Dokumentation suchen — parallel zu Kevin",
+          "effects": { "kompetenz": 5, "bullshit": -2 },
+          "flags": { "found_real_docs": true },
+          "next": "ob_04_mueller",
+          "feedback": "Du findest die offizielle Doku.\nSie widerspricht Kevin in 3 Punkten.\nDu sagst nichts. Noch nicht."
+        }
+      ]
+    },
+    {
+      "id": "ob_04_mueller",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Der Flur",
+      "npc": "dr_mueller",
+      "mood": "tense",
+      "text": "11:30 Uhr. Du gehst zur Küche.\nMüller-Brandt kommt aus dem Konferenzraum.\nEr sieht dich. Er bleibt stehen.\n\n90 Sekunden. Kein Small Talk.\nEr stellt keine Fragen.\nEr macht Aussagen die wie Fragen klingen.\n\n„Sie sind der Neue. Gut.\"\n\nPause.\n\n„Wir haben ab Montag Dieter.\"\n\nPause.\n\n„Bereiten Sie sich vor.\"\n\nEr geht.\nDu weißt nicht wer Dieter ist.\nDu wirst es Montag herausfinden.\n\n[ℹ️ TIPP: Prestige beeinflusst wie Müller-Brandt\nmit dir interagiert. Hoher Prestige-Wert öffnet\nbessere Gesprächsoptionen in späteren Projekten.]",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "'Natürlich.' — selbstbewusst",
+          "effects": { "prestige": 4, "bullshit": 2 },
+          "next": "ob_05_mittagspause",
+          "feedback": "Er nickt einmal. Das ist viel von ihm.\nDu weißt immer noch nicht wer Dieter ist."
+        },
+        {
+          "id": "c2",
+          "text": "'Wer ist Dieter?' — direkt fragen",
+          "effects": { "kompetenz": 3, "prestige": -1 },
+          "next": "ob_05_mittagspause",
+          "feedback": "Er dreht sich kurz um.\n'Das werden Sie sehen.'\nEr geht weiter.\nDu bereust die Frage nicht."
+        },
+        {
+          "id": "c3",
+          "text": "[Nichts sagen — nicken und warten]",
+          "effects": { "kompetenz": 2, "prestige": 2 },
+          "next": "ob_05_mittagspause",
+          "feedback": "Er sieht dich kurz an.\nRespekt oder Gleichgültigkeit —\nschwer zu sagen.\nBeides ist möglich.",
+          "achievementTrigger": "stille_botschaft"
+        }
+      ]
+    },
+    {
+      "id": "ob_05_mittagspause",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "12:00 Uhr",
+      "npc": null,
+      "mood": "neutral",
+      "text": "12:00 Uhr. Mittagspause.\n\nDein erster freier Moment des Tages.\nDu hast 5 Entscheidungen getroffen.\nKeine davon war falsch.\nKeine davon war komplett richtig.\n\nWillkommen im Consulting.\n\n[ℹ️ TIPP: Burnout sinkt am stärksten durch\nechte Erholung — nicht durch Arbeit die sich\nproduktiv anfühlt. Mittagspausen zählen.\nTheoretisch.]",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Mit dem Team essen — Anschluss finden",
+          "effects": { "kundenliebe": 4, "burnout": -3 },
+          "next": "ob_06_excel",
+          "feedback": "Kevin redet auch beim Mittagessen.\nDu lernst drei Kollegen kennen.\nEiner davon heißt auch Kevin.\nDas wird verwirrend."
+        },
+        {
+          "id": "c2",
+          "text": "Am Schreibtisch essen — Dokumentation lesen",
+          "effects": { "kompetenz": 3, "burnout": 2 },
+          "flags": { "found_buchhaltung_first": true },
+          "next": "ob_06_excel",
+          "feedback": "Du liest die ITAM-Richtlinien.\nSie sind von 2021. Einige Teile stimmen noch.\nDu markierst die wichtigsten Stellen.\nDu findest BUCHHALTUNG 2006 zum ersten Mal."
+        },
+        {
+          "id": "c3",
+          "text": "Spazieren gehen — allein, kurz, nötig",
+          "effects": { "burnout": -8 },
+          "next": "ob_06_excel",
+          "feedback": "15 Minuten Luft. Keine E-Mails.\nKeine Kevin.\nDu kommst zurück und bist bereit.\nDas hält bis etwa 14:30 Uhr an."
+        },
+        {
+          "id": "c4",
+          "text": "Mittagspause überspringen — noch viel zu tun",
+          "effects": { "burnout": 6, "kompetenz": 1 },
+          "next": "ob_06_excel",
+          "feedback": "Sandra schickt um 13:47 Uhr eine\nWellness-Check-Erinnerung.\nDu beantwortest sie nicht.\nSie schickt eine zweite."
+        }
+      ]
+    },
+    {
+      "id": "ob_06_excel",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Das erste Excel",
+      "npc": "kevin",
+      "mood": "funny",
+      "text": "14:00 Uhr. Kevin legt eine Excel-Datei auf deinen Tisch.\n\nDateiname: \"Software_Inventar_FINAL_v3_NEU_2.xlsx\"\n\n„Kannst du das kurz verifizieren?\nSind alle Software-Titel korrekt erfasst.\nDauert nicht lang.\"\n\n12 Einträge. Davon:\n\n• 3 Duplikate (andere Schreibweise — gleiche Software)\n• 1 Eintrag: „Microsoft Ofice 365\" (Tippfehler)\n• 1 Eintrag: „BUCHHALTUNG 2006 — Server: unbekannt\"\n• 1 Eintrag verweist auf einen Server der laut\n  Netzwerkplan nicht existiert\n\n[ℹ️ TIPP: In diesem Job gibt es keine\nsauberen Daten. Nie. Das hier ist ein guter Tag.]",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Alles sorgfältig bereinigen und dokumentieren",
+          "effects": { "kompetenz": 6, "burnout": 5 },
+          "flags": { "excel_cleaned": true },
+          "next": "ob_07_email",
+          "feedback": "1,5 Stunden Arbeit.\nDie Liste hat jetzt 9 eindeutige Einträge.\nBUCHHALTUNG 2006 bleibt — du weißt nicht\nwohin damit.\nNiemand weiß das."
+        },
+        {
+          "id": "c2",
+          "text": "Offensichtliche Fehler korrigieren — der Rest reicht",
+          "effects": { "kompetenz": 3, "burnout": 2 },
+          "next": "ob_07_email",
+          "feedback": "Tippfehler behoben. Duplikate markiert.\nBUCHHALTUNG 2006: du lässt es stehen.\nInstinkt sagt: nicht anfassen."
+        },
+        {
+          "id": "c3",
+          "text": "Kevin fragen was mit BUCHHALTUNG 2006 ist",
+          "effects": { "kompetenz": 2, "bullshit": 3 },
+          "flags": { "kevin_warned_buchhaltung": true },
+          "next": "ob_07_email",
+          "feedback": "Kevin: 'Das? Das ist immer da.\nIch glaub das braucht niemand mehr.\nAber anfassen würde ich es nicht.'\nDas ist die klügste Aussage\ndie Kevin je gemacht hat.",
+          "achievementTrigger": "first_buchhaltung_warning"
+        }
+      ]
+    },
+    {
+      "id": "ob_07_email",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Erster Posteingang",
+      "npc": null,
+      "mood": "neutral",
+      "text": "16:30 Uhr. Du öffnest dein E-Mail-Postfach\nzum ersten Mal.\n\n3 neue Nachrichten.\n\n📧 Sandra Breuer\n   „Modul 1 Pflichtschulung — Erinnerung (1/1)\"\n   [Gesendet: heute 09:03 Uhr]\n\n📧 Dieter Kammann\n   „Hallo! Kurze Frage...\"\n   [Kein Text im E-Mail-Body. Kein Anhang.]\n\n📧 Kevin Schreiber\n   „FYI\"\n   [Anhang: Inventar_Liste_2023_alt.xlsx — 0 KB]\n\n[ℹ️ TIPP: Das E-Mail-System erscheint zwischen\nProjekten. Jede Mail hat Konsequenzen —\nauch das Ignorieren. Besonders das Ignorieren.]",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Alle drei beantworten — gründlicher Start",
+          "effects": { "prestige": 3, "burnout": 5 },
+          "next": "ob_08_feierabend",
+          "feedback": "Sandra: automatische Lesebestätigung.\nDieter: antwortet sofort. Hat keine Frage mehr.\n'Hatte sich erledigt. Danke!'\nKevin: Bounce-Fehler. Falsche Adresse."
+        },
+        {
+          "id": "c2",
+          "text": "Nur Sandra antworten — Pflicht ist Pflicht",
+          "effects": { "prestige": 2, "burnout": 2 },
+          "next": "ob_08_feierabend",
+          "feedback": "Modul 1 bleibt trotzdem fällig.\nDieter schreibt morgen nochmal.\nKevin merkt es nicht."
+        },
+        {
+          "id": "c3",
+          "text": "Alle ignorieren — morgen ist auch noch ein Tag",
+          "effects": { "bullshit": 4, "burnout": -3 },
+          "flags": { "first_email_ignored": true },
+          "next": "ob_08_feierabend",
+          "feedback": "Morgen sind es 7 E-Mails.\nÜbermorgen 14.\nDas ist keine Metapher."
+        }
+      ]
+    },
+    {
+      "id": "ob_08_feierabend",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "17:45 Uhr",
+      "npc": "dr_mueller",
+      "mood": "tense",
+      "text": "17:45 Uhr.\nDu packst deinen Laptop ein.\n\nMüller-Brandt geht an deinem Büro vorbei.\nEr bleibt in der Tür stehen.\n\n„Ach — Sie gehen schon?\"\n\nEs ist 17:45 Uhr.\nEs ist dein erster Tag.\nEr stellt die Frage so als wäre 17:45 Uhr früh.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "'Ja — bis morgen.' — klar und direkt",
+          "effects": { "burnout": -6, "prestige": -2 },
+          "next": "ob_09_end",
+          "feedback": "Er nickt. Nichts weiter.\nDu gehst.\nDu schläfst gut.\nMorgen kommt Dieter."
+        },
+        {
+          "id": "c2",
+          "text": "'Ich wollte noch kurz die Dokumentation...'",
+          "effects": { "burnout": 4, "prestige": 4 },
+          "flags": { "stayed_late_day_one": true },
+          "next": "ob_09_end",
+          "feedback": "Es werden 45 Minuten.\nMüller-Brandt geht um 18:30 Uhr.\nDu bleibst bis 19:15.\nDu weißt nicht warum."
+        },
+        {
+          "id": "c3",
+          "text": "[Nichts sagen — weiter tippen]",
+          "effects": { "burnout": 2, "kompetenz": 3, "prestige": 3 },
+          "next": "ob_09_end",
+          "feedback": "Er steht 10 Sekunden in der Tür.\nDann geht er weiter.\nRespekt oder Irritation.\nSchwer zu sagen. Beides nützlich.",
+          "achievementTrigger": "stille_botschaft_2"
+        }
+      ]
+    },
+    {
+      "id": "ob_09_end",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Tag 1: Abgeschlossen",
+      "npc": null,
+      "mood": "neutral",
+      "isFinalScene": true,
+      "text": "Tag 1. Abgeschlossen.\n\nDu hast gelernt:\n• Kevin meint es gut.\n• Sandra schickt viele E-Mails.\n• Müller-Brandt stellt Aussagen als Fragen.\n• BUCHHALTUNG 2006 existiert.\n  Niemand weiß warum.\n  Niemand fragt.\n\nMorgen kommt Dieter.\n\nDu weißt noch nicht was das bedeutet.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Weiter zum ersten Projekt →",
+          "effects": {},
+          "next": "__onboarding_complete__",
+          "feedback": ""
+        }
+      ]
+    }
+  ]
+}

@@ -327,6 +327,11 @@ function loadScene(sceneId, projectData) {
     statsAtProjectStart = { ...GameState.stats };
     resetMeetingRoulette();
     window.NPCs?.resetNPCModifierGuard();
+    if (projectData.isOnboarding) {
+      window.Renderer?.showOnboardingSkipButton?.(projectData);
+    } else {
+      window.Renderer?.hideOnboardingSkipButton?.();
+    }
   }
 
   // ── Ending resolution ──────────────────────────────────
@@ -398,6 +403,10 @@ function makeChoice(choice) {
     });
   }
 
+  if (choice.achievementTrigger) {
+    window.Achievements?.checkTrigger?.(choice.achievementTrigger);
+  }
+
   let feedbackText = choice.feedback || '';
   if (
     choice.feedback_prefix_if_flag &&
@@ -414,7 +423,16 @@ function makeChoice(choice) {
     return;
   }
 
+  if (choice.next === '__onboarding_complete__' && !feedbackText) {
+    completeOnboarding();
+    return;
+  }
+
   const doAdvance = () => {
+    if (choice.next === '__onboarding_complete__') {
+      completeOnboarding();
+      return;
+    }
     triggerMeetingRoulette();
     if (window.VendorAds?.triggerIfApplicable) {
       window.VendorAds.triggerIfApplicable(() => loadScene(choice.next, null), {
@@ -431,6 +449,43 @@ function makeChoice(choice) {
     if (feedbackText && typeof Renderer !== 'undefined') Renderer.showFeedback(feedbackText);
     setTimeout(doAdvance, 5000);
   }
+}
+
+/**
+ * Completes the onboarding chapter. Sets flag, triggers achievement, saves,
+ * shows stat summary overlay, then starts projekt_dieter.
+ */
+function completeOnboarding() {
+  setFlag('onboarding_complete', true);
+  window.Achievements?.checkTrigger?.('onboarding_complete');
+  if (window.Storage && typeof window.Storage.saveGame === 'function') {
+    window.Storage.saveGame(GameState);
+  }
+  window.Renderer?.hideOnboardingSkipButton?.();
+  window.Renderer?.showOnboardingSummary?.(GameState.stats, () => {
+    window.startProject?.('projekt_dieter');
+  });
+}
+
+/**
+ * Skips the onboarding chapter. Sets default stats, flags, saves, then starts projekt_dieter.
+ */
+function skipOnboarding() {
+  GameState.stats = {
+    kompetenz: 20,
+    bullshit: 15,
+    kundenliebe: 20,
+    burnout: 10,
+    prestige: 15,
+  };
+  setFlag('onboarding_complete', true);
+  setFlag('onboarding_skipped', true);
+  window.Achievements?.checkTrigger?.('onboarding_skipped');
+  if (window.Storage && typeof window.Storage.saveGame === 'function') {
+    window.Storage.saveGame(GameState);
+  }
+  window.Renderer?.hideOnboardingSkipButton?.();
+  window.startProject?.('projekt_dieter');
 }
 
 /**
@@ -457,18 +512,16 @@ function completeProject(projectId, endingType, xpReward) {
     window.Achievements.checkTrigger(`project_complete_${projectId}`);
     window.Achievements.checkTrigger(`ending_${endingType}_${projectId}`);
 
-    const ALL_PROJECTS = [
-      'projekt_dieter', 'projekt_sap_zombies', 'projekt_shadow_it',
-      'projekt_cloud', 'projekt_ki', 'projekt_board', 'projekt_whistleblower',
-    ];
-    const allDone = ALL_PROJECTS.every(id => GameState.projectsCompleted.includes(id));
+    const cfg = window._LTB_CONFIG;
+    const ALL_PROJECTS = cfg ? [...(cfg.mvpProjects ?? []), ...(cfg.extendedProjects ?? [])] : [];
+    const MVP_PROJECTS = cfg?.mvpProjects ?? [];
+    const allDone = ALL_PROJECTS.length > 0 && ALL_PROJECTS.every(id => GameState.projectsCompleted.includes(id));
     if (allDone) window.Achievements.checkTrigger('all_projects_complete');
 
-    const MVP_PROJECTS = ['projekt_dieter', 'projekt_sap_zombies', 'projekt_shadow_it'];
-    const mvpDone = MVP_PROJECTS.every(id => GameState.projectsCompleted.includes(id));
+    const mvpDone = MVP_PROJECTS.length > 0 && MVP_PROJECTS.every(id => GameState.projectsCompleted.includes(id));
     if (mvpDone) window.Achievements.checkTrigger('all_mvp_projects_complete');
 
-    if (GameState.disasterCount >= 6) {
+    if (ALL_PROJECTS.length > 0 && GameState.disasterCount >= ALL_PROJECTS.length) {
       window.Achievements.checkTrigger('all_disasters_complete');
     }
   }
@@ -918,6 +971,8 @@ window.Engine = {
   setFlag,
   hasFlag,
   completeProject,
+  completeOnboarding,
+  skipOnboarding,
   isGameOver,
   continueAfterBurnout,
   triggerMinigame,

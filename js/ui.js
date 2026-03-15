@@ -8,15 +8,20 @@
 /** @type {Object[]} All project manifests loaded from story files. */
 let allProjects = [];
 
-const ALL_PROJECT_IDS = [
-  'projekt_dieter',
-  'projekt_sap_zombies',
-  'projekt_shadow_it',
-  'projekt_cloud',
-  'projekt_ki',
-  'projekt_board',
-  'projekt_whistleblower',
-];
+/**
+ * Returns all project IDs from config (mvpProjects + extendedProjects).
+ * Single source of truth: config.json.
+ * @returns {string[]}
+ */
+function getProjectIds() {
+  const c = window._LTB_CONFIG;
+  return c ? [...(c.mvpProjects ?? []), ...(c.extendedProjects ?? [])] : [];
+}
+
+/** @returns {number} Total project count from config. */
+function getTotalProjectCount() {
+  return getProjectIds().length;
+}
 
 // ── DOM helpers ───────────────────────────────────────────
 
@@ -49,7 +54,7 @@ function createScreen(id) {
 async function loadAllProjects() {
   if (allProjects.length > 0) return allProjects;
   const results = await Promise.allSettled(
-    ALL_PROJECT_IDS.map(id => fetch(`/data/stories/${id}.json`).then(r => r.json())),
+    getProjectIds().map(id => fetch(`/data/stories/${id}.json`).then(r => r.json())),
   );
   allProjects = results
     .filter(r => r.status === 'fulfilled')
@@ -212,8 +217,8 @@ function buildLockedCard(project) {
 
 /**
  * Renders the full-screen project selection overlay.
- * Shows all 6 projects with available/completed/locked states.
- * Triggers renderFullGameComplete() when all 6 are done.
+ * Shows all 7 projects with available/completed/locked states.
+ * Triggers renderFullGameComplete() when all 7 are done.
  * @returns {Promise<void>}
  */
 async function renderProjectSelection() {
@@ -222,11 +227,11 @@ async function renderProjectSelection() {
   const completed = state?.projectsCompleted ?? [];
   const level     = state?.career?.level ?? 1;
 
-  const sortedProjects = ALL_PROJECT_IDS
+  const sortedProjects = getProjectIds()
     .map(id => projects.find(p => p.id === id))
     .filter(Boolean);
 
-  if (completed.length >= 6 && sortedProjects.every(p => completed.includes(p.id))) {
+  if (completed.length >= getTotalProjectCount() && sortedProjects.every(p => completed.includes(p.id))) {
     renderFullGameComplete();
     return;
   }
@@ -241,7 +246,7 @@ async function renderProjectSelection() {
       ${getSelectionSubtitle(level)}
     </div>
     <div style="font-size:var(--font-size-sm);color:var(--color-accent-cyan);text-align:center;">
-      Projekte: ${projectsDone} / 6 abgeschlossen
+      Projekte: ${projectsDone} / ${getTotalProjectCount()} abgeschlossen
       &nbsp;·&nbsp;
       Karrierestufe: ${state?.career?.title ?? 'Junior Consultant'}
     </div>
@@ -286,7 +291,7 @@ async function renderProjectSelectionForNewGame(opts = {}) {
   const grid = document.createElement('div');
   grid.style.cssText = 'display:flex;flex-direction:column;gap:var(--space-md);align-items:center;width:100%;';
 
-  const sorted = ALL_PROJECT_IDS
+  const sorted = getProjectIds()
     .map(id => projects.find(p => p.id === id))
     .filter(Boolean);
 
@@ -353,7 +358,7 @@ function asciBar(value) {
 }
 
 /**
- * Renders the full-screen completion summary shown when all 6 projects are done.
+ * Renders the full-screen completion summary shown when all 7 projects are done.
  * @returns {Promise<void>}
  */
 async function renderFullGameComplete() {
@@ -379,7 +384,7 @@ async function renderFullGameComplete() {
   `;
 
   const FLAVOR_LINES = [
-    'Sie haben alle 6 Projekte abgeschlossen.',
+    `Sie haben alle ${getTotalProjectCount()} Projekte abgeschlossen.`,
     'Greysuit & Partner ist stolz auf Sie.',
     'Dr. Müller-Brandt hat das auf LinkedIn gepostet.',
     'Er hat sich selbst in der Überschrift erwähnt.',
@@ -499,6 +504,7 @@ async function renderFullGameComplete() {
         projekt_cloud:       { emoji: '☁️', epitaph: 'BUCHHALTUNG 2006 war 3 Tage offline. Kevin war beteiligt.' },
         projekt_ki:          { emoji: '🤖', epitaph: 'Vendor A hat geliefert. Dr. Sasse hat das Unternehmen verlassen.' },
         projekt_board:       { emoji: '😶', epitaph: 'Wolfgang Reinhold: "Wir gehen in eine andere Richtung." Ende.' },
+        projekt_whistleblower: { emoji: '✉️', epitaph: 'Der dritte Umschlag. Der Hinweisgeber hatte Kopien.' },
       };
       disasters.forEach(pid => {
         const data = EPITAPHS[pid] ?? { emoji: '💀', epitaph: 'Details sind dem Betroffenen unangenehm.' };
@@ -511,7 +517,7 @@ async function renderFullGameComplete() {
     }
   }
 
-  if (disCount >= 6) {
+  if (disCount >= getTotalProjectCount()) {
     window.Achievements?.checkTrigger('all_disasters_complete');
     const chaosEl = document.createElement('div');
     chaosEl.style.cssText = [
@@ -527,7 +533,7 @@ async function renderFullGameComplete() {
       <div style="font-size:32px;margin-bottom:var(--space-sm);">🌪️</div>
       <div style="color:var(--color-accent-red);margin-bottom:var(--space-sm);">Vollständiges Chaos — Achievement freigeschaltet</div>
       <div style="color:var(--color-text-secondary);line-height:1.8;">
-        Sie haben alle 6 Projekte mit Desaster beendet.<br>
+        Sie haben alle ${getTotalProjectCount()} Projekte mit Desaster beendet.<br>
         Das ist statistisch fast unmöglich.<br>
         Dieter weint. Dr. Sasse hat das Unternehmen verlassen.<br>
         Kevin hat trotzdem eine App gebaut.

@@ -100,7 +100,7 @@
           "effects": { "kompetenz": 5, "kundenliebe": 4, "burnout": 5 },
           "flags": { "workshop_done": true },
           "next": "b_04",
-          "feedback": "Vier Stunden. Sehr viele Post-its. Die skeptischen Drei werden nach zwei Stunden zu den Engagiertesten im Raum. Die Handy-Zwei haben ihre Handys weggelegt. Kevin's Deck wird nie geöffnet. Das ist das beste Ergebnis aller möglichen Ergebnisse."
+          "feedback": "Vier Stunden. Sehr viele Post-its. Die skeptischen Drei werden nach zwei Stunden zu den Engagiertesten im Raum. Die Handy-Zwei haben ihre Handys weggelegt. Kevins Deck wird nie geöffnet. Das ist das beste Ergebnis aller möglichen Ergebnisse."
         },
         {
           "id": "c2",
@@ -304,7 +304,7 @@
     "ending_disaster": {
       "type": "disaster",
       "title": "💥 BOARD REJECTED",
-      "text": "Wolfgang Reinhold: 'Wir gehen in eine andere Richtung.'\n\nDas ist alles. Fünf Wochen. Die Post-its. Harald's Kaffee. Kevins 73 Folien. Dein Deck mit dem Clipart-Pfeil auf Folie 7.\n\nMüller-Brandt telefoniert bereits, als du den Raum verlässt. Der nächste Auftrag. Er nickt dir im Vorbeigehen zu. Das ist mehr als erwartet.\n\nKevin schickt dir später eine Nachricht: 'Ich hab das Deck nochmal angeschaut. Folie 7 war vielleicht nicht optimal.' Er hat recht. Er hat fast alles richtig eingeschätzt.\n\nHarald's Wand hat jetzt einen neuen Ordner. Er hat noch keinen Namen. Das ist vielleicht gut so.",
+      "text": "Wolfgang Reinhold: 'Wir gehen in eine andere Richtung.'\n\nDas ist alles. Fünf Wochen. Die Post-its. Haralds Kaffee. Kevins 73 Folien. Dein Deck mit dem Clipart-Pfeil auf Folie 7.\n\nMüller-Brandt telefoniert bereits, als du den Raum verlässt. Der nächste Auftrag. Er nickt dir im Vorbeigehen zu. Das ist mehr als erwartet.\n\nKevin schickt dir später eine Nachricht: 'Ich hab das Deck nochmal angeschaut. Folie 7 war vielleicht nicht optimal.' Er hat recht. Er hat fast alles richtig eingeschätzt.\n\nHaralds Wand hat jetzt einen neuen Ordner. Er hat noch keinen Namen. Das ist vielleicht gut so.",
       "xp": 100,
       "achievement": "hall_6"
     }

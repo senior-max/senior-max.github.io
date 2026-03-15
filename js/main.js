@@ -138,6 +138,26 @@ async function startProject(projectId, startSceneId = null) {
 
 window.startProject = startProject;
 
+/**
+ * Fetches onboarding.json and starts the onboarding chapter.
+ * Called when starting a new game and onboarding has not been completed.
+ * @returns {Promise<void>}
+ */
+async function startOnboarding() {
+  const response = await fetch('/data/stories/onboarding.json');
+  if (!response.ok) {
+    throw new Error(`Onboarding nicht gefunden (HTTP ${response.status})`);
+  }
+  const projectData = await response.json();
+  if (!projectData.scenes || projectData.scenes.length === 0) {
+    throw new Error('Onboarding enthält keine Szenen.');
+  }
+  window.Engine.GameState.currentProject = projectData.id;
+  window.Engine.loadScene('ob_00', projectData);
+}
+
+window.startOnboarding = startOnboarding;
+
 // ── Bootstrap ─────────────────────────────────────────────
 
 /**

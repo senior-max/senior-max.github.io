@@ -141,7 +141,7 @@ function buildSaveBanner(save) {
     'letter-spacing:0.5px',
     'text-align:center',
   ].join(';');
-  const total = _config?.totalProjects ?? 6;
+  const total = (_config?.mvpProjects?.length ?? 0) + (_config?.extendedProjects?.length ?? 0);
   el.textContent = `💾 Gespeicherter Stand: ${title} — Projekt ${count}/${total}`;
   return el;
 }
@@ -163,13 +163,18 @@ function _initGameSystems() {
  * fresh game from the beginning.
  * @param {HTMLElement} menuEl - The menu overlay to remove.
  */
-function startNewGame(menuEl) {
+async function startNewGame(menuEl) {
   detachMenuKeys();
   menuEl?.remove();
   window.Storage?.clearSave();
   _initGameSystems();
-  const projectId = _config?.startProject ?? 'projekt_dieter';
-  window.startProject(projectId);
+  const onboardingDone = window.Engine?.GameState?.flags?.onboarding_complete === true;
+  if (!onboardingDone) {
+    await window.startOnboarding?.();
+  } else {
+    const projectId = _config?.startProject ?? 'projekt_dieter';
+    await window.startProject?.(projectId);
+  }
 }
 
 /**

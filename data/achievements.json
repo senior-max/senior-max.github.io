@@ -1,5 +1,33 @@
 [
   {
+    "id": "stille_botschaft",
+    "name": "Die stille Botschaft",
+    "emoji": "🤫",
+    "description": "Im ersten Gespräch mit Müller-Brandt nichts gesagt. Er hat es respektiert. Oder ignoriert.",
+    "trigger": "stille_botschaft"
+  },
+  {
+    "id": "first_buchhaltung_warning",
+    "name": "Erste Warnung",
+    "emoji": "⚠️",
+    "description": "Kevins Warnung über BUCHHALTUNG 2006 gehört. Am ersten Tag. Er hatte ausnahmsweise Recht.",
+    "trigger": "first_buchhaltung_warning"
+  },
+  {
+    "id": "day_one_survivor",
+    "name": "Tag 1: Überlebt",
+    "emoji": "🌅",
+    "description": "Den ersten Tag vollständig gespielt ohne das Onboarding zu überspringen. Tapfer.",
+    "trigger": "onboarding_complete"
+  },
+  {
+    "id": "speed_starter",
+    "name": "Kein Zeit für Onboarding",
+    "emoji": "⏩",
+    "description": "Ersten Tag übersprungen. Du weißt was du tust. Wahrscheinlich.",
+    "trigger": "onboarding_skipped"
+  },
+  {
     "id": "audit_survivor",
     "name": "Erster Audit-Schock",
     "emoji": "😱",
@@ -108,7 +136,7 @@
     "id": "all_projects",
     "name": "Vollzeit-Berater",
     "emoji": "🏆",
-    "description": "Alle 6 Projekte abgeschlossen. Du hast das Ökosystem durchgespielt.",
+    "description": "Alle 7 Projekte abgeschlossen. Du hast das Ökosystem durchgespielt.",
     "trigger": "all_projects_complete"
   },
   {
@@ -157,7 +185,7 @@
     "id": "vollstaendiges_chaos",
     "name": "Vollständiges Chaos",
     "emoji": "🌪️",
-    "description": "Alle 6 Projekte mit Desaster-Ending abgeschlossen. Das ist statistisch fast unmöglich. Und doch.",
+    "description": "Alle 7 Projekte mit Desaster-Ending abgeschlossen. Das ist statistisch fast unmöglich. Und doch.",
     "trigger": "all_disasters_complete"
   },
   {
@@ -176,7 +204,7 @@
   },
   {
     "id": "tyler_fan",
-    "name": "Tyler's bester Kunde",
+    "name": "Tylers bester Kunde",
     "emoji": "📞",
     "description": "Den AWS-Cold-Call von Tyler dreimal angenommen. Tyler schätzt das.",
     "trigger": "vendor_call_accepted_3"
@@ -185,7 +213,7 @@
     "id": "ad_ignorer",
     "name": "Werbeblocker",
     "emoji": "🚫",
-    "description": "5 Vendor-Ads übersprungen ohne einen einzigen Button zu klicken.",
+    "description": "5 Vendor-Ads übersprungen, ohne einen einzigen Button zu klicken.",
     "trigger": "vendor_ads_skipped_5"
   },
   {

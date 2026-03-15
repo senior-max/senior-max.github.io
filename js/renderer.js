@@ -1040,6 +1040,202 @@ function showToast(text, durationMs = 3000, color = 'var(--color-accent-amber)')
   setTimeout(() => toast.remove(), durationMs);
 }
 
+// ── Onboarding ─────────────────────────────────────────────
+
+const STAT_LABELS = {
+  kompetenz:   { emoji: '🧠', name: 'Kompetenz' },
+  bullshit:    { emoji: '💬', name: 'Bullshit' },
+  kundenliebe: { emoji: '❤️', name: 'Kundenliebe' },
+  burnout:     { emoji: '🔥', name: 'Burnout' },
+  prestige:    { emoji: '⭐', name: 'Prestige' },
+};
+
+/**
+ * Shows the onboarding skip button. Fixed top-right, ghost style.
+ * @param {Object} projectData - Onboarding project data (skipLabel, skipTooltip).
+ */
+function showOnboardingSkipButton(projectData) {
+  document.getElementById('skip-onboarding-btn')?.remove();
+  const btn = document.createElement('button');
+  btn.id = 'skip-onboarding-btn';
+  btn.type = 'button';
+  btn.textContent = projectData?.skipLabel ?? 'Ersten Tag überspringen →';
+  btn.title = projectData?.skipTooltip ?? 'Direkt zu Projekt 1. Stats starten auf Standardwerten.';
+  btn.style.cssText = [
+    'position:fixed', 'top:16px', 'right:20px', 'z-index:100',
+    'background:transparent', 'border:1px solid #333', 'color:#555',
+    'font-size:0.75rem', 'padding:6px 12px', 'border-radius:3px',
+    'cursor:pointer', 'font-family:var(--font-mono)',
+    'transition:all 0.2s',
+  ].join(';');
+  btn.addEventListener('mouseenter', () => {
+    btn.style.borderColor = '#666';
+    btn.style.color = '#999';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.borderColor = '#333';
+    btn.style.color = '#555';
+  });
+  btn.addEventListener('click', () => {
+    const overlay = document.createElement('div');
+    overlay.id = 'skip-onboarding-confirm';
+    overlay.style.cssText = [
+      'position:fixed', 'inset:0', 'z-index:2000',
+      'display:flex', 'align-items:center', 'justify-content:center',
+      'background:rgba(13,17,23,0.9)', 'backdrop-filter:blur(4px)',
+    ].join(';');
+    const card = document.createElement('div');
+    card.style.cssText = [
+      'background:var(--color-surface)', 'border:1px solid var(--color-border)',
+      'padding:var(--space-xl)', 'max-width:400px', 'text-align:center',
+      'font-family:var(--font-mono)',
+    ].join(';');
+    card.innerHTML = `
+      <p style="margin:0 0 var(--space-md);line-height:1.6;color:var(--color-text-primary);">
+        Ersten Tag überspringen?
+      </p>
+      <p style="margin:0 0 var(--space-lg);font-size:var(--font-size-sm);color:var(--color-text-secondary);line-height:1.5;">
+        Deine Stats starten auf Standardwerten.<br>Du kannst das Onboarding nicht nochmals spielen wenn du es übersprungen hast.
+      </p>
+      <div style="display:flex;gap:var(--space-sm);justify-content:center;flex-wrap:wrap;">
+        <button class="choice-btn" id="skip-confirm-yes">Ja, überspringen</button>
+        <button class="choice-btn" style="background:transparent;color:var(--color-text-secondary);" id="skip-confirm-no">Doch weiterspielen</button>
+      </div>
+    `;
+    overlay.appendChild(card);
+    document.getElementById('app')?.appendChild(overlay);
+    card.querySelector('#skip-confirm-yes').addEventListener('click', () => {
+      overlay.remove();
+      window.Engine?.skipOnboarding?.();
+    });
+    card.querySelector('#skip-confirm-no').addEventListener('click', () => overlay.remove());
+  });
+  document.getElementById('app')?.appendChild(btn);
+}
+
+/**
+ * Removes the onboarding skip button from the DOM.
+ */
+function hideOnboardingSkipButton() {
+  document.getElementById('skip-onboarding-btn')?.remove();
+}
+
+/**
+ * Shows the onboarding completion summary overlay with animated stat bars.
+ * Auto-advances after 4 seconds or on button click.
+ * @param {Object} stats - Current GameState.stats.
+ * @param {function} callback - Called when user continues (click or auto).
+ */
+function showOnboardingSummary(stats, callback) {
+  const overlay = createOverlay('onboarding-summary-overlay', 'Tag 1 abgeschlossen');
+  overlay.style.backgroundColor = 'rgba(13,17,23,0.97)';
+  overlay.style.borderTop = '3px solid var(--color-accent-cyan)';
+  overlay.style.gap = 'var(--space-md)';
+  overlay.style.zIndex = '1200';
+
+  const inner = document.createElement('div');
+  inner.style.cssText = [
+    'display:flex', 'flex-direction:column', 'align-items:center',
+    'gap:var(--space-lg)', 'max-width:420px', 'width:100%',
+    'animation:fadeInUp 0.4s ease both',
+  ].join(';');
+  overlay.appendChild(inner);
+
+  const header = document.createElement('div');
+  header.style.cssText = 'font-size:var(--font-size-sm);text-transform:uppercase;letter-spacing:3px;color:var(--color-accent-cyan);';
+  header.textContent = 'TAG 1 — ABGESCHLOSSEN';
+  inner.appendChild(header);
+
+  const statsWrap = document.createElement('div');
+  statsWrap.style.cssText = 'display:flex;flex-direction:column;gap:var(--space-sm);width:100%;';
+  inner.appendChild(statsWrap);
+
+  const order = ['kompetenz', 'bullshit', 'kundenliebe', 'burnout', 'prestige'];
+  order.forEach((key) => {
+    const val = stats[key] ?? 0;
+    const info = STAT_LABELS[key] || { emoji: '•', name: key };
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:var(--space-sm);';
+    const label = document.createElement('span');
+    label.style.cssText = 'min-width:120px;font-size:var(--font-size-sm);';
+    label.textContent = `${info.emoji} ${info.name}:`;
+    const valEl = document.createElement('span');
+    valEl.className = 'ob-stat-value';
+    valEl.dataset.key = key;
+    valEl.dataset.target = String(val);
+    valEl.style.cssText = 'min-width:28px;font-weight:bold;';
+    valEl.textContent = '0';
+    const bar = document.createElement('div');
+    bar.style.cssText = [
+      'flex:1', 'height:8px', 'background:var(--color-surface-elevated)',
+      'border-radius:4px', 'overflow:hidden',
+    ].join(';');
+    const fill = document.createElement('div');
+    fill.className = 'ob-stat-fill';
+    fill.dataset.key = key;
+    fill.dataset.target = String(val);
+    fill.style.cssText = [
+      'height:100%', 'width:0%', 'background:var(--color-accent-cyan)',
+      'border-radius:4px', 'transition:width 0.5s ease-out',
+    ].join(';');
+    bar.appendChild(fill);
+    row.appendChild(label);
+    row.appendChild(valEl);
+    row.appendChild(bar);
+    statsWrap.appendChild(row);
+  });
+
+  const sep = document.createElement('div');
+  sep.style.cssText = 'width:100%;border-top:1px solid var(--color-border);';
+  inner.appendChild(sep);
+
+  const quote = document.createElement('div');
+  quote.style.cssText = 'font-style:italic;color:var(--color-text-secondary);font-size:var(--font-size-sm);text-align:center;';
+  quote.textContent = '"Morgen kommt Dieter." — Dr. Müller-Brandt';
+  inner.appendChild(quote);
+
+  const btn = document.createElement('button');
+  btn.className = 'choice-btn';
+  btn.style.cssText = 'width:220px;margin:var(--space-sm) auto 0;';
+  btn.textContent = 'Weiter zum ersten Projekt →';
+
+  const autoAdvance = setTimeout(() => {
+    overlay.remove();
+    if (typeof callback === 'function') callback();
+  }, 4000);
+
+  btn.addEventListener('click', () => {
+    clearTimeout(autoAdvance);
+    window.Sound?.play?.('click');
+    overlay.remove();
+    if (typeof callback === 'function') callback();
+  });
+  inner.appendChild(btn);
+
+  // Animate stats from 0 to value
+  requestAnimationFrame(() => {
+    overlay.querySelectorAll('.ob-stat-value').forEach((el) => {
+      const target = parseInt(el.dataset.target || '0', 10);
+      let current = 0;
+      const start = performance.now();
+      const duration = 500;
+      function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        current = Math.round(target * eased);
+        el.textContent = String(current);
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+    overlay.querySelectorAll('.ob-stat-fill').forEach((el) => {
+      const target = parseInt(el.dataset.target || '0', 10);
+      el.style.width = `${target}%`;
+    });
+  });
+
+}
+
 // ── Public API ────────────────────────────────────────────
 
 window.Renderer = {
@@ -1055,4 +1251,7 @@ window.Renderer = {
   showProjectComplete,
   showToast,
   animateXP,
+  showOnboardingSummary,
+  showOnboardingSkipButton,
+  hideOnboardingSkipButton,
 };

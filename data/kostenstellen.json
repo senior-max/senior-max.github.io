@@ -1,6 +1,6 @@
 [
   { "id": "KST-4471", "name": "Kundenprojekt Acme Corp — Phase 1", "active": true, "projectRef": "projekt_dieter" },
-  { "id": "KST-4472", "name": "Kundenprojekt Acme Corp — Phase 2 (GESPERRT)", "active": false, "projectRef": "projekt_dieter", "lockedReason": "Budget freigabe ausstehend seit 6 Wochen" },
+  { "id": "KST-4472", "name": "Kundenprojekt Acme Corp — Phase 2 (GESPERRT)", "active": false, "projectRef": "projekt_dieter", "lockedReason": "Budgetfreigabe ausstehend seit 6 Wochen" },
   { "id": "KST-5501", "name": "Globex Industries — SAP Analyse", "active": true, "projectRef": "projekt_sap_zombies" },
   { "id": "KST-5502", "name": "Globex Industries — SAP Analyse ALT (umbenannt)", "active": false, "projectRef": "projekt_sap_zombies", "lockedReason": "Umbenannt in KST-5501. Bitte nicht mehr verwenden." },
   { "id": "KST-6610", "name": "Shadow IT Audit — Allgemein", "active": true, "projectRef": "projekt_shadow_it" },
