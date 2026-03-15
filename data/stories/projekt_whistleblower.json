@@ -1,0 +1,663 @@
+{
+  "id": "projekt_whistleblower",
+  "title": "Der stille Hinweis",
+  "subtitle": "Jemand weiß etwas. Du weißt jetzt auch etwas. Das Problem: es ist Müller-Brandt.",
+  "difficulty": "expert",
+  "comedyLevel": 3,
+  "requiredLevel": 4,
+  "unlockMessage": "Ein anonymer Hinweis. Ein Server der nicht existieren darf. Ein Name den niemand aussprechen will.",
+  "xpReward": 180,
+  "scenes": [
+    {
+      "id": "wb_01",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Greysuit & Partner",
+      "npc": null,
+      "npcInline": {
+        "emoji": "✉️",
+        "name": "Anonymer Hinweis",
+        "title": "Absender: unbekannt"
+      },
+      "mood": "tense",
+      "text": "Montagmorgen. Auf deinem Schreibtisch liegt ein Umschlag.\n\nKein Absender. Dein Name, handgeschrieben.\n\nDarin: ein Ausdruck. Log-Dateien. Drei Seiten.\nMarkiert mit gelbem Marker: Software-Installationen auf einem Server der nicht im Inventar steht.\n\nAdobe Creative Suite. Vollversion. 47 Instanzen.\nMicrosoft Visio Professional. 23 Instanzen.\nDiverse weitere Titel. Alle ohne Lizenznachweis.\n\nUnten auf der letzten Seite, handgeschrieben:\n\"Schauen Sie sich MGMT-SRV-09 an.\nFragen Sie nicht wen Sie fragen müssten.\"\n\nMGMT-SRV-09. Management Server 09.\nZugriffsrechte: Senior Partner und höher.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Sofort nachforschen — Log-Files selbst prüfen",
+          "effects": { "kompetenz": 3, "burnout": 2 },
+          "flags": { "started_investigation": true },
+          "next": "wb_02_investigate",
+          "feedback": "Du öffnest Ivanti. Der Server existiert. Er hat keinen Discovery-Agenten."
+        },
+        {
+          "id": "c2",
+          "text": "Erst Kollegen fragen — vorsichtig sondieren",
+          "effects": { "bullshit": 2 },
+          "next": "wb_02_ask_around",
+          "feedback": "Kevin hat von MGMT-SRV-09 noch nie gehört. Das beruhigt dich nicht."
+        },
+        {
+          "id": "c3",
+          "text": "Den Umschlag ignorieren — nichts gesehen",
+          "effects": { "bullshit": 5, "burnout": -3 },
+          "flags": { "first_ignore": true },
+          "next": "wb_02_ignore",
+          "feedback": "Du legst den Umschlag in die unterste Schublade. Er ist immer noch da."
+        },
+        {
+          "id": "c4",
+          "text": "HR informieren — sofort und offiziell",
+          "effects": { "prestige": 3, "kompetenz": 2, "kundenliebe": -2 },
+          "flags": { "escalated_early": true },
+          "next": "wb_02_hr",
+          "feedback": "Sandra Breuer nimmt deinen Anruf entgegen. Sie macht eine Notiz. Sie sagt: 'Interessant.'"
+        }
+      ]
+    },
+    {
+      "id": "wb_02_investigate",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — MGMT-SRV-09",
+      "npc": null,
+      "minigame": "logfile_search",
+      "mood": "tense",
+      "text": "Du versuchst über Ivanti auf MGMT-SRV-09 zuzugreifen.\nKein Discovery-Agent. Kein Eintrag im CMDB.\n\nAber der Server antwortet auf Ping.\nEr existiert. Er ist nur nicht offiziell.\n\nDu findest einen Weg in die Event-Logs.\n47.000 Zeilen. Jemand war hier.\nOft. Regelmäßig. Immer abends nach 19:00 Uhr.\n\n[Minispiel: System-Analyse — finde die kritischen Einträge]",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Kritische Einträge sichern und dokumentieren",
+          "effects": { "kompetenz": 6, "burnout": 5 },
+          "flags": { "evidence_collected": true },
+          "next": "wb_03_evidence",
+          "feedback": "Screenshots. Exports. Zeitstempel. Du bist gründlich. Vielleicht zu gründlich."
+        },
+        {
+          "id": "c2",
+          "text": "Nur überfliegen — nicht zu tief einsteigen",
+          "effects": { "kompetenz": 2, "burnout": 2 },
+          "next": "wb_03_partial",
+          "feedback": "Du hast gesehen was du gesehen hast. Beweisen kannst du es so nicht."
+        },
+        {
+          "id": "c3",
+          "text": "Alles dokumentieren UND anonymen Hinweisgeber schützen",
+          "effects": { "kompetenz": 5, "prestige": 3, "burnout": 6 },
+          "flags": { "evidence_collected": true, "anonymous_protected": true },
+          "next": "wb_03_evidence",
+          "feedback": "Du entfernst alle Metadaten vom Umschlag-Scan. Der Absender bleibt unbekannt."
+        }
+      ]
+    },
+    {
+      "id": "wb_02_ask_around",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Flurfunk",
+      "npc": "kevin",
+      "mood": "neutral",
+      "text": "Kevin weiß nichts über MGMT-SRV-09.\nAber er weiß etwas anderes.\n\n\"Ich hab mal gehört dass die Partner-Etage einen eigenen Server haben. Für... ich weiß nicht. Niemand redet darüber.\"\n\nEr senkt die Stimme.\n\n\"Müller-Brandt war letzte Woche noch um 21:00 Uhr im Büro. Ich musste meinen Laptop holen.\"\n\nKevin sieht dich an.\n\"Ist irgendwas?\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Kevin einweihen — er könnte helfen",
+          "effects": { "kundenliebe": 3, "burnout": 3, "bullshit": 2 },
+          "flags": { "kevin_knows": true },
+          "next": "wb_03_kevin_involved",
+          "feedback": "Kevin ist sofort enthusiastisch. Das macht dir Sorgen."
+        },
+        {
+          "id": "c2",
+          "text": "Ablenken — 'Nein, alles okay'",
+          "effects": { "bullshit": 3 },
+          "next": "wb_03_alone",
+          "feedback": "Kevin glaubt dir nicht vollständig. Er beobachtet dich jetzt."
+        },
+        {
+          "id": "c3",
+          "text": "Selber nachforschen — Kevins Info reicht als Hinweis",
+          "effects": { "kompetenz": 3 },
+          "next": "wb_02_investigate",
+          "feedback": "21:00 Uhr. Regelmäßig. Das erklärt die Log-Timestamps."
+        }
+      ]
+    },
+    {
+      "id": "wb_02_ignore",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Die Schublade",
+      "npc": null,
+      "mood": "tense",
+      "text": "Drei Tage später.\n\nEin zweiter Umschlag. Gleiche Handschrift.\n\n\"Sie haben den ersten ignoriert.\nDas verstehe ich. Ich hätte dasselbe getan.\nAber jetzt lädt Oracle einen Audit an.\nWegen MGMT-SRV-09.\nDer Audit ist in 14 Tagen.\nJetzt haben Sie ein Problem das ich nicht mehr lösen kann.\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Jetzt handeln — sofort nachforschen",
+          "effects": { "burnout": 5, "kompetenz": 2 },
+          "flags": { "late_start": true },
+          "next": "wb_02_investigate",
+          "feedback": "Spät aber nicht zu spät. Vielleicht."
+        },
+        {
+          "id": "c2",
+          "text": "Weiter ignorieren — Oracle-Audit abwarten",
+          "effects": { "bullshit": 8, "burnout": -5 },
+          "flags": { "full_ignore": true },
+          "next": "wb_04_audit_surprise",
+          "feedback": "Du legst auch den zweiten Umschlag in die Schublade. Sie schließt nicht mehr richtig."
+        }
+      ]
+    },
+    {
+      "id": "wb_02_hr",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Sandra's Notiz",
+      "npc": "sandra",
+      "mood": "neutral",
+      "text": "Sandra Breuer sitzt dir gegenüber.\nSie hat ein Formular vor sich.\nDas Formular hat 8 Felder.\n\n\"Ich brauche den Namen des Absenders.\"\nDu: \"Anonym.\"\n\"Den Server-Namen.\"\nDu: \"MGMT-SRV-09.\"\n\nSandra hört auf zu schreiben.\n\n\"Das ist ein Partner-Server.\"\nPause.\n\"Ich gebe das weiter. An wen es weitergegeben wird...\"\nSie schaut auf ihr Formular.\n\"...ist nicht in meinem Zuständigkeitsbereich.\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Auf offizielle Bearbeitung bestehen",
+          "effects": { "prestige": 4, "kundenliebe": -2, "burnout": 3 },
+          "flags": { "official_channel": true },
+          "next": "wb_03_hr_process",
+          "feedback": "Sandra stempelt das Formular. Du bekommst eine Eingangsbestätigung. Ticketnummer: HR-2024-4471."
+        },
+        {
+          "id": "c2",
+          "text": "HR-Weg abbrechen — selbst handeln",
+          "effects": { "kompetenz": 3, "prestige": -2 },
+          "next": "wb_02_investigate",
+          "feedback": "Sandra sieht dich an. 'Das Formular bleibt trotzdem im System.'"
+        }
+      ]
+    },
+    {
+      "id": "wb_03_evidence",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Die Beweise",
+      "npc": null,
+      "mood": "tense",
+      "text": "Du hast es.\n\nLog-Einträge die zeigen: MGMT-SRV-09 wurde regelmäßig für private Software-Nutzung verwendet.\nAdobe, Microsoft, diverse Tools.\nKein einziger Lizenznachweis.\nGeschätzter Wert der nicht-lizenzierten Software: €94.000.\n\nUnd der User-Account der sich immer einloggt:\nMB_ADMIN.\n\nMB.\nMüller-Brandt.\n\nDu hast drei Optionen.\nAlle davon verändern alles.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Direkt zu Müller-Brandt — unter vier Augen",
+          "effects": { "burnout": 8, "prestige": 3, "kompetenz": 4 },
+          "flags": { "muellerbrandt_confronted": true },
+          "next": "wb_04_confrontation",
+          "feedback": "Du buchst einen Termin. Betreff: 'Kurze Abstimmung'. Er antwortet sofort: 'Gerne, morgen 18:00 Uhr.'"
+        },
+        {
+          "id": "c2",
+          "text": "An den Vorstand eskalieren — mit vollständiger Dokumentation",
+          "effects": { "prestige": 8, "kompetenz": 6, "kundenliebe": -5, "burnout": 10 },
+          "flags": { "escalated_to_board": true },
+          "requires_flag": "evidenceStrength_sufficient",
+          "next": "wb_04_board_escalation",
+          "feedback": "Du bereitest ein 12-seitiges Dokument vor. Screenshots. Logs. Zeitstempel. Alles."
+        },
+        {
+          "id": "c2b",
+          "text": "Die Beweise reichen nicht — weitere Logs prüfen",
+          "effects": { "kompetenz": 2, "burnout": 3 },
+          "requires_flag": "evidenceStrength_weak",
+          "next": "wb_03_partial",
+          "feedback": "Du hast zu wenig. Oder zu viele Fehlmarkierungen. Du musst zurück."
+        },
+        {
+          "id": "c3",
+          "text": "Beweise vernichten — niemand muss das wissen",
+          "effects": { "bullshit": 10, "burnout": -10, "prestige": -8 },
+          "flags": { "covered_up": true },
+          "next": "wb_04_coverup",
+          "feedback": "Dateien gelöscht. Cache geleert. Der Umschlag verbrennt nicht so einfach wie du dachtest."
+        },
+        {
+          "id": "c4",
+          "text": "Anonymen Hinweis an Oracle senden — ohne eigene Beteiligung",
+          "effects": { "kompetenz": 3, "bullshit": 4, "burnout": 2 },
+          "flags": { "oracle_informed": true },
+          "next": "wb_04_oracle_leak",
+          "feedback": "Du schickst die Logs anonym weiter. Oracle's LMS-Team antwortet innerhalb von 4 Stunden."
+        }
+      ]
+    },
+    {
+      "id": "wb_03_partial",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro",
+      "npc": null,
+      "mood": "tense",
+      "text": "Du hast nicht genug. Die Logs zeigen Muster — aber ohne vollständige Dokumentation kannst du nichts beweisen.\n\nEin dritter Umschlag. Gleiche Handschrift.\n\n\"Oracle hat bereits angefragt. Der Audit ist in 10 Tagen. Sie haben die Wahl: handeln oder zuschauen.\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Jetzt vollständig dokumentieren — noch ist Zeit",
+          "effects": { "kompetenz": 4, "burnout": 6 },
+          "flags": { "evidence_collected": true },
+          "next": "wb_03_evidence",
+          "feedback": "Du kehrst zu den Logs zurück. Diesmal gründlich. Es reicht."
+        },
+        {
+          "id": "c2",
+          "text": "Oracle den Hinweis geben — anonym",
+          "effects": { "kompetenz": 2, "bullshit": 3 },
+          "flags": { "oracle_informed": true },
+          "next": "wb_04_oracle_leak",
+          "feedback": "Du schickst was du hast. Es ist wenig. Es könnte reichen."
+        }
+      ]
+    },
+    {
+      "id": "wb_03_kevin_involved",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro",
+      "npc": "kevin",
+      "mood": "tense",
+      "text": "Kevin hat Zugang zu alten Systemen. Er findet einen Weg.\n\nZusammen habt ihr die Logs. Die Beweise. MB_ADMIN. Müller-Brandt.\n\nKevin ist jetzt Mittäter. Er weiß es. Du weißt es.\n\n\"Was machen wir jetzt?\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Zu Müller-Brandt — Kevin bleibt draußen",
+          "effects": { "kompetenz": 5, "burnout": 6, "kundenliebe": 3 },
+          "flags": { "evidence_collected": true, "muellerbrandt_confronted": true },
+          "next": "wb_04_confrontation",
+          "feedback": "Du schützt Kevin. Er versteht. Er will trotzdem helfen. Du sagst nein."
+        },
+        {
+          "id": "c2",
+          "text": "An den Vorstand — mit Kevin als Zeuge",
+          "effects": { "prestige": 6, "kompetenz": 4, "burnout": 8 },
+          "flags": { "escalated_to_board": true },
+          "next": "wb_04_board_escalation",
+          "feedback": "Kevin nickt. 'Okay.' Er klingt nicht okay. Aber er steht dazu."
+        }
+      ]
+    },
+    {
+      "id": "wb_03_alone",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro",
+      "npc": null,
+      "mood": "tense",
+      "text": "Du forschst allein weiter. Kevin beobachtet dich — aber du gibst nichts preis.\n\nDu findest die Logs. MB_ADMIN. Die Beweise.\n\nDu bist allein mit dem, was du weißt.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Zu Müller-Brandt konfrontieren",
+          "effects": { "kompetenz": 5, "burnout": 7 },
+          "flags": { "evidence_collected": true, "muellerbrandt_confronted": true },
+          "next": "wb_04_confrontation",
+          "feedback": "Du buchst den Termin. 18:00 Uhr. Unter vier Augen."
+        },
+        {
+          "id": "c2",
+          "text": "An den Vorstand eskalieren",
+          "effects": { "prestige": 7, "kompetenz": 5, "burnout": 9 },
+          "flags": { "escalated_to_board": true },
+          "next": "wb_04_board_escalation",
+          "feedback": "Du bereitest das Dokument vor. Allein. Es ist schwer."
+        }
+      ]
+    },
+    {
+      "id": "wb_03_hr_process",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Warten auf HR",
+      "npc": null,
+      "mood": "tense",
+      "text": "Zwei Wochen. Keine Antwort von HR.\n\nDann: Oracle kündigt den Audit an. MGMT-SRV-09 steht auf der Liste.\n\nDu hast das Formular. Die Ticketnummer. Sandra hat es weitergegeben.\n\nAn wen? Sie sagt: \"Das kann ich nicht sagen.\"\n\nDu hast die Beweise. Du hast sie die ganze Zeit.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Jetzt zu Müller-Brandt — bevor der Audit kommt",
+          "effects": { "kompetenz": 4, "burnout": 6 },
+          "flags": { "evidence_collected": true, "muellerbrandt_confronted": true },
+          "next": "wb_04_confrontation",
+          "feedback": "Du handelst. Das Formular war nur Papier. Du hast die Logs."
+        },
+        {
+          "id": "c2",
+          "text": "Dem Audit-Bericht die Dokumentation beifügen",
+          "effects": { "prestige": 6, "kompetenz": 5, "burnout": 8 },
+          "flags": { "escalated_to_board": true },
+          "next": "wb_04_board_escalation",
+          "feedback": "Du schickst alles an den Vorstand. Mit dem HR-Ticket als Beleg. Jetzt wissen sie."
+        }
+      ]
+    },
+    {
+      "id": "wb_04_confrontation",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum — 18:00 Uhr",
+      "npc": "dr_mueller",
+      "npcOverrideName": "Dr. Müller-Brandt (allein, nach Feierabend)",
+      "mood": "tense",
+      "text": "Das Büro ist leer. Nur ihr zwei.\nMüller-Brandt sitzt bereits. Er hat zwei Gläser Wasser auf den Tisch gestellt. Er wusste dass du kommst.\n\nDu legst die Ausdrucke auf den Tisch.\nEr schaut sie an. Lange.\n\nDann: \"Wie viele Personen wissen davon?\"\n\nNicht: \"Das ist ein Missverständnis.\"\nNicht: \"Das kann ich erklären.\"\n\nNur: \"Wie viele wissen davon?\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "'Nur ich.' — und eine Lösung vorschlagen",
+          "effects": { "prestige": 6, "kompetenz": 4, "bullshit": 5 },
+          "next": "wb_05_deal",
+          "feedback": "Er nickt langsam. 'Was schlagen Sie vor?' Du hast jetzt Macht. Das fühlt sich nicht gut an."
+        },
+        {
+          "id": "c2",
+          "text": "'Mehrere Personen.' — Bluff als Schutz",
+          "effects": { "kompetenz": 5, "burnout": 6 },
+          "next": "wb_05_standoff",
+          "feedback": "Er glaubt dir nicht vollständig. Aber er kann es nicht ausschließen. Das reicht."
+        },
+        {
+          "id": "c3",
+          "text": "Nichts sagen — ihn reden lassen",
+          "effects": { "kompetenz": 7, "burnout": 4 },
+          "next": "wb_05_confession",
+          "feedback": "Schweigen. 30 Sekunden. Er redet zuerst. Menschen die schuldig sind reden immer zuerst."
+        }
+      ]
+    },
+    {
+      "id": "wb_04_board_escalation",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Das Dokument",
+      "npc": null,
+      "mood": "tense",
+      "text": "Du schickst das Dokument an den Vorstand.\n22:47 Uhr. Betreff: \"Compliance-Vorfall — Vertraulich\".\n\nUm 23:12 Uhr: Lesebestätigung.\n\nUm 07:30 Uhr am nächsten Morgen steht Müller-Brandt in deinem Büro. Er schließt die Tür.\nEr lächelt. Das ist das schlimmste Zeichen.\n\n\"Wir müssen reden.\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Ruhig bleiben — du hast Recht und weißt es",
+          "effects": { "prestige": 8, "burnout": 8, "kompetenz": 6 },
+          "next": "wb_05_board_result",
+          "feedback": "Er redet 20 Minuten. Du sagst drei Sätze. Alle drei treffen."
+        },
+        {
+          "id": "c2",
+          "text": "Zurückrudern — vielleicht war es ein Fehler",
+          "effects": { "bullshit": 8, "prestige": -5, "burnout": -4 },
+          "next": "wb_05_backpedal",
+          "feedback": "Müller-Brandt hört auf zu lächeln. Er weiß jetzt dass du weich wirst. Das ist schlimmer."
+        }
+      ]
+    },
+    {
+      "id": "wb_04_coverup",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Asche",
+      "npc": null,
+      "mood": "tense",
+      "text": "Alles gelöscht.\n\nDrei Wochen später: Oracle kündigt einen Audit an.\nFür MGMT-SRV-09.\n\nJemand anderes hat die Logs gesichert.\nNicht du. Aber jemand.\n\nEin dritter Umschlag. Gleiche Handschrift.\nKein Text diesmal.\nNur ein Ausdruck deiner gelöschten Dateien.\n\nMit Zeitstempel der Löschung.\nDeinem Login.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Jetzt vollständig kooperieren — alles zugeben",
+          "effects": { "prestige": -5, "kompetenz": 5, "burnout": 10 },
+          "next": "wb_05_damage_control",
+          "feedback": "Zu spät um sauber zu sein. Früh genug um nicht alles zu verlieren. Vielleicht."
+        },
+        {
+          "id": "c2",
+          "text": "Weiter vertuschen — bis zum Ende",
+          "effects": { "bullshit": 15, "prestige": -10, "burnout": -8 },
+          "next": "ending_disaster_coverup",
+          "feedback": "Du bist jetzt Mittäter. Das fühlt sich überraschend normal an. Das macht dir am meisten Angst."
+        }
+      ]
+    },
+    {
+      "id": "wb_04_audit_surprise",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum — 14 Tage später",
+      "npc": null,
+      "npcInline": {
+        "emoji": "🔴",
+        "name": "Oracle LMS",
+        "title": "License Management Services"
+      },
+      "mood": "tense",
+      "text": "Der Oracle-Auditor heißt Marcus.\nEr lächelt nicht.\nEr hat einen Laptop, ein externes Laufwerk und eine Liste mit 847 Fragen.\n\nFrage 1: \"Kennen Sie MGMT-SRV-09?\"\n\nDu hast zwei Umschläge in der untersten Schublade.\nDu hast nichts unternommen.\nMarcus schaut dich an.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "'Nein.' — Unwissenheit vortäuschen",
+          "effects": { "bullshit": 10, "prestige": -8, "burnout": 5 },
+          "next": "ending_disaster_audit",
+          "feedback": "Marcus tippt etwas. Er glaubt dir nicht. Das steht in seinem Gesicht."
+        },
+        {
+          "id": "c2",
+          "text": "Alles gestehen — inklusive der Umschläge",
+          "effects": { "kompetenz": 6, "prestige": -4, "burnout": 8 },
+          "next": "wb_05_damage_control",
+          "feedback": "Marcus hört zu. Er tippt schnell. 'Das ist... ungewöhnlich offen.' Er meint es als Kompliment."
+        }
+      ]
+    },
+    {
+      "id": "wb_04_oracle_leak",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro",
+      "npc": null,
+      "mood": "neutral",
+      "text": "Oracle hat die Logs. Sie haben MGMT-SRV-09 identifiziert.\n\nDer Audit läuft. Du bist nicht involviert. Du hast deinen Namen nicht genannt.\n\nMüller-Brandt weiß dass jemand die Logs weitergegeben hat. Er weiß nicht wer.\n\nDie Lizenzen werden nachgekauft. Offiziell. Der Vorstand wird informiert.\n\nDu schläfst. Nicht gut. Aber du schläfst.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Weiter",
+          "effects": {},
+          "next": "ending_success_hero",
+          "feedback": ""
+        }
+      ]
+    },
+    {
+      "id": "wb_05_deal",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum — Der Deal",
+      "npc": "dr_mueller",
+      "mood": "neutral",
+      "text": "Müller-Brandt lehnt sich zurück.\n\n\"Sie sind diskret. Das schätze ich.\nIch werde die Lizenzen rückwirkend nachkaufen.\nÜber ein separates Budget das niemanden etwas angeht.\nSie dokumentieren dass bei der Überprüfung alles in Ordnung war.\"\n\nEr schiebt dir ein Blatt rüber.\nEin neuer Projektauftrag. Dein Name. Doppeltes Tagessatz.\n\n\"Einverstanden?\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Ja — der Deal ist vernünftig",
+          "effects": { "bullshit": 12, "prestige": 5, "burnout": -8, "kompetenz": -5 },
+          "flags": { "deal_accepted": true },
+          "next": "ending_deal",
+          "feedback": "Du unterschreibst. Er unterschreibt. Jeder weiß was der andere weiß. Niemand sagt es laut."
+        },
+        {
+          "id": "c2",
+          "text": "Nein — das ist Komplizenschaft",
+          "effects": { "prestige": 8, "kompetenz": 8, "burnout": 10, "bullshit": -5 },
+          "flags": { "deal_refused": true },
+          "next": "wb_05_deal_refused",
+          "feedback": "Müller-Brandt sieht dich lange an. 'Interessant.' Er faltet das Blatt zusammen. 'Dann machen wir es anders.'"
+        }
+      ]
+    },
+    {
+      "id": "wb_05_confession",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum — Das Schweigen wirkt",
+      "npc": "dr_mueller",
+      "mood": "neutral",
+      "text": "30 Sekunden.\n45 Sekunden.\n\nMüller-Brandt: \"Es war privat. Nicht für das Unternehmen. Ich wollte... es war eine schlechte Entscheidung.\"\n\nPause.\n\n\"Was wollen Sie?\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Nichts — nur dass es aufhört",
+          "effects": { "prestige": 5, "kompetenz": 5, "burnout": 3 },
+          "flags": { "quiet_resolution": true },
+          "next": "ending_quiet_resolution",
+          "feedback": "Er nickt. Du glaubst ihm zur Hälfte. Das reicht dir."
+        },
+        {
+          "id": "c2",
+          "text": "Offizielle Meldung — trotz Geständnis",
+          "effects": { "prestige": 10, "kompetenz": 8, "burnout": 12, "kundenliebe": -3 },
+          "flags": { "escalated_after_confession": true },
+          "next": "wb_05_board_result",
+          "feedback": "Er sieht dich an als hättest du die Spielregeln gebrochen. Hast du. Andere Spielregeln."
+        }
+      ]
+    },
+    {
+      "id": "wb_05_standoff",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum",
+      "npc": "dr_mueller",
+      "mood": "tense",
+      "text": "Er glaubt dir nicht. Aber er kann es nicht riskieren.\n\n\"Die Lizenzen werden nachgekauft. Sie dokumentieren die Überprüfung. Wir reden nicht darüber.\"\n\nKein Deal. Kein Extra-Projekt. Nur Schweigen.\n\nDu nickst. Es ist das Beste was du ohne Beweise für 'mehrere Personen' bekommst.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Weiter",
+          "effects": {},
+          "next": "ending_quiet_resolution",
+          "feedback": ""
+        }
+      ]
+    },
+    {
+      "id": "wb_05_deal_refused",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum",
+      "npc": "dr_mueller",
+      "mood": "tense",
+      "text": "\"Dann machen wir es anders.\"\n\nEr steht auf. Er geht zur Tür. Er dreht sich um.\n\n\"Die Lizenzen werden trotzdem nachgekauft. Der Vorstand bekommt eine Zusammenfassung. Ohne Namen. Ohne Details.\"\n\nEr öffnet die Tür.\n\n\"Sie haben sich heute entschieden. Sie werden wissen was das bedeutet.\"\n\nEr geht. Du sitzt mit den Beweisen. Du hast sie nicht vernichtet. Du hast den Deal abgelehnt.\n\nEs war die richtige Entscheidung. Es fühlt sich nicht so an.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Weiter",
+          "effects": {},
+          "next": "ending_success_hero",
+          "feedback": ""
+        }
+      ]
+    },
+    {
+      "id": "wb_05_board_result",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Nach der Vorstandssitzung",
+      "npc": null,
+      "mood": "neutral",
+      "text": "Der Vorstand hat entschieden.\n\nMüller-Brandt hat die Lizenzen nachgekauft. Offiziell. Der Vorstand weiß Bescheid.\n\nDu hast deinen Namen nicht in die Zeitung gebracht.\nDu hast auch keine Gehaltserhöhung bekommen.\n\nAber du schläfst gut.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Weiter",
+          "effects": {},
+          "next": "ending_success_hero",
+          "feedback": ""
+        }
+      ]
+    },
+    {
+      "id": "wb_05_backpedal",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro",
+      "npc": "dr_mueller",
+      "mood": "tense",
+      "text": "Du hast zurückgerudert. Müller-Brandt weiß dass du weich wirst.\n\nEr übernimmt. Die Dokumentation wird 'angepasst'. Dein Bericht wird zu einer 'internen Prüfung ohne Befund'.\n\nDu hast verloren. Der Vorstand hat dein Dokument gelesen. Aber Müller-Brandt hat die Erzählung gedreht.\n\nDu bist jetzt Teil von etwas. Du wolltest es nicht. Du hast es zugelassen.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Weiter",
+          "effects": {},
+          "next": "ending_disaster_backpedal",
+          "feedback": ""
+        }
+      ]
+    },
+    {
+      "id": "wb_05_damage_control",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Büro — Schadensbegrenzung",
+      "npc": null,
+      "mood": "tense",
+      "text": "Du hast alles zugegeben. Die Umschläge. Die Löschung. Die Gründe.\n\nEs ist nicht sauber. Es ist nicht gut.\n\nAber es ist wahr. Du hast die Wahl getroffen. Der Vorstand weiß Bescheid. Oracle weiß Bescheid.\n\nDu hast nicht alles verloren. Nur fast.\n\nDer anonyme Hinweisgeber hat nie wieder geschrieben. Du hoffst dass er gut schläft.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Weiter",
+          "effects": {},
+          "next": "ending_damage_control",
+          "feedback": ""
+        }
+      ]
+    }
+  ],
+  "endings": {
+    "ending_success_hero": {
+      "type": "success",
+      "title": "Der stille Held",
+      "text": "Müller-Brandt hat die Lizenzen nachgekauft. Offiziell. Der Vorstand weiß Bescheid.\n\nDu hast deinen Namen nicht in die Zeitung gebracht.\nDu hast auch keine Gehaltserhöhung bekommen.\n\nAber du schläfst gut.",
+      "xp": 200,
+      "achievement": "whistleblower_hero"
+    },
+    "ending_quiet_resolution": {
+      "type": "neutral",
+      "title": "Das stille Einverständnis",
+      "text": "Müller-Brandt hat aufgehört. Du hast es nicht gemeldet.\nDer Server wurde abgeschaltet.\nNiemand stellt Fragen.\n\nManchmal ist das die einzige Lösung die alle überleben lässt.",
+      "xp": 140,
+      "achievement": "pragmatist"
+    },
+    "ending_deal": {
+      "type": "neutral",
+      "title": "Pragmatismus",
+      "text": "Die Lizenzen wurden nachgekauft. Diskret.\nDein Tagessatz ist jetzt höher.\n\nMüller-Brandt grüßt dich anders als vorher.\nAls wären ihr alte Freunde.\n\nIhr seid keine Freunde.",
+      "xp": 100,
+      "achievement": "deal_maker"
+    },
+    "ending_disaster_audit": {
+      "type": "disaster",
+      "title": "Oracle hat alles",
+      "text": "Marcus hatte die Logs bereits vor dem Meeting.\nDie Frage war ein Test.\nDu hast ihn nicht bestanden.\n\nNachzahlung: €134.000.\nDein Name steht im Audit-Bericht.\nAn keiner guten Stelle.",
+      "xp": 30
+    },
+    "ending_disaster_coverup": {
+      "type": "disaster",
+      "title": "Der dritte Umschlag",
+      "text": "Der anonyme Hinweisgeber hatte Kopien von allem.\nAuch von deiner Löschung.\n\nEr hat sie an die Rechtsabteilung gegeben.\nNicht an Oracle. An die eigene Rechtsabteilung.\n\nDas war schlauer.",
+      "xp": 20,
+      "achievement": "coverup_failed"
+    },
+    "ending_disaster_backpedal": {
+      "type": "disaster",
+      "title": "Zurückgerudert",
+      "text": "Du hast die Erzählung aufgegeben. Müller-Brandt hat sie übernommen.\n\nDein Dokument existiert noch. Es steht in einem Ordner.\nNiemand wird es lesen.\n\nDu hast gewusst was richtig war. Du hast es nicht getan.",
+      "xp": 50
+    },
+    "ending_damage_control": {
+      "type": "neutral",
+      "title": "Schadensbegrenzung",
+      "text": "Du hast zugegeben. Alles. Die Umschläge. Die Löschung.\n\nEs war nicht sauber. Es war nicht gut.\n\nAber es war wahr. Du hast die Konsequenzen getragen.\nDer anonyme Hinweisgeber hat nie wieder geschrieben.\nDu hoffst dass er gut schläft.",
+      "xp": 80
+    }
+  }
+}

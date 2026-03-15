@@ -285,5 +285,47 @@
     "emoji": "📊",
     "description": "Das DIETER-EXCELLENCE FRAMEWORK™ generiert. Alle Deliverables: ausstehend.",
     "trigger": "dieter_framework"
+  },
+  {
+    "id": "whistleblower_hero",
+    "name": "Der stille Held",
+    "emoji": "🦸",
+    "description": "Müller-Brandts Lizenzverstöße aufgedeckt und korrekt eskaliert. Ohne Deal. Ohne Kompromiss.",
+    "trigger": "whistleblower_hero"
+  },
+  {
+    "id": "log_detective",
+    "name": "Log-Detektiv",
+    "emoji": "🔍",
+    "description": "Alle 5 kritischen Log-Einträge ohne Fehlmarkierungen gefunden. MB_ADMIN hat keine Chance.",
+    "trigger": "log_detective"
+  },
+  {
+    "id": "pragmatist",
+    "name": "Pragmatiker",
+    "emoji": "🤝",
+    "description": "Stille Lösung ohne Eskalation. Manchmal ist das Klügste was man tun kann.",
+    "trigger": "pragmatist"
+  },
+  {
+    "id": "deal_maker",
+    "name": "Der Deal",
+    "emoji": "💼",
+    "description": "Müllers Angebot angenommen. Du schläfst trotzdem gut. Meistens.",
+    "trigger": "deal_maker"
+  },
+  {
+    "id": "coverup_failed",
+    "name": "Der dritte Umschlag",
+    "emoji": "✉️",
+    "description": "Beweise vernichtet. Der Hinweisgeber hatte Kopien. Er hat sie gut aufbewahrt.",
+    "trigger": "coverup_failed"
+  },
+  {
+    "id": "buchhaltung_everywhere",
+    "name": "Es ist überall",
+    "emoji": "👁️",
+    "description": "BUCHHALTUNG 2006 auch auf MGMT-SRV-09 gefunden. Es gibt kein Entkommen.",
+    "trigger": "buchhaltung_everywhere"
   }
 ]

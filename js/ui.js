@@ -15,6 +15,7 @@ const ALL_PROJECT_IDS = [
   'projekt_cloud',
   'projekt_ki',
   'projekt_board',
+  'projekt_whistleblower',
 ];
 
 // ── DOM helpers ───────────────────────────────────────────

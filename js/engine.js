@@ -350,6 +350,7 @@ function loadScene(sceneId, projectData) {
 
     const xpEarned = ending.xp ?? 0;
     completeProject(GameState.currentProject, ending.type ?? 'neutral', xpEarned);
+    if (ending.achievement) window.Achievements?.checkTrigger?.(ending.achievement);
 
     if (typeof Renderer !== 'undefined') {
       Renderer.showProjectComplete(
@@ -458,7 +459,7 @@ function completeProject(projectId, endingType, xpReward) {
 
     const ALL_PROJECTS = [
       'projekt_dieter', 'projekt_sap_zombies', 'projekt_shadow_it',
-      'projekt_cloud', 'projekt_ki', 'projekt_board',
+      'projekt_cloud', 'projekt_ki', 'projekt_board', 'projekt_whistleblower',
     ];
     const allDone = ALL_PROJECTS.every(id => GameState.projectsCompleted.includes(id));
     if (allDone) window.Achievements.checkTrigger('all_projects_complete');
@@ -532,7 +533,9 @@ function triggerMinigame(id, onComplete) {
     if (result && result.xpBonus) {
       addXP(result.xpBonus);
     }
-    if (result && result.flag) {
+    if (result && result.flags && typeof result.flags === 'object') {
+      Object.entries(result.flags).forEach(([key, val]) => setFlag(key, val));
+    } else if (result && result.flag) {
       setFlag(result.flag, true);
     }
     // Wenn Burnout 100 erreicht, onComplete erst nach Recovery ausführen (Bug: doppeltes Stunden buchen)
@@ -587,6 +590,9 @@ function triggerMinigame(id, onComplete) {
       break;
     case 'ivanti':
       safe(window.IvantiMinigame);
+      break;
+    case 'logfile_search':
+      safe(window.LogfileSearchMinigame);
       break;
     default:
       console.warn(`[Engine] Unknown minigame type: "${id}" — Kevin war wahrscheinlich beteiligt.`);
