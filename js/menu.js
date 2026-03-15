@@ -154,6 +154,7 @@ function buildSaveBanner(save) {
 function _initGameSystems() {
   window.Engine?.initGame();
   window.Stats?.initStatBars();
+  window.UI?.renderHUD?.();
   window.Career?.renderCareerHUD();
 }
 
@@ -455,34 +456,29 @@ function renderMainMenu() {
       action:  () => startNewGame(screen),
     },
     {
-      label:   '📂 Projekt auswählen',
-      key:     '2',
-      action:  () => showProjectSelectionForNewGame(screen),
-    },
-    {
       label:   '📂 Spiel laden',
-      key:     '3',
+      key:     '2',
       disabled: !save,
       action:  () => continueGame(screen, save),
     },
     {
       label:   '🏅 Achievements',
-      key:     '4',
+      key:     '3',
       action:  () => { detachMenuKeys(); window.Achievements?.renderAchievementsScreen(); },
     },
     {
       label:   '🏆 Hall of Shame',
-      key:     '5',
+      key:     '4',
       action:  () => { detachMenuKeys(); window.UI?.renderHallOfShame(); },
     },
     {
       label:   'ℹ️  Credits',
-      key:     '6',
+      key:     '5',
       action:  () => renderCredits(),
     },
     {
       label:   '🔄 Alles zurücksetzen',
-      key:     '7',
+      key:     '6',
       action:  () => confirmResetAll(),
     },
   ];

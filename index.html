@@ -76,6 +76,11 @@
         <div id="hud-stats" role="status" aria-label="Statistiken"></div>
         <div id="npc-display" aria-label="Gesprächspartner"></div>
         <button
+          id="dashboard-btn"
+          aria-label="Performance Dashboard öffnen"
+          onclick="window.Dashboard?.open()"
+        >📊</button>
+        <button
           id="hud-achievements-btn"
           aria-label="Achievements öffnen"
           onclick="window.Achievements?.renderAchievementsScreen()"
@@ -143,6 +148,7 @@
     <script src="/js/minigames/ivanti.js" defer></script>
     <script src="/js/calendar.js" defer></script>
     <script src="/js/intro.js" defer></script>
+    <script src="/js/dashboard.js" defer></script>
     <script src="/js/main.js" defer></script>
     <script src="/js/keyboard.js" defer></script>
     <script src="/js/debug.js" defer></script>

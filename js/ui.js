@@ -758,6 +758,25 @@ function renderHallOfShame() {
   screen.appendChild(backBtn);
 }
 
+// ── HUD ────────────────────────────────────────────────────
+
+/**
+ * Ensures the dashboard button exists in the HUD.
+ * Called when game starts so the 📊 button is available.
+ */
+function renderHUD() {
+  if (document.getElementById('dashboard-btn')) return;
+  const hud = document.getElementById('hud');
+  const achBtn = document.getElementById('hud-achievements-btn');
+  if (!hud || !achBtn) return;
+  const btn = document.createElement('button');
+  btn.id = 'dashboard-btn';
+  btn.setAttribute('aria-label', 'Performance Dashboard öffnen');
+  btn.textContent = '📊';
+  btn.onclick = () => window.Dashboard?.open();
+  hud.insertBefore(btn, achBtn);
+}
+
 // ── Public API ────────────────────────────────────────────
 
 window.UI = {
@@ -766,4 +785,5 @@ window.UI = {
   renderFullGameComplete,
   renderGameComplete,
   renderHallOfShame,
+  renderHUD,
 };
