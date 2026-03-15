@@ -525,6 +525,26 @@ function renderMainMenu() {
     btnWrap.appendChild(btn);
   });
 
+  // Framework Generator — secondary, smaller
+  const fwBtn = document.createElement('button');
+  fwBtn.className = 'choice-btn animate-fadeInUp';
+  fwBtn.style.cssText = [
+    'animation-delay:420ms',
+    'font-size:0.85rem',
+    'opacity:0.8',
+    'background:var(--color-surface-elevated)',
+    'border:1px solid var(--color-border)',
+    'color:var(--color-text-secondary)',
+  ].join(';');
+  fwBtn.textContent = '🏗️ Framework Generator';
+  fwBtn.title = 'Kostenlos. Für immer. Ohne Mehrwert.';
+  fwBtn.addEventListener('click', () => {
+    detachMenuKeys();
+    window.FrameworkGenerator?.open?.();
+  });
+  btnWrap.appendChild(fwBtn);
+  allButtons.push(fwBtn);
+
   // ── Keyboard shortcuts hint ──
   const kbHint = document.createElement('div');
   kbHint.style.cssText = [

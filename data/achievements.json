@@ -257,5 +257,33 @@
     "emoji": "🤓",
     "description": "Kevin hat den WMI-Fehler über Stack Overflow gelöst. Manchmal ist Kevin die Lösung.",
     "trigger": "kevin_saved_the_day_again"
+  },
+  {
+    "id": "framework_sent",
+    "name": "Methodologie-Evangelist",
+    "emoji": "📧",
+    "description": "Ein selbstgeneriertes Framework an Müller-Brandt gesendet. Er hat eine Executive Summary angefordert.",
+    "trigger": "framework_sent"
+  },
+  {
+    "id": "framework_addict",
+    "name": "Framework-Junkie",
+    "emoji": "🏗️",
+    "description": "3 Frameworks an Müller-Brandt gesendet. Er hat alle drei in seinen LinkedIn-Posts erwähnt. Ohne deinen Namen.",
+    "trigger": "framework_addict"
+  },
+  {
+    "id": "framework_100",
+    "name": "Der Methodologe",
+    "emoji": "💯",
+    "description": "100 Frameworks generiert. Das 100. war identisch mit dem ersten. Das ist Consulting.",
+    "trigger": "framework_100"
+  },
+  {
+    "id": "dieter_framework",
+    "name": "Dieters Methodik",
+    "emoji": "📊",
+    "description": "Das DIETER-EXCELLENCE FRAMEWORK™ generiert. Alle Deliverables: ausstehend.",
+    "trigger": "dieter_framework"
   }
 ]

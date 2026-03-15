@@ -91,6 +91,7 @@
       "locationName": "Reinhold Industries — IT-Abteilung, Workshop",
       "npc": "kevin",
       "mood": "funny",
+      "frameworkButton": true,
       "text": "Workshop mit dem IT-Team. Acht Personen. Drei sind engagiert und haben bereits eigene Ideen mitgebracht. Drei sind skeptisch und lehnen sich zurück auf eine Art, die geübt aussieht. Zwei spielen etwas auf ihren Handys — du kannst das Geräusch nicht identifizieren, aber es hat Hintergrundmusik.\n\nKevin ist auch da. Er hat bereits ein Deck vorbereitet. Es hat 73 Folien.\n\nFolie 1: 'ITAM: Eine Revolution' — mit einem Stockfoto einer Rakete.\nFolie 7: 'Hyperscaler Integration Matrix v2' — niemand wird erklären was das bedeutet.\nFolie 43: leer. Kevin erklärt: 'Die kommt noch.'\n\nDas Deck wird auf Kevins Laptop geöffnet. Es wartet.",
       "choices": [
         {

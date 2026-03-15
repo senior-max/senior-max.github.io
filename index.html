@@ -76,6 +76,12 @@
         <div id="hud-stats" role="status" aria-label="Statistiken"></div>
         <div id="npc-display" aria-label="Gesprächspartner"></div>
         <button
+          id="framework-btn"
+          aria-label="Framework Generator öffnen"
+          onclick="window.FrameworkGenerator?.open?.()"
+          title="Framework Generator"
+        >🏗️</button>
+        <button
           id="dashboard-btn"
           aria-label="Performance Dashboard öffnen"
           onclick="window.Dashboard?.open()"
@@ -122,6 +128,7 @@
 
     </div>
 
+    <script src="/js/framework_generator.js" defer></script>
     <script src="/js/engine.js" defer></script>
     <script src="/js/vendor_ads.js" defer></script>
     <script src="/js/renderer.js" defer></script>

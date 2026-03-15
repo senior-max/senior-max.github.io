@@ -1,0 +1,91 @@
+{
+  "prefixes": [
+    "DELTA", "ALPHA", "NEXUS", "APEX", "CORE",
+    "PRIME", "ULTRA", "HYPER", "META", "OMNI",
+    "FUSION", "VECTOR", "MATRIX", "PULSE", "AGILE",
+    "LEAN", "SMART", "DEEP", "RAPID", "DYNAMIC"
+  ],
+  "connectors": [
+    "SYNERGY", "VALUE", "IMPACT", "GROWTH", "VISION",
+    "CLARITY", "INSIGHT", "VELOCITY", "EXCELLENCE", "ALIGNMENT",
+    "TRANSFORMATION", "INNOVATION", "DISRUPTION", "EVOLUTION", "MOMENTUM",
+    "RESILIENCE", "AGILITY", "LEVERAGE", "SCALABILITY", "OPTIMIZATION"
+  ],
+  "suffixes": [
+    "FRAMEWORK™", "MODEL©", "METHODOLOGY™", "APPROACH®",
+    "SYSTEM™", "MATRIX™", "BLUEPRINT™", "CANVAS©",
+    "PROTOCOL™", "ARCHITECTURE™", "PARADIGM™", "PLATFORM™"
+  ],
+  "adjectives": [
+    "holistische", "agile", "disruptive", "skalierbare",
+    "nachhaltige", "digitale", "hybride", "resiliente",
+    "datengetriebene", "kundenzentrierte", "innovative",
+    "transformative", "strategische", "integrierte",
+    "zukunftsorientierte", "KI-gestützte", "cloud-native",
+    "wertschöpfende", "compliance-konforme", "end-to-end"
+  ],
+  "phase_counts": [3, 4, 5, 6, 7],
+  "domains": [
+    "Legacy-Compliance-Strukturen",
+    "Cloud-First-Ökosysteme",
+    "Enterprise-Asset-Landschaften",
+    "Digitale Transformationspfade",
+    "Hybride IT-Governance-Modelle",
+    "Agile Lizenz-Optimierungszyklen",
+    "Strategische Vendor-Beziehungsgeflechte",
+    "KI-gestützte Compliance-Pipelines",
+    "Post-digitale Wertschöpfungsketten",
+    "Holistische SAM-Ökosysteme",
+    "End-to-End Visibility-Architekturen",
+    "Dynamic Multi-Cloud-Governance-Strukturen"
+  ],
+  "goals": [
+    "maximale ROI-Realisierung",
+    "nachhaltige Compliance-Sicherung",
+    "agile Stakeholder-Alignierung",
+    "disruptive Wertschöpfung",
+    "resiliente Transformation",
+    "strategische Differenzierung",
+    "operative Exzellenz",
+    "datengetriebene Entscheidungsfindung",
+    "synergetische Optimierung",
+    "holistische Digitalisierung"
+  ],
+  "phase_names": [
+    "Assess", "Discover", "Align", "Transform",
+    "Optimize", "Scale", "Govern", "Sustain",
+    "Evangelize", "Synergize", "Leverage", "Disrupt",
+    "Orchestrate", "Accelerate", "Harmonize", "Pivot"
+  ],
+  "deliverables": [
+    "ein 40-seitiges Strategiepapier",
+    "eine Roadmap (PowerPoint, 3 Versionen)",
+    "ein Executive Summary (niemand liest es)",
+    "ein Reifegradmodell mit 5 Stufen",
+    "ein Business Case (Annahmen: optimistisch)",
+    "ein Workshop-Protokoll (Kevin schreibt es)",
+    "eine Stakeholder-Matrix (Excel, gesperrt)",
+    "ein KPI-Framework (KPIs folgen in Phase 2)",
+    "ein Change-Management-Konzept (optional)",
+    "eine Tooling-Empfehlung (Flexera natürlich)"
+  ],
+  "disclaimers": [
+    "Dieses Framework ersetzt keine Fachberatung. Es ergänzt sie um Komplexität.",
+    "Ergebnisse können variieren. Variieren werden sie definitiv.",
+    "ROI-Realisierung abhängig von Budget, Commitment und Glück.",
+    "Müller-Brandt haftet nicht für Folgeschäden durch Anwendung.",
+    "Dieses Framework wurde von keiner unabhängigen Stelle überprüft.",
+    "Phase 1 kann jederzeit neu definiert werden. Das ist Agilität.",
+    "Alle Phasen sind iterativ. Das bedeutet: es hört nie auf.",
+    "Kompatibel mit allen anderen Frameworks. Auch widersprechenden.",
+    "Zertifizierungskurs verfügbar. 3 Tage, €2.800, Köln.",
+    "Dieses Framework ist 'best practice'. Wessen best practice: offen."
+  ],
+  "templates": [
+    "Eine {adjective} {phase_count}-Phasen-Methodik zur Transformation von {domain} mit Fokus auf {goal}.",
+    "Ein bewährter Ansatz zur {adjective} Optimierung von {domain} — entwickelt für {goal}.",
+    "Die {adjective} Antwort auf moderne {domain}: strukturiert, skalierbar, {goal}.",
+    "Basierend auf {phase_count} Kernprinzipien ermöglicht dieses Framework {goal} in {domain}.",
+    "Ein {adjective} End-to-End-Ansatz der {domain} neu definiert und {goal} sicherstellt."
+  ]
+}

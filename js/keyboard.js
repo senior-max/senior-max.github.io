@@ -20,6 +20,7 @@ const CLOSEABLE_OVERLAYS = [
   'email-overlay',
   'minigame-overlay',
   'achievements-overlay',
+  'framework-overlay',
   'menu-credits',
 ];
 

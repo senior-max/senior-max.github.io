@@ -205,10 +205,54 @@ function renderScene(scene) {
   typeText(scene.text, '#story-text').then(() => {
     if (scene.minigame) {
       triggerSceneMinigame(scene);
+    } else if (scene.frameworkButton) {
+      showFrameworkButtonAndChoices(scene);
     } else {
       renderChoices(scene.choices);
     }
   });
+}
+
+/**
+ * Shows framework prompt + button, then choices when modal closes.
+ * Used in projekt_board b_03 (Strategy Workshop).
+ */
+function showFrameworkButtonAndChoices(scene) {
+  const container = $('#choices-container');
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;flex-direction:column;gap:var(--space-md);align-items:flex-start;';
+  wrap.innerHTML = `
+    <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);font-style:italic;">
+      Müller-Brandt möchte ein neues Framework für den Board. Du hast 10 Minuten.
+    </div>
+  `;
+  const fwBtn = document.createElement('button');
+  fwBtn.className = 'choice-btn';
+  fwBtn.textContent = '🏗️ Framework generieren →';
+  fwBtn.addEventListener('click', () => {
+    fwBtn.disabled = true;
+    window.FrameworkGenerator?.open?.({ fromBoardScene: true });
+    const checkClosed = setInterval(() => {
+      if (!document.getElementById('framework-overlay')) {
+        clearInterval(checkClosed);
+        container.innerHTML = '';
+        renderChoices(scene.choices);
+      }
+    }, 200);
+  });
+  wrap.appendChild(fwBtn);
+  container.appendChild(wrap);
+
+  const skipBtn = document.createElement('button');
+  skipBtn.className = 'choice-btn';
+  skipBtn.style.background = 'transparent';
+  skipBtn.style.color = 'var(--color-text-secondary)';
+  skipBtn.textContent = 'Überspringen →';
+  skipBtn.addEventListener('click', () => {
+    container.innerHTML = '';
+    renderChoices(scene.choices);
+  });
+  wrap.appendChild(skipBtn);
 }
 
 /**
@@ -966,6 +1010,36 @@ function showProjectComplete(title, endingType, message, opts = {}) {
   inner.appendChild(btn);
 }
 
+/**
+ * Shows a toast notification with configurable duration.
+ * @param {string} text - Message to display.
+ * @param {number} [durationMs=3000] - How long to show (ms).
+ * @param {string} [color] - Border/text color (defaults to accent-amber).
+ */
+function showToast(text, durationMs = 3000, color = 'var(--color-accent-amber)') {
+  const id = 'renderer-toast';
+  document.getElementById(id)?.remove();
+
+  const toast = document.createElement('div');
+  toast.id = id;
+  toast.setAttribute('aria-live', 'polite');
+  toast.setAttribute('aria-atomic', 'true');
+  toast.style.cssText = [
+    'position:fixed', 'bottom:var(--space-lg)', 'left:50%',
+    'transform:translateX(-50%)',
+    'z-index:3000', 'background:var(--color-surface-elevated)',
+    `border:1px solid ${color}`,
+    'border-radius:var(--radius-md)',
+    'padding:var(--space-sm) var(--space-md)',
+    'font-family:var(--font-mono)', 'font-size:var(--font-size-sm)',
+    `color:${color}`, 'max-width:90vw',
+    'pointer-events:none', 'white-space:normal', 'text-align:center',
+  ].join(';');
+  toast.textContent = text;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), durationMs);
+}
+
 // ── Public API ────────────────────────────────────────────
 
 window.Renderer = {
@@ -979,5 +1053,6 @@ window.Renderer = {
   showAchievement,
   showTransitionMessage,
   showProjectComplete,
+  showToast,
   animateXP,
 };
