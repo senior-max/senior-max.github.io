@@ -271,6 +271,8 @@ function confirmResetAll() {
     overlay.remove();
     window.Storage?.clearAll?.();
     window.Engine?.initGame?.();
+    if (window.Engine?.GameState) window.Engine.GameState.frameworksSentToMueller = 0;
+    window.FrameworkGenerator?.reset?.();
     window.Achievements?.loadAchievements?.();
     window.Stats?.initStatBars?.();
     window.Career?.renderCareerHUD?.();

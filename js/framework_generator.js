@@ -263,19 +263,19 @@ window.FrameworkGenerator = (function () {
       'width:100%',
       'box-shadow:0 20px 60px rgba(0,0,0,0.4)',
       'overflow:hidden',
-      'font-family:var(--font-mono)',
+      'font-family:var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif)',
     ].join(';');
 
     const headerBar = document.createElement('div');
     headerBar.style.cssText = [
       'background:#1a1a2e',
-      'padding:8px 16px',
+      'padding:10px 20px',
       'display:flex',
       'justify-content:space-between',
       'align-items:center',
-      'font-size:10px',
-      'color:rgba(255,255,255,0.4)',
-      'letter-spacing:1px',
+      'font-size:12px',
+      'color:rgba(255,255,255,0.75)',
+      'letter-spacing:0.5px',
     ].join(';');
     headerBar.innerHTML = `
       <span>GREYSUIT & PARTNER | METHODOLOGY SERVICES</span>
@@ -287,11 +287,12 @@ window.FrameworkGenerator = (function () {
     nameEl.style.cssText = [
       'text-align:center',
       'padding:var(--space-xl) var(--space-lg) 0',
-      'font-size:clamp(1.4rem, 4vw, 2rem)',
-      'font-weight:bold',
-      'color:#1a1a2e',
-      'letter-spacing:0.08em',
+      'font-size:clamp(1.5rem, 4vw, 2.2rem)',
+      'font-weight:700',
+      'color:#0d1117',
+      'letter-spacing:0.05em',
       'text-transform:uppercase',
+      'line-height:1.3',
     ].join(';');
     nameEl.textContent = framework.name;
     card.appendChild(nameEl);
@@ -304,20 +305,22 @@ window.FrameworkGenerator = (function () {
     descEl.style.cssText = [
       'font-style:italic',
       'text-align:center',
-      'color:#555',
-      'padding:16px 32px',
-      'font-size:0.95rem',
+      'color:#24292f',
+      'padding:20px 32px',
+      'font-size:1.05rem',
+      'line-height:1.6',
     ].join(';');
     descEl.textContent = framework.description;
     card.appendChild(descEl);
 
     const phaseHeader = document.createElement('div');
     phaseHeader.style.cssText = [
-      'font-size:11px',
+      'font-size:13px',
+      'font-weight:600',
       'text-transform:uppercase',
-      'letter-spacing:2px',
-      'color:#1a1a2e',
-      'padding:16px 24px 8px',
+      'letter-spacing:1.5px',
+      'color:#0d1117',
+      'padding:20px 24px 12px',
     ].join(';');
     phaseHeader.textContent = 'PHASENMODELL';
     card.appendChild(phaseHeader);
@@ -328,15 +331,16 @@ window.FrameworkGenerator = (function () {
     table.style.cssText = [
       'width:100%',
       'border-collapse:collapse',
-      'font-size:0.82rem',
+      'font-size:15px',
+      'line-height:1.5',
     ].join(';');
     table.innerHTML = `
       <thead>
-        <tr style="background:#f0f0f0;">
-          <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #ddd;">Nr.</th>
-          <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #ddd;">Phase</th>
-          <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #ddd;">Dauer</th>
-          <th style="padding:10px 12px;text-align:left;border-bottom:1px solid #ddd;">Deliverable</th>
+        <tr style="background:#eaeef2;">
+          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #d0d7de;font-weight:600;color:#0d1117;">Nr.</th>
+          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #d0d7de;font-weight:600;color:#0d1117;">Phase</th>
+          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #d0d7de;font-weight:600;color:#0d1117;">Dauer</th>
+          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #d0d7de;font-weight:600;color:#0d1117;">Deliverable</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -350,10 +354,10 @@ window.FrameworkGenerator = (function () {
         `animation-delay:${i * 100}ms`,
       ].join(';');
       tr.innerHTML = `
-        <td style="padding:10px 12px;border-bottom:1px solid #eee;">${p.number}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #eee;">${p.name}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #eee;">${p.duration}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #eee;">${p.deliverable}</td>
+        <td style="padding:14px 16px;border-bottom:1px solid #eaeef2;color:#24292f;">${p.number}</td>
+        <td style="padding:14px 16px;border-bottom:1px solid #eaeef2;color:#24292f;font-weight:500;">${p.name}</td>
+        <td style="padding:14px 16px;border-bottom:1px solid #eaeef2;color:#24292f;">${p.duration}</td>
+        <td style="padding:14px 16px;border-bottom:1px solid #eaeef2;color:#24292f;">${p.deliverable}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -362,13 +366,14 @@ window.FrameworkGenerator = (function () {
 
     const disclaimerBox = document.createElement('div');
     disclaimerBox.style.cssText = [
-      'background:#f5f5f5',
+      'background:#eaeef2',
       'border-radius:var(--radius-md)',
-      'padding:12px 16px',
-      'margin:16px 24px',
-      'font-size:0.72rem',
+      'padding:16px 20px',
+      'margin:20px 24px',
+      'font-size:14px',
       'font-style:italic',
-      'color:#888',
+      'color:#424a53',
+      'line-height:1.5',
     ].join(';');
     disclaimerBox.textContent = '⚠️ Hinweis: ' + framework.disclaimer;
     card.appendChild(disclaimerBox);
@@ -415,21 +420,22 @@ window.FrameworkGenerator = (function () {
     if (!isMobile && history.length > 1) {
       const sidebar = document.createElement('div');
       sidebar.style.cssText = [
-        'min-width:160px',
-        'background:rgba(255,255,255,0.05)',
+        'min-width:180px',
+        'background:rgba(255,255,255,0.08)',
         'border-radius:var(--radius-md)',
         'padding:var(--space-md)',
-        'font-size:0.8rem',
+        'font-size:14px',
+        'line-height:1.4',
       ].join(';');
-      sidebar.innerHTML = '<div style="color:var(--color-text-secondary);margin-bottom:8px;font-size:10px;text-transform:uppercase;">Zuletzt generiert</div>';
+      sidebar.innerHTML = '<div style="color:rgba(255,255,255,0.7);margin-bottom:10px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Zuletzt generiert</div>';
       history.forEach((h, i) => {
         const entry = document.createElement('div');
         entry.style.cssText = [
-          'padding:6px 0',
+          'padding:8px 0',
           'cursor:pointer',
-          'color:var(--color-text-secondary)',
-          'border-bottom:1px solid rgba(255,255,255,0.1)',
-          i === 0 ? 'font-weight:bold;color:var(--color-accent-amber)' : '',
+          'color:rgba(255,255,255,0.85)',
+          'border-bottom:1px solid rgba(255,255,255,0.15)',
+          i === 0 ? 'font-weight:600;color:var(--color-accent-amber)' : '',
         ].join(';');
         entry.textContent = (h.name || '').slice(0, 28) + (h.name?.length > 28 ? '…' : '');
         entry.addEventListener('click', () => renderModal(h, opts));
@@ -449,6 +455,12 @@ window.FrameworkGenerator = (function () {
     setTimeout(() => window.KeyboardController?.trapFocus?.(overlay), 0);
   }
 
+  function reset() {
+    history = [];
+    generateCount = 0;
+    openContext = null;
+  }
+
   // ── Open entry point ─────────────────────────────────────
 
   async function open(ctx = {}) {
@@ -462,6 +474,7 @@ window.FrameworkGenerator = (function () {
     words: () => words,
     history: () => [...history],
     generateCount: () => generateCount,
+    reset,
     loadWords,
     pick,
     generateName,
