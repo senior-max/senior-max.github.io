@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$comment": "Schema for all story JSON files in /data/stories/. Every story file must validate against this structure.",
+  "type": "object",
+  "required": ["id", "title", "scenes"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique project id. Must match the filename (without .json)."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable project title shown on the completion screen."
+    },
+    "xpReward": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "XP awarded when the project reaches any ending."
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered list of all scenes. The first scene is the entry point.",
+      "items": {
+        "type": "object",
+        "required": ["id", "location", "text", "choices"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique scene id within this project, e.g. 't_01'."
+          },
+          "location": {
+            "type": "string",
+            "description": "Key from config.json locations object, e.g. 'buero'."
+          },
+          "locationEmoji": {
+            "type": "string",
+            "description": "Override emoji for this scene. Falls back to config.json location emoji."
+          },
+          "locationName": {
+            "type": "string",
+            "description": "Override display name. Falls back to config.json location name."
+          },
+          "npc": {
+            "type": ["string", "null"],
+            "description": "NPC id from npcs.json, or null for no NPC."
+          },
+          "text": {
+            "type": "string",
+            "description": "Main story text displayed to the player. No HTML — plain text only."
+          },
+          "mood": {
+            "type": "string",
+            "enum": ["panic", "neutral", "tense", "funny", "success"],
+            "description": "Emotional tone of the scene, used for future theming."
+          },
+          "choices": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "description": "Available player choices. Between 1 and 4.",
+            "items": {
+              "type": "object",
+              "required": ["id", "text", "next"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique choice id within the scene, e.g. 'c1'."
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Label shown on the choice button."
+                },
+                "effects": {
+                  "type": "object",
+                  "description": "Stat deltas applied when this choice is made. Positive = increase, negative = decrease.",
+                  "properties": {
+                    "kompetenz":   { "type": "integer" },
+                    "bullshit":    { "type": "integer" },
+                    "kundenliebe": { "type": "integer" },
+                    "burnout":     { "type": "integer" },
+                    "prestige":    { "type": "integer" }
+                  },
+                  "additionalProperties": false
+                },
+                "flags": {
+                  "type": "object",
+                  "description": "Story flags set when this choice is made, e.g. { 'met_dieter': true }.",
+                  "additionalProperties": true
+                },
+                "next": {
+                  "type": "string",
+                  "description": "Id of the next scene, or one of the reserved endings: 'ending_success' | 'ending_disaster' | 'ending_neutral'."
+                },
+                "feedback": {
+                  "type": "string",
+                  "description": "Witty one-liner shown below the story text after the choice is made."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

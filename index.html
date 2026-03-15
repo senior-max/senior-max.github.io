@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>License To Bill – Das ITAM Berater-Abenteuer</title>
+
+    <!-- Sharing / SEO -->
+    <meta name="description" content="Werde IT Asset Management Consultant. Von Junior bis Manager. Überlebst du das Microsoft-Audit?" />
+    <meta property="og:title"       content="License To Bill – Das ITAM Berater-Abenteuer" />
+    <meta property="og:description" content="Werde IT Asset Management Consultant. Von Junior bis Manager. Überlebst du das Microsoft-Audit?" />
+    <meta property="og:type"        content="website" />
+
+    <!-- Mobile / PWA hints -->
+    <meta name="theme-color"                  content="#0d1117" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title"   content="License To Bill" />
+
+    <!-- Emoji favicon via inline SVG data URL — no external file needed -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>" />
+
+    <link rel="stylesheet" href="/css/tokens.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animations.css" />
+
+    <!-- Loading screen — inline so it renders before any external file loads -->
+    <style>
+      #loading-screen {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        background: #0d1117;
+        font-family: 'Courier New', Courier, monospace;
+        color: #8b949e;
+        font-size: 14px;
+        z-index: 9000;
+        transition: opacity 0.4s ease;
+      }
+      #loading-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #loading-screen .ls-logo {
+        font-size: 32px;
+        color: #58a6ff;
+        letter-spacing: 4px;
+      }
+      #loading-screen .ls-dots::after {
+        content: '';
+        animation: loadingDots 1.2s steps(4, end) infinite;
+      }
+      @keyframes loadingDots {
+        0%   { content: '';    }
+        25%  { content: '.';   }
+        50%  { content: '..';  }
+        75%  { content: '...'; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Loading screen: removed with a fade-out once boot() completes in main.js -->
+    <div id="loading-screen" role="status" aria-label="Spiel lädt">
+      <div class="ls-logo">💼 LTB</div>
+      <div>Initialisiere Lizenzmatrix<span class="ls-dots"></span></div>
+    </div>
+
+    <div id="app">
+
+      <header id="hud" role="banner" aria-label="Spieler-Status">
+        <div id="hud-title" aria-label="Spieler-Titel"></div>
+        <div id="hud-stats" role="status" aria-label="Statistiken"></div>
+        <div id="npc-display" aria-label="Gesprächspartner"></div>
+        <button
+          id="hud-achievements-btn"
+          aria-label="Achievements öffnen"
+          onclick="window.Achievements?.renderAchievementsScreen()"
+          style="background:none;border:1px solid var(--color-border);color:var(--color-text-secondary);border-radius:var(--radius-sm);padding:2px 8px;cursor:pointer;font-family:var(--font-mono);font-size:12px;white-space:nowrap;transition:border-color 0.2s,color 0.2s;"
+          onmouseenter="this.style.borderColor='var(--color-accent-purple)';this.style.color='var(--color-accent-purple)';"
+          onmouseleave="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-secondary)';"
+        >🏅 Achievements</button>
+      </header>
+
+      <main id="game-container" role="main" aria-label="Spielbereich">
+        <div id="scene-location" aria-label="Aktueller Ort"></div>
+        <div id="story-text" aria-live="polite" aria-label="Spieltext"></div>
+        <div id="feedback-text" aria-live="assertive" aria-label="Reaktion auf Entscheidung"></div>
+        <div id="choices-container" role="group" aria-label="Entscheidungen"></div>
+      </main>
+
+      <footer id="game-footer" role="contentinfo" aria-label="Spielinfo">
+        <span>v0.1-MVP</span>
+      </footer>
+
+    </div>
+
+    <script src="/js/sound.js" defer></script>
+    <script src="/js/storage.js" defer></script>
+    <script src="/js/stats.js" defer></script>
+    <script src="/js/engine.js" defer></script>
+    <script src="/js/renderer.js" defer></script>
+    <script src="/js/career.js" defer></script>
+    <script src="/js/achievements.js" defer></script>
+    <script src="/js/npcs.js" defer></script>
+    <script src="/js/email.js" defer></script>
+    <script src="/js/minigames/excel.js" defer></script>
+    <script src="/js/minigames/reisekosten.js" defer></script>
+    <script src="/js/ui.js" defer></script>
+    <script src="/js/menu.js" defer></script>
+    <script src="/js/keyboard.js" defer></script>
+    <script src="/js/main.js" defer></script>
+    <script src="/js/debug.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+[
+  {
+    "id": "dieter",
+    "name": "Dieter Kammann",
+    "title": "IT-Leiter, Acme Corp",
+    "emoji": "😰",
+    "catchphrase": "Wir haben das immer so gemacht.",
+    "personality": "Gestresst, vergesslich, gutmütig. Panikiert bei jedem Audit-Begriff.",
+    "statModifiers": { "burnout": 3 },
+    "dialogLines": [
+      "Wir haben das immer so gemacht.",
+      "Das war vor meiner Zeit...",
+      "Ich schicke Ihnen die Excel. Sie ist etwas... historisch.",
+      "Soll ich Klaus anrufen? Ach. Stimmt.",
+      "Noch ein Kaffee?"
+    ]
+  },
+  {
+    "id": "kevin",
+    "name": "Kevin Schreiber",
+    "title": "Junior Consultant, Greysuit & Partner",
+    "emoji": "🤓",
+    "catchphrase": "Ich hab das mit ChatGPT gemacht!",
+    "personality": "Überenthusiastisch, meint es gut, macht alles 20% falsch.",
+    "statModifiers": { "kompetenz": -1, "bullshit": 2 },
+    "dialogLines": [
+      "Ich hab das mit ChatGPT gemacht!",
+      "Kann ich das auch mit einer API lösen?",
+      "Ich hab ein YouTube-Tutorial gefunden!",
+      "Geht das auch serverless?",
+      "Ich hab schon mal eine App entwickelt. Fast."
+    ]
+  },
+  {
+    "id": "dr_mueller",
+    "name": "Dr. Müller-Brandt",
+    "title": "Partner, Greysuit & Partner",
+    "emoji": "🧐",
+    "catchphrase": "Das skaliert nicht. Denk in Frameworks.",
+    "personality": "Arrogant, lebt in PowerPoint-Folien, kann Excel nicht mehr bedienen.",
+    "statModifiers": { "prestige": 5, "burnout": 8 },
+    "dialogLines": [
+      "Das skaliert nicht. Denk in Frameworks.",
+      "Wie lautet die Value Proposition?",
+      "Wir brauchen ein Executive Summary. Eine Seite. Maximal.",
+      "Ich sehe hier keine KPIs.",
+      "Kannst du das bis morgen früh fertig haben?"
+    ]
+  },
+  {
+    "id": "sandra",
+    "name": "Sandra Breuer",
+    "title": "HR Business Partner",
+    "emoji": "📋",
+    "catchphrase": "Das ist für alle verpflichtend.",
+    "personality": "Freundlich aber unnachgiebig. Liebt Pflichtschulungen.",
+    "statModifiers": { "burnout": 2 },
+    "dialogLines": [
+      "Das ist für alle verpflichtend.",
+      "Ich schicke dir noch eine Erinnerungsmail.",
+      "Modul 8 startet übrigens nächste Woche.",
+      "Das steht so in der Betriebsvereinbarung.",
+      "Hast du das Feedback-Formular ausgefüllt?"
+    ]
+  },
+  {
+    "id": "ms_auditor",
+    "name": "Ralf Steinbach",
+    "title": "License Compliance Manager, Microsoft",
+    "emoji": "🕵️",
+    "catchphrase": "Können Sie das lizenzrechtlich belegen?",
+    "personality": "Unerbittlich, hat Zeit, ist sehr gut vorbereitet. Lächelt nie.",
+    "statModifiers": { "burnout": 12, "kompetenz": -3 },
+    "dialogLines": [
+      "Können Sie das lizenzrechtlich belegen?",
+      "Wir haben da andere Zahlen vorliegen.",
+      "Das ist leider nicht ausreichend dokumentiert.",
+      "Ich stelle das einfach ins Protokoll.",
+      "...interessant."
+    ]
+  },
+  {
+    "id": "hal",
+    "name": "HAL 9000",
+    "title": "Bürodrucker (OFFLINE)",
+    "emoji": "🖨️",
+    "catchphrase": "[TONER LEER — Ticket offen seit 14.03.2025]",
+    "personality": "Reagiert nicht. Existiert nur um zu enttäuschen.",
+    "statModifiers": { "burnout": 1 },
+    "dialogLines": [
+      "[TONER LEER]",
+      "[OFFLINE]",
+      "[FEHLER CODE: 0x000000C4]",
+      "[BITTE WARTEN]",
+      "[DRUCKAUFTRAG FEHLGESCHLAGEN — SEIT 14.03.2025]"
+    ]
+  },
+  {
+    "id": "phantom",
+    "name": "???",
+    "title": "Phantom-Mitarbeiter",
+    "emoji": "👻",
+    "catchphrase": "[antwortet nicht auf E-Mails seit 2022]",
+    "personality": "Niemand hat ihn je gesehen. Aber er hat 12 aktive Softwarelizenzen.",
+    "statModifiers": {},
+    "dialogLines": [
+      "[Keine Antwort]",
+      "[Liest: Ja. Antwortet: Nein.]",
+      "[Zuletzt gesehen: 2022]",
+      "[Lizenzen aktiv: 12. Person: unklar.]",
+      "[...]"
+    ]
+  }
+]

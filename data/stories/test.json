@@ -1,0 +1,115 @@
+{
+  "id": "test",
+  "title": "Der erste Auftrag",
+  "xpReward": 50,
+  "scenes": [
+    {
+      "id": "t_01",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Das Büro",
+      "npc": null,
+      "mood": "funny",
+      "text": "Montagmorgen, 8:47 Uhr. Dein Kaffee ist noch heiß, dein Outlook noch geschlossen — ein seltenes Gleichgewicht. Dann: eine Teams-Nachricht von deinem Manager.\n\n\"Hey! Acme Corp braucht SOFORT jemanden vor Ort. Die haben ein riesiges SAM-Chaos und der Kunde ist bereits 'besorgt' — was bedeutet: er schreibt E-Mails in Großbuchstaben. Kannst du heute noch hinfahren?\"\n\nDu schaust auf deinen Kalender. Drei Meetings, die du selbst angesetzt hast und die niemand sonst braucht. Dein Laptop-Akku ist bei 12%.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "\"Klar, ich bin in 20 Minuten im Zug.\" (Held-Modus)",
+          "effects": { "kompetenz": 3, "kundenliebe": 5, "burnout": 8 },
+          "flags": { "reist_sofort": true },
+          "next": "t_02a",
+          "feedback": "Dein Kaffee weint dir nach. Du hast ihn nie wieder gesehen."
+        },
+        {
+          "id": "c2",
+          "text": "\"Ich schalte mich remote dazu — bin 'quasi vor Ort'.\" (Bullshit-Modus)",
+          "effects": { "bullshit": 8, "kundenliebe": -5, "burnout": 2 },
+          "flags": { "reist_sofort": false },
+          "next": "t_02b",
+          "feedback": "Du öffnest einen virtuellen Hintergrund mit einem Büro. Niemand wird es merken."
+        }
+      ]
+    },
+    {
+      "id": "t_02a",
+      "location": "zug",
+      "locationEmoji": "🚂",
+      "locationName": "Zug zum Kunden",
+      "npc": null,
+      "mood": "panic",
+      "text": "Du sitzt im ICE, Sitzplatz 42B, Großraumwagen. Neben dir: jemand der laut in ein Headset ruft \"Nein, die Synergien sind ESSENTIELL!\". Du klappst deinen Laptop auf.\n\nStufe 3%.\n\nDann fällt es dir ein: Ladekabel. Zuhause. Auf dem Schreibtisch. Neben dem heißen Kaffee, den du ebenfalls vergessen hast. Du hast 2 Stunden Fahrt und ein Kickoff-Meeting in 90 Minuten. Der Steckplatz neben dir ist kaputt. Der Bordrestaurant-Stecker hat eine Warteschlange von fünf Menschen.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Den Typen mit dem Headset um sein Ladekabel anflehen.",
+          "effects": { "kompetenz": -2, "kundenliebe": 3, "bullshit": 4, "burnout": 5 },
+          "flags": { "kabel_gefunden": true },
+          "next": "t_03",
+          "feedback": "Er hatte ein USB-C-Kabel. Dein Laptop braucht MagSafe. Natürlich."
+        },
+        {
+          "id": "c2",
+          "text": "Meeting auf dem Handy halten, Laptop auf 3% einfrieren.",
+          "effects": { "bullshit": 6, "burnout": 10, "prestige": -3 },
+          "flags": { "kabel_gefunden": false },
+          "next": "t_03",
+          "feedback": "Dein Daumen tippt mit einer Geschwindigkeit, die Ärzte besorgt hätte."
+        }
+      ]
+    },
+    {
+      "id": "t_02b",
+      "location": "homeoffice",
+      "locationEmoji": "🏠",
+      "locationName": "Home Office",
+      "npc": null,
+      "mood": "tense",
+      "text": "Du bist im Home Office. Virtueller Hintergrund: aktiviert. Kaffee: frisch. Doch Acme Corp hat sich dein LinkedIn angeschaut und bemerkt, dass du laut Profil \"aktuell beim Kunden vor Ort\" bist — obwohl dein Hund gerade ins Bild läuft.\n\nDer Projektleiter schreibt: \"Sind Sie sicher, dass Sie VOR ORT sind? Wir hören... Bellen?\"\n\nDu musst jetzt improvisieren.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "\"Das ist der Wachhund der Rezeption. Sehr engagiertes Haus.\"",
+          "effects": { "bullshit": 12, "kundenliebe": -3, "burnout": 4 },
+          "flags": { "hund_erklaert": "wachhund" },
+          "next": "t_03",
+          "feedback": "Der Hund heißt Biscuit und er war überzeugender als du."
+        },
+        {
+          "id": "c2",
+          "text": "Ehrlichkeit: \"Ich arbeite remote, bin aber vollständig einsatzbereit.\"",
+          "effects": { "kompetenz": 5, "kundenliebe": 2, "bullshit": -5, "prestige": 3 },
+          "flags": { "hund_erklaert": "ehrlich" },
+          "next": "t_03",
+          "feedback": "Der Kunde respektiert das. Überraschenderweise."
+        }
+      ]
+    },
+    {
+      "id": "t_03",
+      "location": "kundenbüro",
+      "locationEmoji": "👔",
+      "locationName": "Kundenbüro Acme Corp",
+      "npc": null,
+      "mood": "tense",
+      "text": "Du bist jetzt im Kickoff-Meeting mit Acme Corp — physisch oder spirituell, egal. Der Projektleiter, Herr Grundmann, öffnet eine Excel-Tabelle mit 4.200 Zeilen Softwarelizenzen, von denen 3.800 entweder abgelaufen, doppelt oder komplett falsch kategorisiert sind.\n\n\"Wir brauchen das bis Freitag bereinigt\", sagt er. Heute ist Mittwoch.\n\nEr fügt hinzu: \"Und wir haben kein ITAM-Tool. Wir nutzen Excel. Und manchmal Post-its.\"\n\nDu schluckst. Dein Laptop hat noch 2%.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Vollgas: Analyse-Framework aufsetzen, Priorisierung vorschlagen, Roadmap skizzieren.",
+          "effects": { "kompetenz": 15, "prestige": 10, "burnout": 20, "kundenliebe": 8 },
+          "flags": { "projekt_ansatz": "strukturiert" },
+          "next": "ending_success",
+          "feedback": "Grundmann nickt. Das ist das erste Mal seit Jahren, dass jemand einen Plan hatte."
+        },
+        {
+          "id": "c2",
+          "text": "\"Kein Problem\" sagen und heimlich nach einem ITAM-Freelancer googeln.",
+          "effects": { "bullshit": 15, "kompetenz": -5, "burnout": 8, "prestige": -5 },
+          "flags": { "projekt_ansatz": "delegiert" },
+          "next": "ending_disaster",
+          "feedback": "Der Freelancer antwortet nicht. Es ist Mittwochabend. Du bist allein mit 4.200 Zeilen."
+        }
+      ]
+    }
+  ]
+}

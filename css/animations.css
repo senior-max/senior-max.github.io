@@ -1,0 +1,119 @@
+/* ── Cursor blink ───────────────────────────────────────── */
+
+@keyframes typing {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Entrance: fade up ──────────────────────────────────── */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Stat bar change pulse ──────────────────────────────── */
+
+@keyframes statPulse {
+  0%   { transform: scaleX(1); }
+  50%  { transform: scaleX(1.05); }
+  100% { transform: scaleX(1); }
+}
+
+/* ── Burnout flicker (use when burnout > 80%) ───────────── */
+
+@keyframes burnoutFlicker {
+  0%,  100% { opacity: 1;   background-color: var(--color-accent-red); }
+  20%        { opacity: 0.6; background-color: #ff6b6b; }
+  40%        { opacity: 1;   background-color: var(--color-accent-red); }
+  60%        { opacity: 0.4; background-color: #ff2e2e; }
+  80%        { opacity: 0.9; background-color: var(--color-accent-red); }
+}
+
+/* ── Feedback slide in from right ───────────────────────── */
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── Credits slow scroll ────────────────────────────────── */
+
+@keyframes creditsScroll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100%); }
+}
+
+/* ── Burnout: background gradient pulse ─────────────────── */
+
+@keyframes burnoutBg {
+  0%,  100% { background-position: 0% 0%;   }
+  50%        { background-position: 0% 100%; }
+}
+
+/* ── Burnout: emoji scale pulse ─────────────────────────── */
+
+@keyframes burnoutPulse {
+  0%,  100% { transform: scale(1);    opacity: 1;   }
+  40%        { transform: scale(1.2); opacity: 0.9; }
+  60%        { transform: scale(0.9); opacity: 1;   }
+}
+
+/* ── Confetti dot falling ────────────────────────────────── */
+
+@keyframes confettiFall {
+  0%   { transform: translateY(-10px) rotate(0deg);   opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(340px) rotate(720deg); opacity: 0; }
+}
+
+/* ── Disaster: red border flicker ────────────────────────── */
+
+@keyframes disasterBorderFlicker {
+  0%,  100% { border-color: var(--color-accent-red);  box-shadow: 0 0 12px rgba(248,81,73,0.5); }
+  25%        { border-color: #ff2e2e;                  box-shadow: 0 0 24px rgba(248,81,73,0.8); }
+  50%        { border-color: var(--color-accent-red);  box-shadow: 0 0  6px rgba(248,81,73,0.3); }
+  75%        { border-color: #cc2200;                  box-shadow: 0 0 20px rgba(248,81,73,0.7); }
+}
+
+/* ── Utility classes ────────────────────────────────────── */
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.3s ease both;
+}
+
+.animate-typing-cursor::after {
+  content: '|';
+  display: inline-block;
+  margin-left: 2px;
+  animation: typing 1s step-end infinite;
+}
+
+.animate-stat-pulse {
+  animation: statPulse 0.4s ease;
+}
+
+.animate-burnout-flicker {
+  animation: burnoutFlicker 1.2s ease-in-out infinite;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease both;
+}
+
+@keyframes flickerLoop {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.1; }
+}

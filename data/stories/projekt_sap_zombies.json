@@ -1,0 +1,215 @@
+{
+  "id": "projekt_sap_zombies",
+  "title": "Die SAP-Zombie-Lizenzen",
+  "subtitle": "Sie sind gegangen. Die Lizenzen nicht.",
+  "difficulty": "hard",
+  "comedyLevel": 2,
+  "requiredLevel": 2,
+  "xpReward": 180,
+  "scenes": [
+    {
+      "id": "s_01",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Das Büro",
+      "npc": "dr_mueller",
+      "mood": "tense",
+      "text": "Dr. Müller-Brandt sitzt dir gegenüber. Kein Kaffee. Kein Smalltalk. Er öffnet eine Folie.\n\n\"Globex Industries. Zahlen seit 2017 für 400 SAP Named User Lizenzen. HR meldet aktuell 280 Mitarbeiter.\" Er macht eine kurze Pause. \"Es gibt möglicherweise eine Diskrepanz.\"\n\nEr sagt 'Diskrepanz' so, wie andere Leute 'kleiner Tippfehler' sagen würden.\n\nDeine Aufgabe: Alle Geisterlizenzen identifizieren und mit SAP neu verhandeln. Er steht auf. \"Und bitte SAP nicht verärgern.\" Er geht.\n\nDu schlägst das SAP-Lizenzierungshandbuch auf. Seite 1 von 847. Kapitel 1: \"Einführung in die Einführung der Lizenzierungsgrundlagen.\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Direkt SAP kontaktieren — die werden das schnell klären können.",
+          "effects": { "bullshit": 3, "kompetenz": -2, "burnout": 5 },
+          "next": "s_02",
+          "feedback": "SAP antwortet mit einer automatischen Bestätigung. Drei Tage später antwortet ein Mensch — mit der Bitte, das Formular SLA-7b auszufüllen. Als PDF. Zum Ausdrucken."
+        },
+        {
+          "id": "c2",
+          "text": "Zuerst HR-Liste und SAP-Userliste gegenüberstellen — sauber analysieren.",
+          "effects": { "kompetenz": 5 },
+          "next": "s_02",
+          "feedback": "Gute Idee. HR antwortet in 3 Tagen. SAP-Systemzugang braucht eine Genehmigung. Und eine weitere."
+        },
+        {
+          "id": "c3",
+          "text": "Kevin mit dem SAP-Lizenzierungshandbuch beauftragen.",
+          "effects": { "bullshit": 2, "kompetenz": -3 },
+          "flags": { "kevin_involved": true },
+          "next": "s_02",
+          "feedback": "Kevin liest 14 Seiten. Dann fragt er ob SAP auch eine API hat."
+        }
+      ]
+    },
+    {
+      "id": "s_02",
+      "location": "homeoffice",
+      "locationEmoji": "🏠",
+      "locationName": "Home Office",
+      "npc": null,
+      "mood": "tense",
+      "text": "Tag 3 im Wartezustand. Zwei Genehmigungsmails noch offen. Das SAP-Basis-Team hat sich \"darum gekümmert\" — was bedeutet: sie haben die Mail weitergeleitet.\n\nDu hast aber bereits das HR-Excel: 280 aktive Mitarbeiter, sauber exportiert.\n\nUnd die SAP-Userliste. SAP hat sie geschickt. Als PDF. Nicht durchsuchbar. Vermutlich eingescannt. Du hast sie manuell abgetippt — alle 412 Einträge.\n\nJetzt liegt beides vor dir. HR: 280 Namen. SAP: 412 Nutzer. Irgendwo dazwischen liegen 132 digitale Geister.\n\nDu rollst die Ärmel hoch. Metaphorisch. Du hast Home Office.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Manuell abgleichen — Zeile für Zeile, Name für Name.",
+          "effects": { "kompetenz": 5, "burnout": 12 },
+          "next": "s_03",
+          "feedback": "7 Stunden. 127 Abweichungen. 3 davon heißen 'Test'. 1 heißt 'Admin2'. 1 heißt 'ZZZ_LÖSCHEN_2018'."
+        },
+        {
+          "id": "c2",
+          "text": "PowerShell-Skript schreiben und den Abgleich automatisieren.",
+          "effects": { "kompetenz": 8, "burnout": -5, "prestige": 3 },
+          "next": "s_03",
+          "feedback": "Das Skript läuft durch in 12 Minuten. Dr. Müller-Brandt fragt wie du das so schnell geschafft hast. Du sagst: Framework."
+        }
+      ]
+    },
+    {
+      "id": "s_03",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum — Globex Industries",
+      "npc": "phantom",
+      "mood": "tense",
+      "text": "Du präsentierst dem IT-Team von Globex Industries deine Zwischenergebnisse. Die Stühle am Tisch: vier. Erschienen: zwei Personen, die sich nicht vorstellen.\n\nDu zeigst die Zahl: 132 SAP-User, die in keiner HR-Liste auftauchen.\n\n\"Können Sie mir sagen, wer diese Nutzer sind?\"\n\nStille. Einer der beiden schaut auf seinen Laptop. Der andere schaut an die Wand.\n\nDann, vorsichtig: \"Manche sind vielleicht... ausgeschieden.\"\n\"Manche?\"\n\"Naja.\" Eine längere Pause. \"Viele eigentlich.\"\n\nDu schreibst 'viele eigentlich' wörtlich in dein Protokoll.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Systematisch jeden User einzeln durchgehen und nachfragen.",
+          "effects": { "kompetenz": 3, "kundenliebe": 2, "burnout": 8 },
+          "next": "s_04",
+          "feedback": "Du arbeitest dich durch die Liste. Bei Nummer 38 sagt jemand leise: 'Den kenn ich gar nicht.' Bei Nummer 71: 'Wann ist der gegangen?' Bei Nummer 89: langes Schweigen."
+        },
+        {
+          "id": "c2",
+          "text": "Die Liste direkt an HR zur Verifizierung schicken — sollen sie es klären.",
+          "effects": { "kompetenz": 3, "burnout": -5 },
+          "next": "s_04",
+          "feedback": "HR bestätigt 129 der 132 als ausgeschieden. Die verbleibenden drei sind 'kompliziert', wie HR schreibt. Ohne weitere Erklärung."
+        },
+        {
+          "id": "c3",
+          "text": "Pragmatisch: alle 132 sofort als inaktiv markieren und weiter.",
+          "effects": { "kompetenz": -5, "burnout": -3, "bullshit": 3 },
+          "next": "ending_disaster",
+          "feedback": "Drei davon sind noch aktive Mitarbeiter. Einer ist der CFO. Er ist nicht erfreut. Er ruft Müller-Brandt direkt an."
+        }
+      ]
+    },
+    {
+      "id": "s_04",
+      "location": "kundenbüro",
+      "locationEmoji": "👔",
+      "locationName": "Kundenbüro Globex Industries",
+      "npc": "phantom",
+      "mood": "panic",
+      "text": "Du gehst die verbleibenden Anomalien durch. Die meisten sind trivial — Praktikanten, Elternzeit, normale Abgänge.\n\nDann: HSCHMIDT. Letzter Login: 12. September 2021. HR-Akte: Hans-Werner Schmidt, Renteneintritt 31. August 2021. Alles normal, wahrscheinlich noch schnell was erledigt.\n\nDann: WBAUM.\n\nLetzter Login: 3. Oktober 2022.\n\nHR-Akte: Wolfgang Baum. Verstorben. März 2020.\n\nDu liest die Zeile dreimal.\n\nJemand hat sich im Oktober 2022 — zweieinhalb Jahre nach seinem Tod — mit Wolfgang Baums SAP-Zugangsdaten eingeloggt. Für 4 Minuten und 37 Sekunden.\n\nDu schaust dich um. Das Büro ist leer. Das Fenster zur Tür ist beschlagen.\n\nDu machst es zu.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "IT-Security sofort informieren — das ist ein Sicherheitsvorfall.",
+          "effects": { "kompetenz": 5, "prestige": 3, "burnout": 5 },
+          "flags": { "security_incident": true },
+          "next": "s_05",
+          "feedback": "IT-Security reagiert innerhalb von 20 Minuten. Das ist ein Rekord. Sie schauen auch nicht glücklicher dabei aus."
+        },
+        {
+          "id": "c2",
+          "text": "Still dokumentieren — vollständig in den Abschlussbericht aufnehmen.",
+          "effects": { "kompetenz": 3, "bullshit": 2 },
+          "next": "s_05",
+          "feedback": "Du schreibst es auf. Sachlich. Drei Mal prüfst du ob du die Jahreszahlen verwechselt hast. Du hast sie nicht verwechselt."
+        }
+      ]
+    },
+    {
+      "id": "s_05",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum — Telefonkonferenz",
+      "npc": null,
+      "mood": "tense",
+      "text": "Dein Telefon klingelt. Eine Stuttgarter Vorwahl.\n\nSAP Sales. Sie haben von der Lizenzprüfung gehört. \"Wir wollten uns proaktiv melden\" — was bedeutet: jemand bei Globex hat es weitererzählt.\n\nDer Account Manager ist sehr freundlich. Er spricht in vollständigen Sätzen und klingt aufrichtig besorgt. Er hat eine Lösung: ein neues Lizenzmodell. \"Langfristig deutlich günstiger.\"\n\nEr schickt die Offerte noch während ihr telefoniert. Du öffnest sie.\n\nDas neue Modell umfasst 420 Lizenzen — 20 mehr als vorher. In drei verschiedenen Kategorien, was den Vergleich kompliziert. Die versprochenen Einsparungen: €12.000 jährlich. Bei 5-Jahres-Bindung. Und nur wenn ihr auch S/4HANA migriert.\n\nDu hörst ihm noch zu. Er redet noch.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Angebot ablehnen und klar auf Rückerstattung für die Geisterlizenzen bestehen.",
+          "effects": { "kompetenz": 5, "prestige": 3, "bullshit": -3, "burnout": 8 },
+          "next": "s_06",
+          "feedback": "Der Account Manager wird merklich kühler. Er verspricht, 'die zuständige Abteilung zu informieren'. Das klingt wie eine Drohung, ist aber nur SAP-Standardsprache."
+        },
+        {
+          "id": "c2",
+          "text": "Angebot ernsthaft evaluieren — vielleicht steckt doch was dahinter.",
+          "effects": { "kompetenz": 2, "bullshit": 3, "burnout": 5 },
+          "next": "s_06",
+          "feedback": "Du verbringst zwei Stunden damit, die Kalkulation nachzurechnen. Das Ergebnis: mit anderen Zahlen und anderen Annahmen wäre es tatsächlich günstiger. Nicht mit diesen."
+        },
+        {
+          "id": "c3",
+          "text": "Das Angebot kommentarlos an Dr. Müller-Brandt weiterleiten.",
+          "effects": { "burnout": -8, "kompetenz": -3, "bullshit": 5 },
+          "next": "s_06",
+          "feedback": "Müller-Brandt antwortet: 'Interessant. Lass uns eine Entscheidungsmatrix bauen.'"
+        }
+      ]
+    },
+    {
+      "id": "s_06",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Das Büro",
+      "npc": "dr_mueller",
+      "mood": "neutral",
+      "text": "Abschlusspräsentation. Dr. Müller-Brandt hat sich Notizen gemacht — drei Bulletpoints auf einer Serviette.\n\nDu legst die Ergebnisse vor: 132 Geisterlizenzen identifiziert und deaktiviert. Verhandlungsposition gegenüber SAP dokumentiert. Jährliche Einsparung für Globex Industries: €89.400.\n\nMüller-Brandt nickt langsam. \"Solide.\"\n\nDann: \"Aber ich brauche den narrative arc. Wie verkaufen wir das nach oben?\"\n\nEr sagt 'narrative arc'. Ohne Anführungszeichen. Ohne Ironie. Er wartet auf deine Antwort.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Fakten-getrieben präsentieren: Zahlen, Einsparungen, Handlungsempfehlungen.",
+          "effects": { "kompetenz": 5, "prestige": 3 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt sagt, das sei 'gut strukturiert'. Höchstes Lob. Er schickt es weiter. Mit eigenem Deckblatt."
+        },
+        {
+          "id": "c2",
+          "text": "Den 'narrative arc' spielen: Transformation, Mehrwert, strategische Neuausrichtung.",
+          "effects": { "bullshit": 8, "prestige": 5, "kompetenz": -2 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt lächelt. Du klingst jetzt wie er. Du bist dir nicht sicher, ob das gut ist."
+        },
+        {
+          "id": "c3",
+          "text": "Den WBAUM-Vorfall als zentrales Thema setzen — Security-Mehrwert des Projekts hervorheben.",
+          "effects": { "kompetenz": 5, "prestige": 8 },
+          "requires_flag": "security_incident",
+          "next": "ending_security_hero",
+          "feedback": "Müller-Brandt lehnt sich vor. Zum ersten Mal seit dem Meeting hört er aktiv zu."
+        }
+      ]
+    }
+  ],
+  "endings": {
+    "ending_success": {
+      "type": "success",
+      "title": "Projekt abgeschlossen: Die SAP-Zombie-Lizenzen",
+      "text": "132 Geisterlizenzen. €89.400 jährliche Einsparung. Globex Industries ist erleichtert. SAP hat eine höfliche Beschwerde-E-Mail geschickt, die niemand beantwortet hat.\n\nDr. Müller-Brandt hat das Case Study bereits für die nächste Pitch-Präsentation aufbereitet. Dein Name kommt darin nicht vor, aber das Projektkürzel 'SAP-Z' schon. Du nimmst es.\n\nIrgendwo in einem SAP-System läuft kein Login mehr unter Wolfgang Baums Namen. Es fühlt sich richtig an.",
+      "xp": 180,
+      "achievement": "hall_2"
+    },
+    "ending_disaster": {
+      "type": "disaster",
+      "title": "💥 ESKALATION: Die SAP-Zombie-Lizenzen",
+      "text": "SAP hat die Verhandlungen abgebrochen und eine Compliance-Prüfung angekündigt. Globex Industries hat aus Nervosität das ursprüngliche Angebot unterschrieben. Jetzt haben sie 420 Lizenzen und eine 5-Jahres-Bindung.\n\nDr. Müller-Brandt spricht von 'Lernkurven'. Kevin hat einen LinkedIn-Post über 'die Komplexität von SAP-Lizenzökosystemen' veröffentlicht. 94 Likes.\n\nDu erhältst trotzdem 90 XP. Wolfgang Baum hat seine Ruhe.",
+      "xp": 90,
+      "achievement": "hall_2"
+    },
+    "ending_security_hero": {
+      "type": "success",
+      "title": "🔐 SECURITY-HELD: Die SAP-Zombie-Lizenzen",
+      "text": "Der WBAUM-Vorfall hat eine interne Security-Untersuchung ausgelöst. Ergebnis: ein ehemaliger IT-Dienstleister hatte noch Zugangsdaten — und sie nie verwendet, aus Versehen. Keine böse Absicht. Aber die Lücke war real.\n\nGlobex hat daraufhin ein vollständiges IAM-Audit beauftragt. Weiteres Budget: €240.000.\n\nDr. Müller-Brandt hat dich beim Geschäftsführer erwähnt. Mit vollem Namen. Das ist neu.\n\nDu hast nicht nur Lizenzen bereinigt. Du hast einen Geist vertrieben.",
+      "xp": 220,
+      "achievement": "zombie_hunter"
+    }
+  }
+}

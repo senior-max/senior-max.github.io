@@ -1,0 +1,324 @@
+{
+  "id": "projekt_dieter",
+  "title": "Operation Dieter",
+  "subtitle": "Microsoft klopft an. Dieter klopft an. Alle klopfen an.",
+  "difficulty": "medium",
+  "comedyLevel": 3,
+  "requiredLevel": 1,
+  "xpReward": 80,
+  "scenes": [
+    {
+      "id": "d_01",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Das Büro",
+      "npc": "dieter",
+      "mood": "panic",
+      "text": "Montagmorgen, 8:47 Uhr. Dein Kaffee existiert noch. Dann klingelt das Telefon.\n\nEs ist Dieter Kammann, IT-Leiter bei Acme Corp. Er atmet wie jemand, der gerade einen Marathon gelaufen ist — ohne Training, ohne Schuhe, aus Versehen.\n\n\"Wir haben einen Brief bekommen. Von Microsoft. Die kommen NÄCHSTE WOCHE für ein Lizenz-Audit.\" Kurze Pause. Das Geräusch von Papier, das zerknüllt wird. \"Alle Lizenzdokumente liegen... irgendwo. In einer Excel. Von 2009. Ich glaube Tabellenblatt zwei. Oder war es drei?\"\n\nEr senkt die Stimme, als würde er ein Staatsgeheimnis preisgeben: \"Prüfen die das eigentlich wirklich? Microsoft? Also... richtig?\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "\"Kein Problem, ich komme Mittwoch. Wir schaffen das.\"",
+          "effects": { "kundenliebe": 3, "burnout": 8, "kompetenz": -1 },
+          "next": "d_02",
+          "feedback": "Super Idee. Du weißt noch nicht mal, wo Acme GmbH ist. Google Maps wird dein Freund."
+        },
+        {
+          "id": "c2",
+          "text": "\"Schicken Sie mir erstmal alle Lizenzdokumente, Kaufbelege und die vollständige Softwareliste.\"",
+          "effects": { "kompetenz": 3, "kundenliebe": -1 },
+          "next": "d_02",
+          "feedback": "Professionell. Dieter schweigt 47 Sekunden. Dann sendet er eine Excel-Datei. Erstellt 2009. 3 Tabellenblätter. Davon zwei leer."
+        },
+        {
+          "id": "c3",
+          "text": "\"Das ist eine einmalige Chance für eine umfassende ITAM-Transformation Ihres Unternehmens!\"",
+          "effects": { "bullshit": 5, "prestige": 2, "kundenliebe": -2 },
+          "next": "d_02",
+          "feedback": "Dieter weiß nicht was ITAM bedeutet. Er googelt es während du redest. Er legt auf."
+        },
+        {
+          "id": "c4",
+          "text": "[Auflegen]",
+          "effects": { "burnout": -10 },
+          "next": "d_02_guilt",
+          "feedback": "Dein Burnout sinkt sofort. Alles andere auch."
+        }
+      ]
+    },
+    {
+      "id": "d_02_guilt",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Das Büro",
+      "npc": null,
+      "mood": "neutral",
+      "text": "Du legst auf. Der Kaffee schmeckt hervorragend. Drei Minuten später ruft dein Manager an.\n\n\"Dieter Kammann hat sich beschwert, dass du aufgelegt hast. Das ist Acme Corp. Die zahlen uns 40.000 im Monat.\"\n\nStille.\n\n\"Du fährst am Mittwoch hin.\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "\"Natürlich. Ich war gerade im Tunnel.\"",
+          "effects": { "bullshit": 5, "burnout": 5 },
+          "next": "d_02",
+          "feedback": "Du warst nicht im Tunnel. Du warst in der Küche. Aber Hauptsache, du klingst überzeugend."
+        }
+      ]
+    },
+    {
+      "id": "d_02",
+      "location": "zug",
+      "locationEmoji": "🚂",
+      "locationName": "Zug zum Kunden",
+      "npc": null,
+      "mood": "tense",
+      "text": "Mittwoch. Du sitzt im ICE, Wagen 7, Fensterplatz. Das WLAN heißt \"DB_Railnet\" und zeigt einen Balken an — einen sehr optimistischen Balken.\n\nDu öffnest die Excel-Datei, die Dieter geschickt hat. 2.847 Zeilen. Die Spaltenüberschriften lauten: \"Software?\", \"Lizenz?\", \"Noch da?\" und \"Weiß nicht\".\n\nLetzte Änderung: 04.04.2009, 16:23 Uhr. Vermutlich ein Freitagnachmittag. Man merkt es.\n\nDer Zug fährt durch einen Tunnel. Das WLAN-Symbol verschwindet. Es kommt nicht wieder.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Sofort anfangen zu analysieren — was da auch immer drin ist.",
+          "effects": { "kompetenz": 2, "burnout": 5 },
+          "flags": { "first_travel": true },
+          "next": "d_03",
+          "feedback": "Du schaffst 12 Zeilen bevor das WLAN abbricht."
+        },
+        {
+          "id": "c2",
+          "text": "Erstmal Kaffee und Konzept auf Papier skizzieren.",
+          "effects": { "kompetenz": 1, "burnout": -3 },
+          "next": "d_03",
+          "feedback": "Du skizzierst. Du skizzierst gut. Das Konzept sieht beeindruckend aus. Es hilft aber nichts."
+        },
+        {
+          "id": "c3",
+          "text": "Kevin anrufen — vielleicht hat er eine Idee.",
+          "effects": { "bullshit": 2, "kompetenz": -1 },
+          "flags": { "kevin_involved": true },
+          "next": "d_03",
+          "feedback": "Kevin sagt er würde 'das mal kurz mit KI machen'. Du bereust den Anruf sofort."
+        }
+      ]
+    },
+    {
+      "id": "d_03",
+      "location": "kundenbüro",
+      "locationEmoji": "👔",
+      "locationName": "Kundenbüro Acme Corp",
+      "npc": "dieter",
+      "mood": "tense",
+      "text": "Acme Corp, IT-Abteilung, Raum 1.4b. Es riecht nach 2003. Drei Server stehen an der Wand, beschriftet mit Post-its in Handschrift. Einer davon trägt den Zettel: \"NICHT ANFASSEN – Klaus\".\n\nKlaus ist seit 2018 nicht mehr im Unternehmen.\n\nDieter begrüßt dich mit Kaffee in der einen und Panik in der anderen Hand. Du fragst nach der Softwareinventur. Dieter nickt und zeigt auf seinen Bildschirm — die Excel ist bereits offen. Du erkennst sie. 2.847 Zeilen.\n\n[Excel-Analyse wird gestartet...]",
+      "minigame": "excel_puzzle",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Mit der vorhandenen Excel starten und Schritt für Schritt bereinigen.",
+          "effects": { "kompetenz": 3, "burnout": 5 },
+          "next": "d_04",
+          "feedback": "Du bereinigst. 6 Stunden später: 400 Zeilen weniger, 200 neue Fragen."
+        },
+        {
+          "id": "c2",
+          "text": "Frisches Inventar mit Discovery-Tool aufsetzen — sauberer Neustart.",
+          "effects": { "kompetenz": 5, "kundenliebe": 2, "burnout": 3 },
+          "flags": { "discovery_attempted": true },
+          "next": "d_04",
+          "feedback": "Gute Idee. Das Tool braucht Admin-Rechte. Dieter hat die Zugangsdaten nicht. Klaus hatte sie."
+        },
+        {
+          "id": "c3",
+          "text": "Dieter fragen, ob er noch irgendetwas erwähnen wollte.",
+          "effects": { "kompetenz": 2 },
+          "flags": { "keller_hint": true },
+          "next": "d_04",
+          "feedback": "Dieter überlegt. 'Ach ja — wir haben auch noch einen Server im Keller. Den benutzt niemand mehr. Glaube ich.'"
+        }
+      ]
+    },
+    {
+      "id": "d_04",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum",
+      "npc": "dieter",
+      "mood": "tense",
+      "text": "Konferenzraum. Beamer läuft. Du projizierst deine vorläufigen Ergebnisse an die Wand.\n\n340 Microsoft-Office-Lizenzen eingekauft. Das Active Directory zeigt 412 aktive Nutzerkonten.\n\nDieter starrt auf die 412. Lange. So, als hätte sie ihn persönlich beleidigt.\n\n\"Aber wir haben nur 380 Mitarbeiter.\"\n\nStille.\n\nEr runzelt die Stirn. \"Ehm. Wir hatten mal einen Betriebskindergarten.\"\n\nNoch mehr Stille. Niemand fragt nach dem Kindergarten.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Ruhig bleiben — Differenz sauber dokumentieren, keine Panik.",
+          "effects": { "kompetenz": 3, "kundenliebe": 2 },
+          "next": "d_05",
+          "feedback": "Professionell. Dieter atmet durch. Er bietet dir noch einen Kaffee an. Es ist dein vierter."
+        },
+        {
+          "id": "c2",
+          "text": "Dieter fragen, wann zuletzt Mitarbeiter ausgeschieden sind.",
+          "effects": { "kompetenz": 4, "burnout": 3 },
+          "flags": { "hr_contacted": true },
+          "next": "d_05",
+          "feedback": "Dieter: 'Das macht HR. Ich gebe Ihnen Sandras Nummer.' Sandra antwortet nicht."
+        },
+        {
+          "id": "c3",
+          "text": "Microsoft direkt kontaktieren und die Situation proaktiv erklären.",
+          "effects": { "bullshit": -5, "kundenliebe": -3, "burnout": 22 },
+          "next": "d_05",
+          "feedback": "Das war keine gute Idee. Microsoft notiert sehr genau, was du sagst."
+        }
+      ]
+    },
+    {
+      "id": "d_05",
+      "location": "mittagessen",
+      "locationEmoji": "🍕",
+      "locationName": "Mittagspause",
+      "npc": "dieter",
+      "mood": "neutral",
+      "text": "12:30 Uhr. Mittagspause. Dieter hat das Restaurant ausgesucht: ein griechisches Lokal mit laminierten Speisekarten und einem Fernseher, der Nachrichten zeigt, die niemand sieht.\n\nDieter bestellt für den ganzen Tisch, ohne zu fragen. Moussaka und Tzatziki. Er scheint entspannter jetzt — außerhalb von Raum 1.4b ist er ein anderer Mensch.\n\nEr redet über früher. Über eine Stelle vor Acme Corp. \"Ich war mal kurz bei einem SAP-Projekt. Berater kamen. Berater gingen. Am Ende wusste niemand mehr, wie das System funktioniert.\"\n\nEr schaut in die Ferne. Dann in den Tzatziki.\n\n\"Nie wieder.\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Das Gespräch nutzen — mehr über die IT-Geschichte von Acme erfahren.",
+          "effects": { "kompetenz": 3, "kundenliebe": 3, "burnout": -5 },
+          "next": "d_06",
+          "feedback": "Dieter redet 40 Minuten. Du lernst mehr über Acme's IT als aus 3 Stunden Analyse. Und die Moussaka ist überraschend gut."
+        },
+        {
+          "id": "c2",
+          "text": "Professionell bleiben — lieber über das Projekt reden.",
+          "effects": { "kompetenz": 1, "kundenliebe": -2 },
+          "next": "d_06",
+          "feedback": "Dieter isst schweigend. Du hast das Rapport-Fenster zugemacht."
+        },
+        {
+          "id": "c3",
+          "text": "Handy checken während Dieter redet.",
+          "effects": { "bullshit": 1, "kundenliebe": -5, "burnout": -3 },
+          "next": "d_06",
+          "feedback": "Dieter sieht es. Er sagt nichts. Aber er sieht es."
+        }
+      ]
+    },
+    {
+      "id": "d_06",
+      "location": "homeoffice",
+      "locationEmoji": "🏠",
+      "locationName": "Home Office",
+      "npc": null,
+      "mood": "tense",
+      "text": "22:47 Uhr. Home Office.\n\nAuf deinem Schreibtisch: 3 erkaltete Kaffeetassen, 2 geöffnete Excel-Dateien, 1 PowerPoint mit dem Dateinamen \"DRAFT DRAFT FINAL DRAFT v3_FINAL_NEU.pptx\", und ein Post-it mit der Aufschrift \"FRAG KEVIN NICHT\".\n\nDas Audit ist in 4 Tagen. Die Lizenzdaten sind noch nicht konsolidiert. Die Differenz von 72 ungeklärten Nutzerkonten starrt dich an wie ein Vorwurf.\n\nEin Tab ist noch offen: LinkedIn. Kevin hat heute einen Beitrag über \"die Kraft von KI im License Management\" gepostet. 47 Likes.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Bis Mitternacht durcharbeiten — die Tabelle wird fertig.",
+          "effects": { "kompetenz": 5, "burnout": 15 },
+          "next": "d_07",
+          "feedback": "Du schaffst es. Die Tabelle ist gut. Dein Rücken nicht."
+        },
+        {
+          "id": "c2",
+          "text": "Realistisch bleiben: sauber fertigstellen, was fertig ist.",
+          "effects": { "kompetenz": 2, "burnout": 3 },
+          "next": "d_07",
+          "feedback": "Weniger Daten, aber korrekte Daten. Reife Entscheidung. Du schläfst um 23:30."
+        },
+        {
+          "id": "c3",
+          "text": "Kevin bitten, die Hälfte zu übernehmen.",
+          "effects": { "burnout": -5, "kompetenz": -3, "bullshit": 2 },
+          "flags": { "kevin_helped": true },
+          "requires_flag": "kevin_involved",
+          "next": "d_07",
+          "feedback": "Kevin liefert um 2 Uhr nachts. Du öffnest die Datei. Er hat die Spalten vertauscht."
+        }
+      ]
+    },
+    {
+      "id": "d_07",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum — Audit-Tag",
+      "npc": "ms_auditor",
+      "mood": "panic",
+      "text": "Audit-Tag. 9:00 Uhr.\n\nRalf Steinbach von Microsoft betritt den Raum auf die Sekunde pünktlich. Grauer Anzug. Graues Gesicht. Er begrüßt niemanden. Er öffnet seinen Laptop.\n\nEr hat deine Excel. Offenbar bereits analysiert.\n\nOhne ein Wort schiebt er ein Blatt Papier über den Tisch. Darauf: eine Compliance-Lücke von 47.000 Euro, aufgeschlüsselt nach Produktfamilie, Lizenzmodell und — das ist neu — \"festgestelltem Nutzungsverhalten\".\n\nEr schaut dich an. Er wartet.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Ruhig bleiben — die vorbereitete Dokumentation vorlegen.",
+          "effects": { "kompetenz": 3, "prestige": 5 },
+          "effects_if_flag": { "flag": "discovery_attempted", "effects": { "kompetenz": 8, "prestige": 5 } },
+          "next": "d_08",
+          "feedback": "Steinbach prüft jedes Dokument. Zweimal. Er findet 2 Fehler. Das ist eigentlich gut."
+        },
+        {
+          "id": "c2",
+          "text": "Negotiation: Fehler in Steinbachs Berechnung aktiv anfechten.",
+          "effects": { "kompetenz": 5, "bullshit": 5, "burnout": 10 },
+          "next": "d_08",
+          "feedback": "Du findest tatsächlich einen Fehler in seiner Berechnung. Er notiert es ohne Gesichtsregung. €6.000 weniger."
+        },
+        {
+          "id": "c3",
+          "text": "Alles zugeben und auf Kulanz hoffen.",
+          "effects": { "kundenliebe": 2, "kompetenz": -3, "prestige": -5 },
+          "next": "ending_disaster",
+          "feedback": "Steinbach sagt: 'Kulanz ist nicht Teil meines Mandats.' Er tippt schnell. Sehr schnell."
+        }
+      ]
+    },
+    {
+      "id": "d_08",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Das Büro",
+      "npc": "dr_mueller",
+      "mood": "neutral",
+      "text": "Zurück im Büro. Dr. Müller-Brandt wartet bereits. Er steht, PowerPoint-Clicker in der Hand, obwohl es ein Vier-Augen-Gespräch ist.\n\nEr bittet dich, das Projektergebnis \"in terms of value delivery zu framen\".\n\nDu denkst an Dieters Gesicht, als er die 47.000 Euro gehört hat. An den Kaffee, der in Raum 1.4b immer zu heiß war. An den Post-it von Klaus.\n\nMüller-Brandt klickt einmal. Eine leere Folie erscheint. Er sieht dich an.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Ehrlich berichten: Ergebnis, Learnings, nächste Schritte.",
+          "effects": { "kompetenz": 3, "prestige": 2 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt nickt langsam. 'Solides Ergebnis. Wir verkaufen das als strategischen Quick-Win.'"
+        },
+        {
+          "id": "c2",
+          "text": "Alles als Riesenerfolg verkaufen — Müller-Brandt spricht deine Sprache.",
+          "effects": { "bullshit": 8, "prestige": 5, "kompetenz": -2 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt lächelt. Du hast seine Sprache gesprochen. Du magst dich selbst gerade weniger."
+        },
+        {
+          "id": "c3",
+          "text": "Fragen ob man die Pflichtschulung 'SAP Grundlagen' noch heute machen muss.",
+          "effects": { "burnout": -5 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt starrt dich an. Sandra wird morgen mailen."
+        }
+      ]
+    }
+  ],
+  "endings": {
+    "ending_success": {
+      "type": "success",
+      "title": "Projekt abgeschlossen: Operation Dieter",
+      "text": "Das Audit ist durch. Acme Corp zahlt eine Nachzahlung — aber deutlich weniger als befürchtet. Dieter schickt dir eine WhatsApp mit einem Daumen-hoch-Emoji und drei Ausrufezeichen. Steinbach hat bereits das nächste Unternehmen auf seiner Liste. Du hast 150 XP verdient.",
+      "xp": 150,
+      "achievement": "audit_survivor"
+    },
+    "ending_disaster": {
+      "type": "disaster",
+      "title": "💥 DESASTER: Operation Dieter",
+      "text": "Microsoft hat die volle Compliance-Lücke in Rechnung gestellt. Dieter weint am Telefon. Dr. Müller-Brandt spricht von 'suboptimaler Projektkommunikation'. Kevin hat die Situation auf LinkedIn gepostet ohne Namen zu nennen — aber jeder weiß es. Du erhältst trotzdem 75 XP. Learnings sind auch Erfahrungen.",
+      "xp": 75,
+      "achievement": "hall_1"
+    },
+    "ending_d_02_guilt": {
+      "type": "detour",
+      "title": "Kurze Reflexionspause",
+      "text": "Du hast aufgelegt. Dieter hat 7 Minuten später zurückgerufen. Er klingt verletzt. Du nimmst diesmal ran.",
+      "xp": 0,
+      "next": "d_02"
+    }
+  }
+}

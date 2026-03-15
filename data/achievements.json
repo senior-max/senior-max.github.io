@@ -1,0 +1,107 @@
+[
+  {
+    "id": "audit_survivor",
+    "name": "Erster Audit-Schock",
+    "emoji": "😱",
+    "description": "Projekt 1 abgeschlossen. Du zitterst noch ein bisschen.",
+    "trigger": "project_complete_projekt_dieter"
+  },
+  {
+    "id": "excel_warrior",
+    "name": "Excel-Krieger",
+    "emoji": "📊",
+    "description": "Excel-Minispiel mit über 80% abgeschlossen. Du bist ein Krieger.",
+    "trigger": "minigame_excel_score_80"
+  },
+  {
+    "id": "zombie_hunter",
+    "name": "Zombie-Jäger",
+    "emoji": "🧟",
+    "description": "Alle toten User in Projekt 2 gefunden.",
+    "trigger": "flag_security_incident"
+  },
+  {
+    "id": "shadow_detective",
+    "name": "Shadow IT Detektiv",
+    "emoji": "🕵️",
+    "description": "Server im Keller von Projekt 3 entdeckt.",
+    "trigger": "flag_shadow_server_found"
+  },
+  {
+    "id": "burnout_master",
+    "name": "Auf dem Zahnfleisch",
+    "emoji": "🔥",
+    "description": "Burnout 100% erreicht. Zwangsurlaub wurde angeordnet.",
+    "trigger": "burnout_100"
+  },
+  {
+    "id": "buzzword_king",
+    "name": "Buzzword-König",
+    "emoji": "👑",
+    "description": "Bullshit-Faktor über 90 erreicht. Du klingst wie ein LinkedIn-Post.",
+    "trigger": "stat_bullshit_90"
+  },
+  {
+    "id": "no_reply",
+    "name": "Phantomkollege",
+    "emoji": "👻",
+    "description": "5 E-Mails ignoriert. Willkommen im echten Consulting.",
+    "trigger": "emails_ignored_5"
+  },
+  {
+    "id": "pizza_receipt",
+    "name": "Sternekoch",
+    "emoji": "🍕",
+    "description": "Pizzaschachtel als Essensbeleg eingereicht. Finance hat sich nicht gemeldet.",
+    "trigger": "minigame_pizza_submitted"
+  },
+  {
+    "id": "hall_1",
+    "name": "Dieter-Desaster",
+    "emoji": "💥",
+    "description": "Projekt 1 mit Totaldesaster beendet. Dieter weint.",
+    "trigger": "ending_disaster_projekt_dieter"
+  },
+  {
+    "id": "hall_2",
+    "name": "Zombie-Apokalypse",
+    "emoji": "🧟‍♂️",
+    "description": "Projekt 2 eskaliert. SAP schickt jetzt wöchentlich Rechnungen.",
+    "trigger": "ending_disaster_projekt_sap_zombies"
+  },
+  {
+    "id": "hall_3",
+    "name": "Keller-Chaos",
+    "emoji": "🏚️",
+    "description": "Projekt 3 endet im Chaos. Der Keller-Server läuft noch.",
+    "trigger": "ending_disaster_projekt_shadow_it"
+  },
+  {
+    "id": "level_manager",
+    "name": "Im Meeting-Modus",
+    "emoji": "📅",
+    "description": "Manager-Stufe erreicht. Dein Kalender ist jetzt 100% Meetings.",
+    "trigger": "career_level_4"
+  },
+  {
+    "id": "no_lunch",
+    "name": "Mittagspause? Kenn ich nicht",
+    "emoji": "🥙",
+    "description": "5x Mittagessen-Event ignoriert. Dein Magen hat gekündigt.",
+    "trigger": "lunch_ignored_5"
+  },
+  {
+    "id": "first_travel",
+    "name": "Fensterplatz Träume",
+    "emoji": "✈️",
+    "description": "Erste Dienstreise. Du hast Economy gebucht, aber Business geträumt.",
+    "trigger": "flag_first_travel"
+  },
+  {
+    "id": "all_projects",
+    "name": "MVP-Berater",
+    "emoji": "🎖️",
+    "description": "Alle 3 MVP-Projekte abgeschlossen. Du bist ein echter Berater jetzt.",
+    "trigger": "all_projects_complete"
+  }
+]

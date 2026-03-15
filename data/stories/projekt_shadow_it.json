@@ -1,0 +1,254 @@
+{
+  "id": "projekt_shadow_it",
+  "title": "Shadow IT im Keller",
+  "subtitle": "Was man nicht weiß, macht einen nicht heiß. Bis zum Audit.",
+  "difficulty": "medium",
+  "comedyLevel": 4,
+  "requiredLevel": 2,
+  "xpReward": 190,
+  "scenes": [
+    {
+      "id": "sh_01",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Das Büro",
+      "npc": "sandra",
+      "mood": "funny",
+      "text": "Sandra aus HR betritt deinen Bereich mit dem Gesichtsausdruck von jemandem, der eine Handgranate weiterreicht.\n\n\"Ich soll dir das schicken. Hat mich auch nur jemand weitergeleitet.\"\n\nDie E-Mail. Betreff: \"AW: AW: AW: WG: Keller Aufräumaktion — komischer Server\". Viermal weitergeleitet. Ursprünglicher Absender: Torsten, Hausmeister.\n\nTorsten hat beim Aufräumen von Raum UG-3 einen Server-Rack gefunden. Er läuft. Er ist warm. Er ist niemandes. Facilities will ihn bis Freitag weg haben. IT sagt: nicht unserer. Marketing: keine Antwort.\n\nDu scrollst nach oben in den E-Mail-Verlauf. Torsten hat vor drei Wochen schon mal gefragt. Auch damals keine Antwort. Er hat den Server in der Zwischenzeit mit einem Warnschild versehen. Das Schild sagt: \"Bitte nicht ausschalten (glaube ich)\".",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Sofort in den Keller. Das klingt wie ein Abenteuer.",
+          "effects": { "kompetenz": 2, "burnout": -3, "kundenliebe": 2 },
+          "next": "sh_02",
+          "feedback": "Du nimmst die Treppe. UG-3 ist ausgeschildert. Das Schild wurde irgendwann umgedreht. Du findest es trotzdem."
+        },
+        {
+          "id": "c2",
+          "text": "Erst Marketing fragen — irgendjemand muss das wissen.",
+          "effects": { "kompetenz": 1, "bullshit": 2, "burnout": 3 },
+          "next": "sh_02",
+          "feedback": "Marketing antwortet nach 4 Stunden mit: \"Welcher Keller?\" Dann nichts mehr. Du gehst trotzdem runter."
+        }
+      ]
+    },
+    {
+      "id": "sh_02",
+      "location": "kundenbüro",
+      "locationEmoji": "🔦",
+      "locationName": "Keller UG-3",
+      "npc": "hal",
+      "mood": "funny",
+      "text": "UG-3 riecht nach altem Teppich, Ambitionen aus dem Jahr 2016 und einem Hauch von abgestandenem Red Bull.\n\nIn der Mitte des Raumes: ein Dell PowerEdge R730. Er läuft. Vier Netzwerkkabel. Ein Post-it:\n\n\"MARKETING CLOUD — NICHT AUSSCHALTEN — Björn\"\n\nDu googelst Björn. LinkedIn sagt: Björn Hartmann, seit 2021 bei einer Agentur in München. Sein letzter LinkedIn-Post ist ein Zitat über 'digitale Souveränität'. Das Datum: drei Wochen vor seinem Abgang bei Acme.\n\nDer Server blinkt gleichmäßig. Er wirkt zufrieden. Er hat keine Ahnung, was als nächstes passiert.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Netzwerk-Scan starten — schauen was dieser Server ins Netz sendet.",
+          "effects": { "kompetenz": 5, "burnout": 3 },
+          "flags": { "network_scanned": true, "shadow_server_found": true },
+          "next": "sh_03",
+          "feedback": "Der Scan zeigt 6 offene Ports, 3 laufende Webdienste und ein Device mit dem Hostnamen 'MineCorp.local'. Du liest das zweimal."
+        },
+        {
+          "id": "c2",
+          "text": "Direkt auf dem Server einloggen und laufende Prozesse prüfen.",
+          "effects": { "kompetenz": 4, "burnout": 2 },
+          "flags": { "processes_checked": true, "shadow_server_found": true },
+          "next": "sh_03",
+          "feedback": "Passwort: 'marketing2016'. Du bist drin. Prozessliste: 47 Einträge. Einer heißt 'minecraft_server.jar'. Du schließt das Terminal. Du öffnest es wieder. Es steht noch da."
+        },
+        {
+          "id": "c3",
+          "text": "Björn auf LinkedIn anschreiben — er weiß was da läuft.",
+          "effects": { "bullshit": 4, "kompetenz": 1, "burnout": -2 },
+          "flags": { "bjoern_contacted": true, "shadow_server_found": true },
+          "next": "sh_03",
+          "feedback": "Björn antwortet innerhalb von 8 Minuten. 'LOL der läuft noch?? Das Minecraft läuft auch noch oder? Die Map war so gut.' Du starrst auf dein Handy."
+        }
+      ]
+    },
+    {
+      "id": "sh_03",
+      "location": "kundenbüro",
+      "locationEmoji": "🔦",
+      "locationName": "Keller UG-3",
+      "npc": "kevin",
+      "mood": "funny",
+      "text": "Du hast die Inventur des Servers abgeschlossen. Befund:\n\n— Adobe Creative Cloud: 8 Nutzerinstallationen. Keine gültige Lizenz.\n— Zoom Pro: 3 Accounts, Kreditkarte von Björn hinterlegt (abgelaufen).\n— Slack Premium Workspace \"Marketing-Secrets\": 47 Mitglieder. Das ist die gesamte Marketing-Abteilung.\n— Minecraft Java Edition Server: \"MineCorp\". 23 registrierte Spieler. Letzter Sessionstart: gestern, 14:23 Uhr. Uptime: 2 Jahre, 7 Monate.\n\nKevin steht neben dir. Er hat den letzten Punkt gesehen.\n\n\"Warte — ist das ein Survival- oder Creative-Server?\"\n\nDu schließt den Laptop.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Alles vollständig dokumentieren und sofort eskalieren. Auch Minecraft.",
+          "effects": { "kompetenz": 5, "prestige": 3, "kundenliebe": -2 },
+          "flags": { "minecraft_reported": true, "adobe_prepped": true },
+          "next": "sh_04",
+          "feedback": "Dein Bericht ist lückenlos. Fußnote 7 behandelt ausschließlich den Minecraft-Server. Du hast 'MineCorp' als 'nicht lizenzierte Spieleplattform auf Unternehmens-Hardware' eingetragen. Es ist korrekt."
+        },
+        {
+          "id": "c2",
+          "text": "Nur die lizenzierten Tools melden — Minecraft ist kein Lizenzproblem.",
+          "effects": { "kompetenz": 2, "bullshit": 3, "burnout": -3 },
+          "flags": { "adobe_prepped": true },
+          "next": "sh_04",
+          "feedback": "Du lässt Minecraft weg. Es läuft weiter. 23 Mitarbeiter spielen noch. Du weißt es. Du sagst nichts."
+        },
+        {
+          "id": "c3",
+          "text": "Kurz auf MineCorp joinen — nur um den Umfang zu 'beurteilen'.",
+          "effects": { "bullshit": 5, "burnout": -8, "kompetenz": -3, "kundenliebe": 3 },
+          "flags": { "minecraft_joined": true },
+          "next": "sh_04",
+          "feedback": "Kevin hat bereits einen Account erstellt. Du bist 40 Minuten weg. Die Map ist tatsächlich sehr gut. Björn hatte Recht. Das macht es nicht besser."
+        }
+      ]
+    },
+    {
+      "id": "sh_04",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum",
+      "npc": null,
+      "mood": "funny",
+      "text": "Thomas Wengler, seit sechs Monaten Head of Marketing. Er hat diesen Job geerbt. Er hat auch diesen Server geerbt, ohne es zu wissen.\n\nDu erklärst die Situation. Thomas durchläuft erkennbare Phasen:\n\nPhase 1 — Verneinung: \"Wir haben doch gar keinen Server.\"\nPhase 2 — Verwirrung: \"Und der steht im Keller?\"\nPhase 3 — Verhandlung: \"Adobe ist aber wirklich essentiell. Ohne Photoshop können wir nicht arbeiten.\"\nPhase 4 — Pragmatismus: \"Können wir das nicht einfach... offiziell machen?\"\n\nEr schaut dich erwartungsvoll an. Er meint damit: kannst du einfach eine Lizenz draufklicken und fertig. Er hat noch nie Softwarelizenzen eingekauft.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Geduldig erklären, wie Adobe-Lizenzierung tatsächlich funktioniert.",
+          "effects": { "kompetenz": 4, "kundenliebe": 5, "burnout": 5 },
+          "next": "sh_05",
+          "feedback": "Thomas hört zu. Er nickt an den falschen Stellen. Am Ende sagt er: 'Also könnte man das theoretisch retroaktiv lizenzieren?' Nein, Thomas. Nein."
+        },
+        {
+          "id": "c2",
+          "text": "Thomas eine Kostenschätzung für Nachlizenzen zeigen.",
+          "effects": { "kompetenz": 3, "kundenliebe": 2, "prestige": 2 },
+          "flags": { "thomas_informed": true },
+          "next": "sh_05",
+          "feedback": "Thomas sieht die Zahl. Er atmet aus. 'Okay, aber der Minecraft-Server kostet ja nichts, oder?' Du antwortest nicht sofort."
+        },
+        {
+          "id": "c3",
+          "text": "Thomas direkt sagen: 'Das war illegal, und jetzt müssen wir es beheben.'",
+          "effects": { "kompetenz": 2, "bullshit": -3, "kundenliebe": -3, "burnout": 3 },
+          "next": "sh_05",
+          "feedback": "Thomas zieht sich zurück. Er schickt später eine E-Mail, die fünfmal das Wort 'historisch gewachsen' enthält."
+        }
+      ]
+    },
+    {
+      "id": "sh_05",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum — Eskalationsmeeting",
+      "npc": "dieter",
+      "mood": "tense",
+      "text": "Das Eskalationsmeeting. Dieter, der IT-Leiter, will den Server sofort abschalten. Thomas will ihn behalten. Du sitzt in der Mitte.\n\nDieter: \"Das Gerät ist nicht in unserem Inventar. Es ist ein Sicherheitsrisiko. Es wird abgeschaltet.\"\nThomas: \"Wir brauchen die Daten! Fünf Jahre Kreativarbeit hängen da drauf!\"\nDieter: \"Dann hätten Sie ein Backup machen sollen.\"\nThomas: \"Wir dachten der Server macht das automatisch.\"\n\nStille.\n\nDieter: \"Ein Server macht kein selbstständiges Backup.\"\nThomas: \"Björn hat das damals so erklärt.\"\n\nDann, leise, von jemandem am Telefon zugeschaltet: \"Und der Minecraft-Server — der hat Backups. Täglich. Björn hat das eingerichtet.\"\n\nAlle schauen auf das Telefon. Niemand weiß wer das war.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Vermitteln: Datensicherung zuerst, dann geordnete Migration, dann Abschaltung.",
+          "effects": { "kompetenz": 5, "kundenliebe": 5, "burnout": 8, "prestige": 3 },
+          "flags": { "migration_planned": true },
+          "next": "sh_06",
+          "feedback": "Alle nicken. Du hast einen Migrationsplan für Daten, die niemand gelistet hat, von einem Server, den niemand kannte. Das ist Consulting."
+        },
+        {
+          "id": "c2",
+          "text": "IT-Seite unterstützen — der Server wird abgeschaltet, Punkt.",
+          "effects": { "kompetenz": 3, "kundenliebe": -5, "burnout": 3, "prestige": 2 },
+          "next": "sh_06",
+          "feedback": "Dieter ist erfreut. Thomas schickt dir später eine passive-aggressive E-Mail mit dem Betreff: 'Zur Kenntnisnahme'."
+        },
+        {
+          "id": "c3",
+          "text": "Marketing-Seite unterstützen — der Server bleibt bis zur Klärung.",
+          "effects": { "kundenliebe": 3, "kompetenz": -3, "bullshit": 4, "burnout": -3 },
+          "next": "sh_06",
+          "feedback": "Dieter verlässt das Meeting ohne Verabschiedung. Der Server läuft. MineCorp läuft. Alles läuft. Für jetzt."
+        }
+      ]
+    },
+    {
+      "id": "sh_06",
+      "location": "konferenz",
+      "locationEmoji": "📱",
+      "locationName": "Konferenzraum — Adobe Compliance Call",
+      "npc": "ms_auditor",
+      "mood": "panic",
+      "text": "Adobe hat die Compliance-Verletzung bemerkt. Die Software hat nach Hause telefoniert — durch den Keller-Server, durch vier Firewall-Schichten, trotzdem.\n\nDr. Katja Sommer, Adobe License Compliance, ist jetzt in deinem Kalender. Sie ist pünktlich. Sie hat ein geteiltes Dokument vorbereitet. Das Dokument enthält Server-Logs mit Zeitstempel, Nutzungsdaten und eine vorläufige Kostenschätzung.\n\nSie lächelt. Das Lächeln erreicht die Augen nicht.\n\n\"Wir sind natürlich sehr daran interessiert, eine gemeinsame Lösung zu finden.\"\n\nIn den Logs: 8 aktive Creative Cloud Nutzer. Installationsdatum: März 2019. Fünf Jahre, drei Monate, unlizenziert.\n\nSie öffnet ein weiteres Dokument. \"Ich habe hier noch etwas Interessantes — der Server hostet auch eine Minecraft-Instanz. Das ist natürlich kein Adobe-Produkt.\" Sie lächelt wieder. \"Nur der Vollständigkeit halber.\"",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "Vollständig kooperieren und die vorbereitete Dokumentation präsentieren.",
+          "effects": { "kompetenz": 3, "prestige": 5 },
+          "effects_if_flag": { "flag": "adobe_prepped", "effects": { "kompetenz": 8, "prestige": 5 } },
+          "next": "sh_07",
+          "feedback": "Dr. Sommer nimmt sich Zeit, alles zu prüfen. Dann: 'Das ist eine der vollständigeren Dokumentationen, die wir gesehen haben.' Das ist Lob. Adobe-Lob ist selten und leise."
+        },
+        {
+          "id": "c2",
+          "text": "Auf Kulanz pochen — historisch gewachsen, keine böse Absicht, Thomas neu.",
+          "effects": { "bullshit": 5, "kompetenz": -2, "burnout": 5 },
+          "next": "ending_disaster",
+          "feedback": "Dr. Sommer tippt während du redest. 'Wir berücksichtigen den Kontext', sagt sie. Ihr Ausdruck berücksichtigt ihn nicht. Drei Tage später kommt eine formale Aufforderung."
+        },
+        {
+          "id": "c3",
+          "text": "Verhandeln: sofortige Lizenzierung gegen reduzierte Nachzahlung.",
+          "effects": { "kompetenz": 5, "prestige": 3, "bullshit": 2, "burnout": 10 },
+          "flags": { "adobe_negotiated": true },
+          "next": "sh_07",
+          "feedback": "Sie legt den Hörer kurz weg. Kommt zurück. '20% Reduktion bei sofortiger Lizenzierung und 3-Jahres-Commitment.' Du nimmst es."
+        }
+      ]
+    },
+    {
+      "id": "sh_07",
+      "location": "buero",
+      "locationEmoji": "🏢",
+      "locationName": "Das Büro",
+      "npc": "dr_mueller",
+      "mood": "neutral",
+      "text": "Dr. Müller-Brandt hat den Abschlussbericht gelesen. Er nickt beim Blättern. Adobe-Einigung: dokumentiert. Server-Migration: eingeleitet. Shadow IT Policy für Marketing: empfohlen.\n\nEr schaut hoch.\n\n\"Und der Minecraft-Server?\"\n\nDie Frage hängt im Raum. Er stellt sie ohne Ironie. Er wartet wirklich auf eine Antwort.\n\nDu denkst an Björn. An die 23 Spieler. An die Map, die 'wirklich gut' war. An die täglichen Backups — die einzigen Backups in diesem gesamten Projekt, die funktioniert haben.\n\nDu entscheidest dich.",
+      "choices": [
+        {
+          "id": "c1",
+          "text": "\"Es wurde im Zuge der Serverbereinigung deinstalliert.\"",
+          "effects": { "kompetenz": 2, "prestige": 2, "bullshit": 2 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt nickt. 'Gut.' Er blättert weiter. Irgendwo in Slack verabschiedet sich MineCorp mit einer letzten Nachricht: 'Server wird heruntergefahren. Danke für alles. — Admin'."
+        },
+        {
+          "id": "c2",
+          "text": "\"Es war technisch gesehen Open Source-kompatibel und außerhalb des Lizenzscopes.\"",
+          "effects": { "bullshit": 5, "kompetenz": -1, "prestige": -2 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt schaut dich an. Drei Sekunden. \"Ich werde das nicht weiter verfolgen.\" Er blättert weiter. Minecraft Java Edition ist nicht Open Source. Ihr beide wisst das."
+        },
+        {
+          "id": "c3",
+          "text": "\"Es läuft noch. Aber ab nächsten Monat mit offizieller Minecraft: Bedrock Server Lizenz.\"",
+          "effects": { "kompetenz": 3, "kundenliebe": 5, "prestige": -2, "bullshit": 3 },
+          "next": "ending_success",
+          "feedback": "Müller-Brandt starrt dich an. Dann: ein kurzes, echtes Lachen. \"Schreiben Sie das nicht in den Bericht.\" Er schreibt sich selbst etwas auf. Du weißt nicht was."
+        }
+      ]
+    }
+  ],
+  "endings": {
+    "ending_success": {
+      "type": "success",
+      "title": "Projekt abgeschlossen: Shadow IT im Keller",
+      "text": "Der Server in UG-3 ist migriert oder abgeschaltet — je nachdem was du versprochen hast. Adobe hat eine Einigung akzeptiert. Marketing hat eine neue Shadow IT Policy erhalten, die Thomas ausgedruckt und an die Wand gehängt hat.\n\nTorsten, der Hausmeister, hat sich per E-Mail bedankt. Er fragt ob UG-3 jetzt als Lagerraum genutzt werden kann.\n\nDer Minecraft-Server... existiert in einem Zustand, der juristisch und narrativ besser nicht weiter definiert wird.\n\nBjörn hat auf LinkedIn geliket. Du weißt nicht wie er davon erfahren hat.",
+      "xp": 190,
+      "achievement": "shadow_detective"
+    },
+    "ending_disaster": {
+      "type": "disaster",
+      "title": "💥 KELLER-CHAOS: Shadow IT im Keller",
+      "text": "Adobe hat keine Einigung akzeptiert. Der Keller-Server läuft noch. Marketing beschwert sich, dass IT ihre 'Cloud-Infrastruktur' abschalten will. Dieter hat eine formale Beschwerde eingereicht.\n\nThomas hat in einem All-Hands-Meeting erklärt, dass 'Shadow IT manchmal Innovationsträger ist'. Er hat dabei auf eine Folie gezeigt, die Kevin erstellt hat.\n\nDer Minecraft-Server läuft. Er wird immer laufen.\n\nDu erhältst 95 XP. Torsten fragt immer noch wann er UG-3 räumen kann.",
+      "xp": 95,
+      "achievement": "hall_3"
+    }
+  }
+}

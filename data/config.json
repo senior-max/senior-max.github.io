@@ -1,0 +1,23 @@
+{
+  "gameTitle": "License To Bill",
+  "version": "0.1-MVP",
+  "startProject": "projekt_dieter",
+  "careerTitles": [
+    "Junior Consultant",
+    "Consultant",
+    "Senior Consultant",
+    "Manager",
+    "Principal",
+    "Partner"
+  ],
+  "xpThresholds": [100, 250, 450, 700, 1000],
+  "locations": {
+    "buero":       { "emoji": "🏢", "name": "Das Büro" },
+    "zug":         { "emoji": "🚂", "name": "Zug zum Kunden" },
+    "kundenbüro":  { "emoji": "👔", "name": "Kundenbüro Acme Corp" },
+    "mittagessen": { "emoji": "🍕", "name": "Mittagspause" },
+    "konferenz":   { "emoji": "📱", "name": "Konferenzraum" },
+    "homeoffice":  { "emoji": "🏠", "name": "Home Office" },
+    "flugzeug":    { "emoji": "✈️", "name": "Flugzeug" }
+  }
+}

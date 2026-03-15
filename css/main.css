@@ -1,0 +1,390 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ── Global focus ring ──────────────────────────────────── */
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+}
+
+/* ── App shell ─────────────────────────────────────────── */
+
+#app {
+  max-width: 860px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HUD ────────────────────────────────────────────────── */
+
+#hud {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#hud-title {
+  color: var(--color-accent-cyan);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+#hud-stats {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+/* ── Stat bars ──────────────────────────────────────────── */
+
+.stat-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  margin-bottom: var(--space-xs);
+}
+
+.stat-bar-track {
+  height: 6px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width 0.4s ease;
+}
+
+.stat-bar-fill--kompetenz  { background-color: var(--color-accent-cyan); }
+.stat-bar-fill--bullshit   { background-color: var(--color-accent-amber); }
+.stat-bar-fill--kundenliebe { background-color: var(--color-accent-green); }
+.stat-bar-fill--burnout    { background-color: var(--color-accent-red); }
+.stat-bar-fill--prestige   { background-color: var(--color-accent-purple); }
+
+/* ── Game container ─────────────────────────────────────── */
+
+#game-container {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+#scene-location {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+#npc-display {
+  font-size: var(--font-size-lg);
+  padding: var(--space-sm) 0;
+}
+
+#story-text {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  min-height: 120px;
+}
+
+#feedback-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-accent-amber);
+  font-style: italic;
+  min-height: 32px;
+  padding: var(--space-sm);
+  border-left: 3px solid var(--color-accent-amber);
+}
+
+/* ── Choices ────────────────────────────────────────────── */
+
+#choices-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.choice-btn {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  text-align: left;
+  transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+  /* Minimum touch target size */
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+}
+
+.choice-btn:hover {
+  border-color: var(--color-accent-cyan);
+  color: var(--color-accent-cyan);
+  background-color: rgba(88, 166, 255, 0.08);
+}
+
+.choice-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-color: var(--color-accent-cyan);
+}
+
+.choice-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Keyboard hint badges ────────────────────────────────── */
+
+kbd.key-hint {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  padding: 1px 6px;
+  line-height: 1.6;
+  user-select: none;
+}
+
+/* ── Dialog overlays ─────────────────────────────────────── */
+
+[role="dialog"] {
+  /* Overlays already positioned via inline style; ensure they receive focus events */
+  outline: none;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+
+#game-footer {
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: right;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Touch improvements (all viewports) ─────────────────── */
+
+button,
+[role="button"],
+.choice-btn,
+input[type="range"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.choice-btn:active {
+  transform: scale(0.97);
+}
+
+/* ── Responsive: 768px and below ────────────────────────── */
+
+@media (max-width: 768px) {
+  #app {
+    max-width: 100%;
+  }
+
+  #hud {
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    min-height: var(--hud-height-mobile);
+    height: auto;
+    align-items: stretch;
+  }
+
+  #hud-title {
+    text-align: center;
+  }
+
+  #hud-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xs);
+  }
+
+  .stat-bar-wrapper {
+    width: 56px;
+  }
+
+  .stat-label {
+    font-size: 9px;
+  }
+
+  #hud-achievements-btn {
+    align-self: center;
+  }
+
+  #npc-display {
+    text-align: center;
+  }
+
+  #game-container {
+    padding: var(--container-padding-mobile);
+  }
+
+  #story-text {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  #choices-container {
+    grid-template-columns: 1fr;
+  }
+
+  .choice-btn {
+    min-height: var(--touch-target);
+    padding: var(--space-sm) var(--space-md);
+    font-size: 14px;
+  }
+
+  /* Overlays: full-bleed on mobile */
+  [role="dialog"] {
+    border-radius: 0 !important;
+  }
+
+  /* Email overlay: tighten padding */
+  #email-overlay {
+    padding: var(--space-sm) !important;
+    gap: var(--space-sm) !important;
+  }
+}
+
+/* ── Responsive: 480px and below ────────────────────────── */
+
+@media (max-width: 480px) {
+  #hud-title {
+    font-size: 11px;
+  }
+
+  .stat-bar-wrapper {
+    width: 48px;
+  }
+
+  #story-text {
+    font-size: 14px;
+    min-height: 100px;
+  }
+}
+
+/* ── Mobile email detail view ────────────────────────────── */
+
+#email-detail-mobile {
+  position: fixed;
+  inset: 0;
+  z-index: 1700;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+  /* Slide-in from right */
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+}
+
+#email-detail-mobile.is-open {
+  transform: translateX(0);
+}
+
+#email-detail-mobile .edm-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  flex-shrink: 0;
+  min-height: var(--touch-target);
+}
+
+#email-detail-mobile .edm-header button {
+  background: none;
+  border: none;
+  color: var(--color-accent-cyan);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  min-height: var(--touch-target);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#email-detail-mobile .edm-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+#email-detail-mobile .edm-footer {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+  flex-shrink: 0;
+}
+
+#email-detail-mobile .edm-footer .choice-btn {
+  flex: 1;
+}
+
+/* ── Easter egg: Partner-level Comic Sans ─────────────────── */
+
+#hud-title.hud-title--partner {
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive !important;
+  letter-spacing: 0.5px;
+}
