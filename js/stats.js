@@ -25,8 +25,20 @@ function buildStatBar(key, container) {
   const cfg = STAT_CONFIG[key];
 
   const wrapper = document.createElement('div');
-  wrapper.className = 'stat-bar-wrapper';
+  wrapper.className = 'stat-bar-wrapper hud-stat';
+  wrapper.id = 'stat-' + key;
   wrapper.dataset.stat = key;
+  wrapper.title = 'Klicken für Details';
+  wrapper.setAttribute('role', 'button');
+  wrapper.setAttribute('tabindex', '0');
+  wrapper.setAttribute('aria-label', `${cfg.label} anzeigen`);
+  wrapper.addEventListener('click', () => window.UI?.showStatDetail?.(key));
+  wrapper.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      window.UI?.showStatDetail?.(key);
+    }
+  });
 
   const labelRow = document.createElement('div');
   labelRow.className = 'stat-label';

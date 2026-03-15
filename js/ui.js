@@ -767,6 +767,157 @@ function renderHallOfShame() {
 
 // ── HUD ────────────────────────────────────────────────────
 
+// ── Stat detail panel ─────────────────────────────────────
+
+/** @type {Object.<string, {emoji: string, label: string, description: string, low: string, mid: string, high: string, warning: string|null}>} */
+const STAT_DETAILS = {
+  kompetenz: {
+    emoji: '🧠',
+    label: 'Kompetenz',
+    description: 'Wie gut du deinen Job tatsächlich machst. Beeinflusst Projekt-Ergebnisse, verfügbare Entscheidungen und wie Kevin auf dich reagiert.',
+    low:  'Unter 30: Kevin erklärt dir Dinge die du weißt.',
+    mid:  '30–70: Solide. Müller-Brandt bemerkt dich.',
+    high: 'Über 70: Bessere Choices. Schlechtere Work-Life-Balance.',
+    warning: null,
+  },
+  bullshit: {
+    emoji: '💬',
+    label: 'Bullshit',
+    description: 'Deine Fähigkeit überzeugend klingende Aussagen zu machen die niemand überprüft. Kurzfristig nützlich. Langfristig riskant.',
+    low:  'Unter 20: Du klingst ehrlich. Das ist ungewöhnlich.',
+    mid:  '20–60: Consulting-Standard. Müller-Brandt ist zufrieden.',
+    high: 'Über 60: Framework-Generator schaltet neue Templates frei.',
+    warning: 'Über 80: Audit-Risiko steigt. Oracle schaut hin.',
+  },
+  kundenliebe: {
+    emoji: '❤️',
+    label: 'Kundenliebe',
+    description: 'Wie sehr Dieter, der Vorstand und andere Kunden dir vertrauen. Fällt schneller als es steigt.',
+    low:  'Unter 20: Dieter fragt seltener nach. Das ist kein gutes Zeichen.',
+    mid:  '20–60: Normal. Er fragt trotzdem täglich.',
+    high: 'Über 60: Exklusive Projekt-Optionen werden freigeschaltet.',
+    warning: 'Unter 10: Projektabbruch durch Kunden möglich.',
+  },
+  burnout: {
+    emoji: '🔥',
+    label: 'Burnout',
+    description: 'Deine akkumulierte Erschöpfung. Steigt durch Überstunden, ignorierte Pausen und Dieter. Sinkt durch Erholung.',
+    low:  'Unter 30: Du funktionierst. Heute.',
+    mid:  '30–70: Sandra schickt Wellness-Erinnerungen.',
+    high: 'Über 70: Entscheidungsqualität sinkt — manche Choices verschwinden.',
+    warning: 'Bei 100: Projekt endet vorzeitig. Kein XP. Kein Spaß.',
+  },
+  prestige: {
+    emoji: '⭐',
+    label: 'Prestige',
+    description: 'Dein Ruf bei Müller-Brandt und dem Board. Öffnet exklusive Gesprächsoptionen. Schwer aufzubauen. Leicht zu verlieren.',
+    low:  'Unter 20: Müller-Brandt kennt deinen Namen nicht sicher.',
+    mid:  '20–50: Du existierst in seiner Wahrnehmung.',
+    high: 'Über 50: Bessere Choices in Müller-Brandt-Szenen.',
+    warning: 'Über 80: Er erwähnt dich in LinkedIn-Posts. Ohne Namen.',
+  },
+};
+
+/**
+ * Displays a detail panel for the given stat when the player clicks the HUD stat.
+ * @param {string} statName - One of: kompetenz, bullshit, kundenliebe, burnout, prestige
+ */
+function showStatDetail(statName) {
+  const def = STAT_DETAILS[statName];
+  if (!def) return;
+
+  const value = (window.Engine?.GameState?.stats?.[statName] ?? 0);
+  const statEl = document.getElementById('stat-' + statName);
+
+  const existing = document.getElementById('stat-detail-panel');
+  if (existing) {
+    if (existing.dataset.stat === statName) {
+      if (window._statDetailCloseHandler) {
+        document.removeEventListener('click', window._statDetailCloseHandler);
+        window._statDetailCloseHandler = null;
+      }
+      existing.remove();
+      return;
+    }
+    if (window._statDetailCloseHandler) {
+      document.removeEventListener('click', window._statDetailCloseHandler);
+      window._statDetailCloseHandler = null;
+    }
+    existing.remove();
+  }
+
+  let thresholdText = def.low;
+  if (value >= 70) thresholdText = def.high;
+  else if (value >= 30) thresholdText = def.mid;
+
+  let valueColor = '#8b949e';
+  if (statName === 'burnout') {
+    valueColor = value > 70 ? '#ff4444' : value > 40 ? '#E8622A' : '#4caf50';
+  } else {
+    valueColor = value > 70 ? '#4caf50' : value > 30 ? '#E8622A' : '#ff4444';
+  }
+
+  const panel = document.createElement('div');
+  panel.id = 'stat-detail-panel';
+  panel.dataset.stat = statName;
+  panel.className = 'stat-detail-panel';
+
+  panel.innerHTML = `
+    <div class="sdp-header">
+      <span class="sdp-emoji">${def.emoji}</span>
+      <span class="sdp-label">${def.label}</span>
+      <span class="sdp-value" style="color:${valueColor}">${value}</span>
+      <button type="button" class="sdp-close" aria-label="Schließen">✕</button>
+    </div>
+    <div class="sdp-bar-track">
+      <div class="sdp-bar-fill" style="width:${Math.min(value, 100)}%;background:${valueColor}"></div>
+    </div>
+    <p class="sdp-description">${def.description}</p>
+    <div class="sdp-threshold">${thresholdText}</div>
+    ${def.warning ? `<div class="sdp-warning">⚠️ ${def.warning}</div>` : ''}
+  `;
+
+  const closeBtn = panel.querySelector('.sdp-close');
+  const removeCloseHandler = () => {
+    if (window._statDetailCloseHandler) {
+      document.removeEventListener('click', window._statDetailCloseHandler);
+      window._statDetailCloseHandler = null;
+    }
+  };
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    removeCloseHandler();
+    panel.remove();
+  });
+
+  // Position under the clicked stat; center on mobile
+  if (statEl) {
+    const rect = statEl.getBoundingClientRect();
+    const panelWidth = 260;
+    const isNarrow = window.innerWidth < 600;
+    if (isNarrow) {
+      panel.style.top = '50%';
+      panel.style.left = '50%';
+      panel.style.transform = 'translate(-50%, -50%)';
+    } else {
+      panel.style.top = (rect.bottom + 8) + 'px';
+      const left = Math.max(8, Math.min(rect.left, window.innerWidth - panelWidth - 16));
+      panel.style.left = left + 'px';
+    }
+  }
+
+  document.body.appendChild(panel);
+
+  const closeHandler = (e) => {
+    if (!panel.isConnected) return;
+    if (panel.contains(e.target) || e.target.closest('#hud-stats')) return;
+    panel.remove();
+    removeCloseHandler();
+  };
+  window._statDetailCloseHandler = closeHandler;
+  setTimeout(() => document.addEventListener('click', closeHandler), 50);
+}
+
 /**
  * Ensures the dashboard button exists in the HUD.
  * Called when game starts so the 📊 button is available.
@@ -793,4 +944,5 @@ window.UI = {
   renderGameComplete,
   renderHallOfShame,
   renderHUD,
+  showStatDetail,
 };
