@@ -85,9 +85,22 @@ window.StundenzettelMinigame = (function () {
         <div style="font-size:var(--font-size-xl);color:var(--color-accent-amber);">🕐 Stundennachweis</div>
         <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);">Finance wartet. Frist: gestern.</div>
       </div>
-      <div id="stz-timer" style="font-size:var(--font-size-lg);color:var(--color-accent-amber);">${DURATION}s</div>
+      <div style="display:flex;align-items:center;gap:var(--space-md);">
+        <button id="stz-abort" class="choice-btn" style="font-size:var(--font-size-sm);padding:var(--space-sm) var(--space-md);background:var(--color-surface-elevated);color:var(--color-text-secondary);">Abbrechen</button>
+        <div id="stz-timer" style="font-size:var(--font-size-lg);color:var(--color-accent-amber);">${DURATION}s</div>
+      </div>
     `;
     overlayEl.appendChild(hdr);
+    overlayEl.querySelector('#stz-abort').addEventListener('click', () => {
+      window.Sound?.play('click');
+      clearInterval(timerHandle);
+      timerHandle = null;
+      overlayEl?.remove();
+      overlayEl = null;
+      if (typeof onCompleteCallback === 'function') {
+        onCompleteCallback({ score: 0, effects: {}, xpBonus: 0, message: 'Übersprungen.' });
+      }
+    });
   }
 
   function buildMain() {

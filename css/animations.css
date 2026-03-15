@@ -169,6 +169,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .intro-beat {
@@ -238,6 +239,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
+  width: 100%;
+  max-width: 360px;
 }
 
 .intro-notification {
@@ -255,6 +259,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .intro-notification.visible {

@@ -485,9 +485,16 @@ function isGameOver() {
 
 /**
  * Called after the burnout overlay is dismissed. Continues to the next scene
- * if a transition was pending (e.g. from makeChoice when burnout hit 100).
+ * if a transition was pending (e.g. from makeChoice when burnout hit 100),
+ * or runs a pending continuation (e.g. from minigame callback when burnout hit 100).
  */
 function continueAfterBurnout() {
+  const cont = GameState.pendingBurnoutContinuation;
+  delete GameState.pendingBurnoutContinuation;
+  if (typeof cont === 'function') {
+    cont();
+    return;
+  }
   const next = GameState.pendingBurnoutTransition;
   delete GameState.pendingBurnoutTransition;
   if (!next) return;
@@ -525,6 +532,11 @@ function triggerMinigame(id, onComplete) {
     }
     if (result && result.flag) {
       setFlag(result.flag, true);
+    }
+    // Wenn Burnout 100 erreicht, onComplete erst nach Recovery ausführen (Bug: doppeltes Stunden buchen)
+    if (GameState.stats.burnout >= 100) {
+      GameState.pendingBurnoutContinuation = onComplete;
+      return;
     }
     if (typeof onComplete === 'function') onComplete();
   };
@@ -589,23 +601,21 @@ function startPostProjectPhase() {
     startEmailPhase();
     return;
   }
+  const proceedAfterStundenzettel = () => {
+    const shouldTriggerReisekosten =
+      !GameState.reisekostenPlayed || Math.random() < 0.4;
+    if (shouldTriggerReisekosten) {
+      GameState.reisekostenPlayed = true;
+      triggerMinigame('reisekosten', () => startEmailPhase());
+    } else {
+      startEmailPhase();
+    }
+  };
   window.Renderer.showTransitionMessage(
     '🕐 Stunden buchen',
     'Finance wartet auf Ihren Stundennachweis. Frist: gestern.',
-    () => {
-      triggerMinigame('stundenzettel', () => {
-        const shouldTriggerReisekosten =
-          !GameState.reisekostenPlayed || Math.random() < 0.4;
-        if (shouldTriggerReisekosten) {
-          GameState.reisekostenPlayed = true;
-          triggerMinigame('reisekosten', () => {
-            startEmailPhase();
-          });
-        } else {
-          startEmailPhase();
-        }
-      });
-    },
+    () => triggerMinigame('stundenzettel', proceedAfterStundenzettel),
+    proceedAfterStundenzettel,
   );
 }
 

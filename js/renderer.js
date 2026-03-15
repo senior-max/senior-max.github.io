@@ -775,12 +775,14 @@ function showAchievement(achievement) {
 
 /**
  * Shows a brief transition overlay with title, subtitle, and a "Weiter" button.
+ * Optional "Überspringen" when onSkip is provided.
  * Used before post-project minigames (e.g. Stundenzettel).
  * @param {string} title - e.g. "🕐 Stunden buchen"
  * @param {string} subtitle - e.g. "Finance wartet auf Ihren Stundennachweis. Frist: gestern."
  * @param {function} onContinue - Called when the user clicks "Weiter".
+ * @param {function} [onSkip] - Called when the user clicks "Überspringen" (optional).
  */
-function showTransitionMessage(title, subtitle, onContinue) {
+function showTransitionMessage(title, subtitle, onContinue, onSkip) {
   const overlay = createOverlay('transition-message-overlay', 'Übergang');
   overlay.style.backgroundColor = 'rgba(13,17,23,0.95)';
   overlay.style.gap = 'var(--space-lg)';
@@ -792,6 +794,9 @@ function showTransitionMessage(title, subtitle, onContinue) {
     <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);line-height:1.6;">${subtitle}</div>
   `;
 
+  const btnWrap = document.createElement('div');
+  btnWrap.style.cssText = 'display:flex;gap:var(--space-md);flex-wrap:wrap;justify-content:center;';
+
   const btn = document.createElement('button');
   btn.className = 'choice-btn';
   btn.textContent = 'Weiter';
@@ -800,7 +805,21 @@ function showTransitionMessage(title, subtitle, onContinue) {
     overlay.remove();
     if (typeof onContinue === 'function') onContinue();
   });
-  inner.appendChild(btn);
+  btnWrap.appendChild(btn);
+
+  if (typeof onSkip === 'function') {
+    const skipBtn = document.createElement('button');
+    skipBtn.className = 'choice-btn';
+    skipBtn.textContent = 'Überspringen';
+    skipBtn.style.cssText = 'width:200px;background:var(--color-surface-elevated);color:var(--color-text-secondary);';
+    skipBtn.addEventListener('click', () => {
+      overlay.remove();
+      onSkip();
+    });
+    btnWrap.appendChild(skipBtn);
+  }
+
+  inner.appendChild(btnWrap);
   overlay.appendChild(inner);
 }
 
