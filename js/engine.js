@@ -115,6 +115,7 @@ function buildDefaultState() {
     },
     lastEventType: null,
     pendingLevelUp: null,
+    frameworksSentToMueller: 0,
   };
 }
 

@@ -336,11 +336,11 @@ window.FrameworkGenerator = (function () {
     ].join(';');
     table.innerHTML = `
       <thead>
-        <tr style="background:#eaeef2;">
-          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #d0d7de;font-weight:600;color:#0d1117;">Nr.</th>
-          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #d0d7de;font-weight:600;color:#0d1117;">Phase</th>
-          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #d0d7de;font-weight:600;color:#0d1117;">Dauer</th>
-          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #d0d7de;font-weight:600;color:#0d1117;">Deliverable</th>
+        <tr style="background:#d0d7de;">
+          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #8c959f;font-weight:600;color:#0d1117;">Nr.</th>
+          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #8c959f;font-weight:600;color:#0d1117;">Phase</th>
+          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #8c959f;font-weight:600;color:#0d1117;">Dauer</th>
+          <th style="padding:14px 16px;text-align:left;border-bottom:2px solid #8c959f;font-weight:600;color:#0d1117;">Deliverable</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -354,10 +354,10 @@ window.FrameworkGenerator = (function () {
         `animation-delay:${i * 100}ms`,
       ].join(';');
       tr.innerHTML = `
-        <td style="padding:14px 16px;border-bottom:1px solid #eaeef2;color:#24292f;">${p.number}</td>
-        <td style="padding:14px 16px;border-bottom:1px solid #eaeef2;color:#24292f;font-weight:500;">${p.name}</td>
-        <td style="padding:14px 16px;border-bottom:1px solid #eaeef2;color:#24292f;">${p.duration}</td>
-        <td style="padding:14px 16px;border-bottom:1px solid #eaeef2;color:#24292f;">${p.deliverable}</td>
+        <td style="padding:14px 16px;border-bottom:1px solid #d0d7de;color:#0d1117;">${p.number}</td>
+        <td style="padding:14px 16px;border-bottom:1px solid #d0d7de;color:#0d1117;font-weight:500;">${p.name}</td>
+        <td style="padding:14px 16px;border-bottom:1px solid #d0d7de;color:#0d1117;">${p.duration}</td>
+        <td style="padding:14px 16px;border-bottom:1px solid #d0d7de;color:#0d1117;">${p.deliverable}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -366,13 +366,13 @@ window.FrameworkGenerator = (function () {
 
     const disclaimerBox = document.createElement('div');
     disclaimerBox.style.cssText = [
-      'background:#eaeef2',
+      'background:#d0d7de',
       'border-radius:var(--radius-md)',
       'padding:16px 20px',
       'margin:20px 24px',
       'font-size:14px',
       'font-style:italic',
-      'color:#424a53',
+      'color:#0d1117',
       'line-height:1.5',
     ].join(';');
     disclaimerBox.textContent = '⚠️ Hinweis: ' + framework.disclaimer;
