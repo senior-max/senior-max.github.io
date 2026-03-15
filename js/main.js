@@ -4,6 +4,8 @@
  * Bootstraps all data modules, then hands control to Menu.checkSaveAndStart().
  */
 
+const COPYRIGHT = `© ${new Date().getFullYear()} Maximilian Hensel`;
+
 // ── Console branding ──────────────────────────────────────
 
 console.log(
@@ -162,7 +164,7 @@ async function boot() {
     KeyboardController.init();
     Sound.init();
     dismissLoadingScreen();
-    Menu.checkSaveAndStart(config);
+    Intro.play(() => Menu.checkSaveAndStart(config));
   } catch (err) {
     dismissLoadingScreen();
     showFatalError(

@@ -141,7 +141,8 @@ function buildSaveBanner(save) {
     'letter-spacing:0.5px',
     'text-align:center',
   ].join(';');
-  el.textContent = `💾 Gespeicherter Stand: ${title} — Projekt ${count}/3`;
+  const total = _config?.totalProjects ?? 6;
+  el.textContent = `💾 Gespeicherter Stand: ${title} — Projekt ${count}/${total}`;
   return el;
 }
 
@@ -187,6 +188,106 @@ async function continueGame(menuEl, save) {
   const projectId = save.currentProject ?? _config?.startProject ?? 'projekt_dieter';
   const sceneId   = save.currentScene   ?? null;
   await window.startProject(projectId, sceneId);
+}
+
+/**
+ * Shows project selection for starting a new game. Clears save and starts selected project.
+ * @param {HTMLElement} menuEl - The menu overlay to remove.
+ */
+async function showProjectSelectionForNewGame(menuEl) {
+  detachMenuKeys();
+  menuEl?.remove();
+
+  await window.UI?.renderProjectSelectionForNewGame?.({
+    onSelect: (projectId) => {
+      window.Storage?.clearAll?.();
+      window.Engine?.initGame?.();
+      window.Achievements?.loadAchievements?.();
+      _initGameSystems();
+      document.getElementById('project-select-overlay')?.remove();
+      window.startProject?.(projectId);
+    },
+  });
+}
+
+/**
+ * Shows confirmation dialog for full reset. On confirm: clears all data, returns to main menu.
+ */
+function confirmResetAll() {
+  const overlay = document.createElement('div');
+  overlay.id = 'reset-confirm-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'Alles zurücksetzen?');
+  overlay.style.cssText = [
+    'position:fixed', 'inset:0', 'z-index:3000',
+    'display:flex', 'align-items:center', 'justify-content:center',
+    'background:rgba(13,17,23,0.85)',
+    'backdrop-filter:blur(4px)',
+    '-webkit-backdrop-filter:blur(4px)',
+    'animation:fadeIn 0.2s ease both',
+  ].join(';');
+
+  const card = document.createElement('div');
+  card.style.cssText = [
+    'background:var(--color-surface)',
+    'border:1px solid var(--color-border)',
+    'border-radius:var(--radius-lg)',
+    'padding:var(--space-xl)',
+    'max-width:360px', 'width:90vw',
+    'display:flex', 'flex-direction:column',
+    'align-items:center', 'gap:var(--space-md)',
+    'text-align:center',
+    'animation:levelUpCard 0.3s cubic-bezier(0.34,1.56,0.64,1) both',
+  ].join(';');
+
+  card.innerHTML = `
+    <div style="font-size:2rem;">🔄</div>
+    <div style="font-size:var(--font-size-lg);color:var(--color-text-primary);">Alles zurücksetzen?</div>
+    <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);line-height:1.6;">
+      Speicherstand und Achievements werden gelöscht.<br>Dies kann nicht rückgängig gemacht werden.
+    </div>
+  `;
+
+  const btnRow = document.createElement('div');
+  btnRow.style.cssText = 'display:flex;gap:var(--space-sm);width:100%;';
+
+  const cancelBtn = document.createElement('button');
+  cancelBtn.className = 'choice-btn';
+  cancelBtn.textContent = 'Abbrechen';
+  cancelBtn.style.flex = '1';
+  cancelBtn.addEventListener('click', () => overlay.remove());
+
+  const confirmBtn = document.createElement('button');
+  confirmBtn.className = 'choice-btn';
+  confirmBtn.textContent = 'Ja, zurücksetzen';
+  confirmBtn.style.cssText = [
+    'flex:1',
+    'border-color:var(--color-accent-red)',
+    'color:var(--color-accent-red)',
+  ].join(';');
+  confirmBtn.addEventListener('click', () => {
+    overlay.remove();
+    window.Storage?.clearAll?.();
+    window.Engine?.initGame?.();
+    window.Achievements?.loadAchievements?.();
+    window.Stats?.initStatBars?.();
+    window.Career?.renderCareerHUD?.();
+    renderMainMenu();
+  });
+
+  btnRow.appendChild(cancelBtn);
+  btnRow.appendChild(confirmBtn);
+  card.appendChild(btnRow);
+  overlay.appendChild(card);
+  document.getElementById('app').appendChild(overlay);
+
+  const esc = new AbortController();
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { overlay.remove(); esc.abort(); }
+  }, { signal: esc.signal });
+
+  setTimeout(() => cancelBtn.focus(), 50);
 }
 
 /**
@@ -354,25 +455,35 @@ function renderMainMenu() {
       action:  () => startNewGame(screen),
     },
     {
-      label:   '📂 Spiel laden',
+      label:   '📂 Projekt auswählen',
       key:     '2',
+      action:  () => showProjectSelectionForNewGame(screen),
+    },
+    {
+      label:   '📂 Spiel laden',
+      key:     '3',
       disabled: !save,
       action:  () => continueGame(screen, save),
     },
     {
       label:   '🏅 Achievements',
-      key:     '3',
+      key:     '4',
       action:  () => { detachMenuKeys(); window.Achievements?.renderAchievementsScreen(); },
     },
     {
       label:   '🏆 Hall of Shame',
-      key:     '4',
+      key:     '5',
       action:  () => { detachMenuKeys(); window.UI?.renderHallOfShame(); },
     },
     {
       label:   'ℹ️  Credits',
-      key:     '5',
+      key:     '6',
       action:  () => renderCredits(),
+    },
+    {
+      label:   '🔄 Alles zurücksetzen',
+      key:     '7',
+      action:  () => confirmResetAll(),
     },
   ];
 
@@ -383,7 +494,7 @@ function renderMainMenu() {
   ].join(';');
   inner.appendChild(btnWrap);
 
-  const activeButtons = [];
+  const allButtons = [];
 
   BUTTON_DEFS.forEach((def, i) => {
     const btn = document.createElement('button');
@@ -413,9 +524,8 @@ function renderMainMenu() {
       btn.style.cursor = 'not-allowed';
     } else {
       btn.addEventListener('click', def.action);
-      activeButtons.push(btn);
     }
-
+    allButtons.push(btn);
     btnWrap.appendChild(btn);
   });
 
@@ -427,7 +537,7 @@ function renderMainMenu() {
     'text-align:center', 'width:100%', 'max-width:320px',
     'letter-spacing:0.5px',
   ].join(';');
-  kbHint.textContent = '1–5: Option wählen  |  Enter: Neues Spiel  |  ESC: Menü';
+  kbHint.textContent = '1–7: Option wählen  |  Enter: Neues Spiel  |  ESC: Menü';
   inner.appendChild(kbHint);
 
   // ── Version badge (bottom-right corner) ──
@@ -439,7 +549,7 @@ function renderMainMenu() {
   ver.textContent = 'v0.1-MVP';
   screen.appendChild(ver);
 
-  attachMenuKeys(activeButtons);
+  attachMenuKeys(allButtons);
 }
 
 // ── Credits screen ────────────────────────────────────────

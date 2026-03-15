@@ -98,10 +98,17 @@
     "trigger": "flag_first_travel"
   },
   {
-    "id": "all_projects",
+    "id": "mvp_berater",
     "name": "MVP-Berater",
     "emoji": "🎖️",
     "description": "Alle 3 MVP-Projekte abgeschlossen. Du bist ein echter Berater jetzt.",
+    "trigger": "all_mvp_projects_complete"
+  },
+  {
+    "id": "all_projects",
+    "name": "Vollzeit-Berater",
+    "emoji": "🏆",
+    "description": "Alle 6 Projekte abgeschlossen. Du hast das Ökosystem durchgespielt.",
     "trigger": "all_projects_complete"
   },
   {
@@ -236,6 +243,13 @@
     "emoji": "🔴",
     "description": "Discovery-Scan ohne Neustart und ohne Support-Anruf behoben. Sie haben den Prozess verstanden.",
     "trigger": "ivanti_whisperer"
+  },
+  {
+    "id": "zombie_perfekt",
+    "name": "Zombie-Perfektionist",
+    "emoji": "🧟",
+    "description": "Alle Zombie-User im Minigame korrekt identifiziert.",
+    "trigger": "flag_all_zombies_found"
   },
   {
     "id": "kevin_saved_the_day_again",

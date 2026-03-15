@@ -609,6 +609,19 @@ input[type="range"] {
   text-decoration: none;
 }
 
+/* ── Copyright ───────────────────────────────────────────── */
+
+#copyright {
+  position: fixed;
+  bottom: 8px;
+  right: 12px;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
 @keyframes phonePulse {
   0%,
   100% {

@@ -65,6 +65,15 @@ function clearSave() {
 }
 
 /**
+ * Clears all persisted data: save game and achievements.
+ * Use for full reset.
+ */
+function clearAll() {
+  localStorage.removeItem(SAVE_KEY);
+  localStorage.removeItem(ACHIEVEMENTS_KEY);
+}
+
+/**
  * Persists the player's unlocked achievements array.
  * @param {string[]} achievements - Array of achievement id strings.
  */
@@ -106,6 +115,7 @@ window.Storage = {
   saveGame,
   loadGame,
   clearSave,
+  clearAll,
   saveAchievements,
   loadAchievements,
   saveSetting,

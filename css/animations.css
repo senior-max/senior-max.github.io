@@ -156,3 +156,238 @@
 .animate-vendor-ad-phone-ring {
   animation: vendorAdPhoneRing 1s ease-in-out infinite;
 }
+
+/* ── Intro overlay ───────────────────────────────────────── */
+
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0a;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.intro-beat {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.intro-beat.active { opacity: 1; }
+
+/* Beat 1 — consulting firm logo */
+.intro-beat1-line1,
+.intro-beat1-line2 {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #888;
+  font-size: 0.9rem;
+  transition: opacity 0.4s ease;
+}
+
+.intro-beat1-line2 {
+  margin-top: 12px;
+  font-size: 0.7rem;
+  color: #555;
+  opacity: 0;
+}
+
+/* Beat 2 — loading bar */
+.intro-beat2-host {
+  font-family: monospace;
+  color: #00ff41;
+  font-size: 0.7rem;
+}
+
+.intro-beat2-status {
+  font-family: monospace;
+  color: #00ff41;
+  font-size: 0.7rem;
+  margin-top: 8px;
+  transition: color 0.2s ease;
+}
+
+.intro-loadbar-track {
+  width: 280px;
+  height: 3px;
+  background: #1a1a1a;
+  margin-top: 12px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.intro-loadbar-fill {
+  height: 100%;
+  width: 0%;
+  background: #00ff41;
+  transition: width 1.2s linear;
+  border-radius: 2px;
+}
+
+/* Beat 3 — notifications */
+.intro-notification-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.intro-notification {
+  background: white;
+  color: #1a1a1a;
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin: 4px 0;
+  font-size: 0.82rem;
+  width: 320px;
+  max-width: calc(100vw - 48px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transform: translateX(120%);
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.intro-notification.visible {
+  transform: translateX(0);
+}
+
+.intro-notification.shake {
+  animation: notifShake 0.3s ease;
+}
+
+@keyframes notifShake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-6px); }
+  75%      { transform: translateX(6px); }
+}
+
+/* Beat 4 — task lines */
+.intro-beat4-line1 {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: normal;
+}
+
+.intro-beat4-line2 {
+  color: #E8622A;
+  font-size: 1rem;
+  font-style: italic;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.intro-beat4-line3 {
+  color: #888;
+  font-size: 0.85rem;
+  margin-top: 6px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Beat 5 — Dieter typing (bottom right) */
+.intro-beat5 {
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+.intro-beat5-text {
+  color: #555;
+  font-size: 0.75rem;
+  font-style: italic;
+  opacity: 0;
+  transition: opacity 0.4s ease, color 0.3s ease;
+}
+
+/* Beat 6 & 7 — title card */
+.intro-beat6-byline {
+  color: #555;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.intro-title-wrap {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.intro-title {
+  font-weight: bold;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  color: white;
+  letter-spacing: 0.1em;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+@keyframes titleSlam {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.intro-beat6-subtitle {
+  color: #888;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.intro-title-line {
+  height: 2px;
+  background: #E8622A;
+  width: 0;
+  transition: width 0.4s ease;
+  margin: 16px 0 12px;
+}
+
+.intro-title-line.drawn { width: 200px; }
+
+.intro-beat6-copy {
+  color: #444;
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.intro-beat6-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.intro-beat6-content .intro-beat6-byline,
+.intro-beat6-content .intro-beat6-subtitle,
+.intro-beat6-content .intro-beat6-copy {
+  opacity: 1;
+}
+
+.intro-press-hint {
+  position: absolute;
+  bottom: 32px;
+  color: #555;
+  font-size: 0.75rem;
+  animation: introPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes introPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}

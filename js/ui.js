@@ -262,6 +262,83 @@ async function renderProjectSelection() {
   screen.appendChild(grid);
 }
 
+/**
+ * Renders project selection for starting a new game from the main menu.
+ * All projects are selectable. On pick: clears save, resets state, starts selected project.
+ * @param {{ onSelect?: (projectId: string) => void }} [opts] - Callback when a project is selected.
+ */
+async function renderProjectSelectionForNewGame(opts = {}) {
+  const projects = await loadAllProjects();
+  const onSelect = opts.onSelect;
+
+  document.getElementById('project-select-overlay')?.remove();
+
+  const screen = createScreen('project-select-overlay');
+
+  screen.innerHTML = `
+    <div style="font-size:var(--font-size-xl);text-align:center;">📂 Projekt auswählen</div>
+    <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);text-align:center;">
+      Wähle ein Projekt für einen Neustart. Alle Fortschritte werden gelöscht.
+    </div>
+  `;
+
+  const grid = document.createElement('div');
+  grid.style.cssText = 'display:flex;flex-direction:column;gap:var(--space-md);align-items:center;width:100%;';
+
+  const sorted = ALL_PROJECT_IDS
+    .map(id => projects.find(p => p.id === id))
+    .filter(Boolean);
+
+  sorted.forEach(p => {
+    const card = document.createElement('div');
+    card.style.cssText = [
+      'background:var(--color-surface-elevated)',
+      'border:1px solid var(--color-border)',
+      'border-radius:var(--radius-lg)',
+      'padding:var(--space-lg)',
+      'display:flex', 'flex-direction:column', 'gap:var(--space-sm)',
+      'max-width:480px', 'width:100%',
+      'cursor:pointer', 'transition:border-color 0.2s',
+    ].join(';');
+
+    card.innerHTML = `
+      <div style="font-size:var(--font-size-lg);color:var(--color-text-primary);">${p.title}</div>
+      <div style="font-size:var(--font-size-sm);color:var(--color-text-secondary);font-style:italic;">${p.subtitle ?? ''}</div>
+      <div style="display:flex;gap:var(--space-md);font-size:var(--font-size-sm);align-items:center;flex-wrap:wrap;">
+        <span>Schwierigkeit: ${difficultyDots(p.difficulty)}</span>
+        <span>Comedy: ${comedyIcons(p.comedyLevel)}</span>
+        <span style="color:var(--color-accent-green);">+${p.xpReward ?? '?'} XP</span>
+      </div>
+    `;
+
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = 'Starten';
+    btn.style.marginTop = 'var(--space-sm)';
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (typeof onSelect === 'function') onSelect(p.id);
+    });
+    card.appendChild(btn);
+
+    card.addEventListener('mouseenter', () => { card.style.borderColor = 'var(--color-accent-cyan)'; });
+    card.addEventListener('mouseleave', () => { card.style.borderColor = 'var(--color-border)'; });
+    grid.appendChild(card);
+  });
+
+  const backBtn = document.createElement('button');
+  backBtn.className = 'choice-btn';
+  backBtn.textContent = '← Zurück';
+  backBtn.style.cssText = 'width:160px;margin-top:var(--space-md);';
+  backBtn.addEventListener('click', () => {
+    screen.remove();
+    window.Menu?.renderMainMenu?.();
+  });
+
+  screen.appendChild(grid);
+  screen.appendChild(backBtn);
+}
+
 // ── Full game complete screen ─────────────────────────────
 
 /**
@@ -550,7 +627,8 @@ function renderGameComplete() {
 
   const xpNote = document.createElement('div');
   xpNote.style.cssText = 'font-size:var(--font-size-sm);color:var(--color-text-secondary);text-align:center;';
-  xpNote.textContent = `Gesamt-XP: ${career.xp} · Achievements: ${achievements.length} von 15`;
+  const totalAch = window._LTB_CONFIG?.totalAchievements ?? 37;
+  xpNote.textContent = `Gesamt-XP: ${career.xp} · Achievements: ${achievements.length} von ${totalAch}`;
 
   screen.appendChild(buildStatsSummary(state));
   screen.appendChild(xpNote);
@@ -684,6 +762,7 @@ function renderHallOfShame() {
 
 window.UI = {
   renderProjectSelection,
+  renderProjectSelectionForNewGame,
   renderFullGameComplete,
   renderGameComplete,
   renderHallOfShame,

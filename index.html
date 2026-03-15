@@ -142,8 +142,17 @@
     <script src="/js/minigames/snow_report.js" defer></script>
     <script src="/js/minigames/ivanti.js" defer></script>
     <script src="/js/calendar.js" defer></script>
+    <script src="/js/intro.js" defer></script>
     <script src="/js/main.js" defer></script>
     <script src="/js/keyboard.js" defer></script>
     <script src="/js/debug.js" defer></script>
+
+    <div id="copyright">
+      © <span id="copyright-year"></span> Maximilian Hensel
+    </div>
+    <script>
+      document.getElementById('copyright-year').textContent =
+        new Date().getFullYear();
+    </script>
   </body>
 </html>

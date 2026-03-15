@@ -174,6 +174,41 @@ const SOUNDS = {
     playTone(220, 'square', 0.04, now, 0.015);
   },
 
+  /** Soft two-tone ascending — corporate startup chime (intro Beat 1). */
+  startup_chime() {
+    const ac = getCtx();
+    if (!ac) return;
+    const now = ac.currentTime;
+    playTone(440, 'triangle', 0.12, now,        0.15);
+    playTone(550, 'triangle', 0.12, now + 0.15, 0.15);
+  },
+
+  /** Single short tone — notification pop (intro Beat 3). */
+  notification() {
+    const ac = getCtx();
+    if (!ac) return;
+    const now = ac.currentTime;
+    playTone(880, 'sine', 0.06, now, 0.08);
+  },
+
+  /** Low impact + high shimmer — title slam (intro Beat 6). */
+  title_hit() {
+    const ac = getCtx();
+    if (!ac) return;
+    const now = ac.currentTime;
+    const gainNode = ac.createGain();
+    gainNode.gain.setValueAtTime(0.25, now);
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
+    const osc = ac.createOscillator();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(80, now);
+    osc.connect(gainNode);
+    gainNode.connect(ac.destination);
+    osc.start(now);
+    osc.stop(now + 0.16);
+    playTone(1200, 'sine', 0.08, now, 0.2);
+  },
+
   /** Low sawtooth buzz — invalid action or critical stat warning. */
   error() {
     const ac = getCtx();
