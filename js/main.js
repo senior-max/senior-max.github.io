@@ -130,10 +130,19 @@ async function startProject(projectId, startSceneId = null) {
   }
 
   const sceneId = startSceneId ?? projectData.scenes[0].id;
+  const isResuming = startSceneId != null;
+  const isOnboarding = projectData.isOnboarding === true;
 
   window.Engine.GameState.currentProject = projectData.id;
-  window.Engine.GameState.postProjectPhaseDoneFor = null; // Reset für neues Projekt
-  window.Engine.loadScene(sceneId, projectData);
+  window.Engine.GameState.postProjectPhaseDoneFor = null;
+
+  if (!isOnboarding && !isResuming && window.Renderer?.showProjectIntro) {
+    window.Renderer.showProjectIntro(projectData, () => {
+      window.Engine.loadScene(sceneId, projectData);
+    });
+  } else {
+    window.Engine.loadScene(sceneId, projectData);
+  }
 }
 
 window.startProject = startProject;

@@ -2,6 +2,7 @@
   "id": "projekt_dieter",
   "title": "Operation Dieter",
   "subtitle": "Microsoft klopft an. Dieter klopft an. Alle klopfen an.",
+  "customer": "Acme Corp",
   "difficulty": "medium",
   "comedyLevel": 3,
   "requiredLevel": 1,
@@ -43,6 +44,14 @@
           "effects": { "burnout": -10 },
           "next": "d_02_guilt",
           "feedback": "Dein Burnout sinkt sofort. Alles andere auch."
+        },
+        {
+          "id": "c5",
+          "text": "\"Die Lizenz-Dokumentation muss stimmen. Ich prüfe das systematisch — Compliance-Schulung.\"",
+          "effects": { "kompetenz": 4, "kundenliebe": 1 },
+          "next": "d_02",
+          "feedback": "Dieter atmet auf. Endlich jemand, der die Schulung gemacht hat.",
+          "requires_flag": "compliance_license_aware"
         }
       ]
     },

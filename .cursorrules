@@ -1,0 +1,11 @@
+- Use Vanilla JavaScript only. No frameworks, no npm, no build tools.
+- All game data lives in /data folder as JSON files. Never hardcode story text in JS.
+- Use CSS custom properties (variables) for all colors, fonts, and spacing in tokens.css.
+- Game state is managed through one single global GameState object in engine.js.
+- All functions max 30 lines. Split larger logic into helper functions.
+- Use JSDoc comments on every function.
+- LocalStorage keys always prefixed with "ltb_".
+- File names: camelCase for JS, kebab-case for CSS.
+- All story JSON files follow the exact schema defined in /data/stories/schema.json.
+- No external fonts via Google Fonts CDN — embed font-face locally or use system fonts.
+- The game must run by simply opening index.html in a browser. No server required.

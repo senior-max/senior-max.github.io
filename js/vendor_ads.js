@@ -270,6 +270,10 @@
    * @param {{ nextSceneId?: string }} [options]
    */
   function triggerIfApplicable(callback, options) {
+    if (!window.Engine?.randomEventsAllowed?.()) {
+      callback();
+      return;
+    }
     if (window.Engine?.isOnboarding?.()) {
       callback();
       return;

@@ -73,6 +73,48 @@ let currentProjectData = null;
 /** Snapshot of GameState.stats taken when a new project begins. Used for delta display. */
 let statsAtProjectStart = null;
 
+// ── Event state (overlays, minigames, random events) ──────
+
+/** @type {boolean} Enable console logging for overlay/minigame/random-event transitions. */
+let DEBUG_TIMING = false;
+
+/**
+ * Central state for overlays and random-event guards.
+ * Structured events (compliance, flexera, minigames) must be started by button click.
+ * Random events (meeting roulette, vendor ads) only during active project, no minigame.
+ */
+const EventState = {
+  activeOverlay: null,
+  minigameRunning: false,
+  projectActive: false,
+  projectId: null,
+};
+
+function setActiveOverlay(name) {
+  if (DEBUG_TIMING) console.log(`[Overlay] ${EventState.activeOverlay} → ${name}`);
+  EventState.activeOverlay = name;
+}
+
+function clearActiveOverlay() {
+  if (DEBUG_TIMING) console.log(`[Overlay] ${EventState.activeOverlay} → null`);
+  EventState.activeOverlay = null;
+}
+
+/**
+ * Returns true only when random events (meeting roulette, vendor ads) are allowed.
+ * Requires: active project, no minigame running, no blocking overlay.
+ */
+function randomEventsAllowed() {
+  const ok = EventState.projectActive && !EventState.minigameRunning && !EventState.activeOverlay;
+  if (DEBUG_TIMING && !ok) {
+    const reason = !EventState.projectActive ? 'no active project'
+      : EventState.minigameRunning ? 'minigame running'
+      : EventState.activeOverlay ? `overlay: ${EventState.activeOverlay}` : 'unknown';
+    console.log(`[Random] BLOCKED — ${reason}`);
+  }
+  return ok;
+}
+
 // ── Helpers ──────────────────────────────────────────────
 
 /**
@@ -326,6 +368,11 @@ function loadScene(sceneId, projectData) {
     GameState.currentProject = projectData.id || null;
     statsAtProjectStart = { ...GameState.stats };
     resetMeetingRoulette();
+    if (!projectData.isOnboarding) {
+      EventState.projectActive = true;
+      EventState.projectId = projectData.id || null;
+      if (DEBUG_TIMING) console.log(`[Project] started: ${projectData.id}`);
+    }
     window.NPCs?.resetNPCModifierGuard();
     if (projectData.isOnboarding) {
       window.Renderer?.showOnboardingSkipButton?.(projectData);
@@ -453,7 +500,7 @@ function makeChoice(choice) {
 
 /**
  * Completes the onboarding chapter. Sets flag, triggers achievement, saves,
- * shows stat summary overlay, then starts projekt_dieter.
+ * shows stat summary overlay, then starts compliance training → projekt_dieter.
  */
 function completeOnboarding() {
   setFlag('onboarding_complete', true);
@@ -463,12 +510,15 @@ function completeOnboarding() {
   }
   window.Renderer?.hideOnboardingSkipButton?.();
   window.Renderer?.showOnboardingSummary?.(GameState.stats, () => {
-    window.startProject?.('projekt_dieter');
+    window.ComplianceTraining?.start?.(() => {
+      window.startProject?.('projekt_dieter');
+    });
   });
 }
 
 /**
- * Skips the onboarding chapter. Sets default stats, flags, saves, then starts projekt_dieter.
+ * Skips the onboarding chapter. Sets default stats, flags, saves.
+ * Compliance training runs regardless — no skip for the training itself.
  */
 function skipOnboarding() {
   GameState.stats = {
@@ -485,7 +535,9 @@ function skipOnboarding() {
     window.Storage.saveGame(GameState);
   }
   window.Renderer?.hideOnboardingSkipButton?.();
-  window.startProject?.('projekt_dieter');
+  window.ComplianceTraining?.start?.(() => {
+    window.startProject?.('projekt_dieter');
+  });
 }
 
 /**
@@ -495,6 +547,11 @@ function skipOnboarding() {
  * @param {number} xpReward - XP points to award on completion.
  */
 function completeProject(projectId, endingType, xpReward) {
+  EventState.projectActive = false;
+  EventState.projectId = null;
+  EventState.minigameRunning = false;
+  clearActiveOverlay();
+
   GameState.lastCompletedProjectId = projectId;
   if (!GameState.projectsCompleted.includes(projectId)) {
     GameState.projectsCompleted.push(projectId);
@@ -571,8 +628,14 @@ function continueAfterBurnout() {
  */
 function triggerMinigame(id, onComplete) {
   document.querySelectorAll('.choice-btn').forEach(btn => { btn.disabled = true; });
+  EventState.minigameRunning = true;
+  setActiveOverlay('minigame');
+  if (DEBUG_TIMING) console.log(`[Minigame] started: ${id}`);
 
   const wrappedCallback = (result) => {
+    EventState.minigameRunning = false;
+    clearActiveOverlay();
+    if (DEBUG_TIMING) console.log(`[Minigame] ended: ${id}`);
     GameState.lastMinigameScore = result && typeof result.score === 'number' ? result.score : 0;
     if (result && result.effects) {
       applyEffects(result.effects);
@@ -752,12 +815,14 @@ function isOnboarding() {
 
 /**
  * Triggers an interactive meeting modal with a 30% probability on scene transitions.
- * Fires at most once per project. Skips if game over.
+ * Fires at most once per project. Skips if game over or random events blocked.
  */
 function triggerMeetingRoulette() {
+  if (!randomEventsAllowed()) return;
   if (isOnboarding()) return;
   if (isGameOver() || meetingFiredThisProject) return;
   if (Math.random() > 0.30) return;
+  if (DEBUG_TIMING) console.log('[Random] ALLOWED — meeting_roulette fired');
 
   meetingFiredThisProject = true;
   const scenario = MEETING_SCENARIOS[Math.floor(Math.random() * MEETING_SCENARIOS.length)];
@@ -900,9 +965,10 @@ function buildMeetingChoices(backdrop) {
 
 /**
  * Between-project meeting roll: 30% chance, no per-project guard.
- * Used from startNextProjectSelection after the inbox phase.
+ * Only when random events allowed (project selection phase: projectActive false → blocked).
  */
 function rollMeetingRoulette() {
+  if (!randomEventsAllowed()) return;
   if (isGameOver()) return;
   if (Math.random() > 0.30) return;
 
@@ -972,6 +1038,10 @@ function getProjectData() {
 
 window.Engine = {
   GameState,
+  EventState,
+  setActiveOverlay,
+  clearActiveOverlay,
+  randomEventsAllowed,
   isOnboarding,
   initGame,
   applyEffects,
@@ -997,3 +1067,9 @@ window.Engine = {
   debugJumpToScene,
   getProjectData,
 };
+
+Object.defineProperty(window.Engine, 'DEBUG_TIMING', {
+  get: () => DEBUG_TIMING,
+  set: (v) => { DEBUG_TIMING = !!v; },
+  configurable: true,
+});

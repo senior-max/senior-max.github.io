@@ -190,7 +190,7 @@
 .intro-beat1-line2 {
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  color: #888;
+  color: #A0A0A0;
   font-size: 0.9rem;
   transition: opacity 0.4s ease;
 }
@@ -198,7 +198,7 @@
 .intro-beat1-line2 {
   margin-top: 12px;
   font-size: 0.7rem;
-  color: #555;
+  color: #989898;
   opacity: 0;
 }
 
@@ -293,7 +293,7 @@
 }
 
 .intro-beat4-line3 {
-  color: #888;
+  color: #A0A0A0;
   font-size: 0.85rem;
   margin-top: 6px;
   opacity: 0;
@@ -308,7 +308,7 @@
 }
 
 .intro-beat5-text {
-  color: #555;
+  color: #989898;
   font-size: 0.75rem;
   font-style: italic;
   opacity: 0;
@@ -317,7 +317,7 @@
 
 /* Beat 6 & 7 — title card */
 .intro-beat6-byline {
-  color: #555;
+  color: #989898;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -346,7 +346,7 @@
 }
 
 .intro-beat6-subtitle {
-  color: #888;
+  color: #A0A0A0;
   font-size: 0.9rem;
   font-style: italic;
   margin-top: 8px;
@@ -365,7 +365,7 @@
 .intro-title-line.drawn { width: 200px; }
 
 .intro-beat6-copy {
-  color: #444;
+  color: #B0B0B0;
   font-size: 0.7rem;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -387,7 +387,7 @@
 .intro-press-hint {
   position: absolute;
   bottom: 32px;
-  color: #555;
+  color: #989898;
   font-size: 0.75rem;
   animation: introPulse 1.2s ease-in-out infinite;
 }

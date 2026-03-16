@@ -355,5 +355,61 @@
     "emoji": "👁️",
     "description": "BUCHHALTUNG 2006 auch auf MGMT-SRV-09 gefunden. Es gibt kein Entkommen.",
     "trigger": "buchhaltung_everywhere"
+  },
+  {
+    "id": "compliance_done",
+    "name": "Compliant",
+    "emoji": "🎓",
+    "description": "Pflichtschulung abgeschlossen. Zertifikat ausgestellt. Niemand wird je danach fragen.",
+    "trigger": "compliance_done"
+  },
+  {
+    "id": "compliance_perfect",
+    "name": "Musterangestellter",
+    "emoji": "💯",
+    "description": "Alle 12 Fragen richtig beantwortet. Das war nicht der Sinn der Übung.",
+    "trigger": "compliance_perfect"
+  },
+  {
+    "id": "tab_switcher",
+    "name": "Multitasking-Experte",
+    "emoji": "🗂️",
+    "description": "Während der Pflichtschulung dreimal den Tab gewechselt. Wir haben es gesehen.",
+    "trigger": "tab_switcher"
+  },
+  {
+    "id": "kevin_compliance_expert",
+    "name": "In dubio pro Kevin",
+    "emoji": "🤷",
+    "description": "Bei drei Compliance-Fragen Kevin konsultiert. Kevin wusste es nicht. Du auch nicht mehr.",
+    "trigger": "kevin_compliance_expert"
+  },
+  {
+    "id": "flexera_certified",
+    "name": "Flexera One Certified",
+    "emoji": "🏆",
+    "description": "Flexera One Grundzertifizierung bestanden. Zertifikat-ID wird niemand je prüfen.",
+    "trigger": "flexera_cert_complete"
+  },
+  {
+    "id": "flexera_perfect",
+    "name": "SAM Champion",
+    "emoji": "💯",
+    "description": "Alle 12 Fragen richtig. Flexera lädt trotzdem bei 94%. Manche Dinge ändern sich nie.",
+    "trigger": "flexera_cert_perfect"
+  },
+  {
+    "id": "ninety_four",
+    "name": "94%",
+    "emoji": "⏳",
+    "description": "Die 94%-Antwort gewählt. Du verstehst Flexera bereits besser als die meisten.",
+    "trigger": "understands_94_percent"
+  },
+  {
+    "id": "buchhaltung_answer",
+    "name": "Kreative Diagnose",
+    "emoji": "💾",
+    "description": "Bei der Zombie-Device-Frage 'BUCHHALTUNG 2006' gewählt. Technisch nicht falsch.",
+    "trigger": "buchhaltung_as_answer"
   }
 ]

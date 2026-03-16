@@ -4,8 +4,13 @@
   --color-surface:          #161b22;
   --color-surface-elevated: #21262d;
   --color-border:           #30363d;
-  --color-text-primary:     #e6edf3;
-  --color-text-secondary:   #8b949e;
+  --color-text-primary:     #E8E8E8;
+  --color-text-secondary:   #B0B0B0;
+  --color-text-tertiary:    #787878;
+  --color-text-disabled:    #505050;
+  --text-on-light-primary:   #1A1A1A;
+  --text-on-light-secondary: #3A3A3A;
+  --text-on-light-tertiary:  #5A5A5A;
   --color-accent-cyan:      #58a6ff;
   --color-accent-amber:     #d29922;
   --color-accent-green:     #3fb950;
@@ -43,4 +48,16 @@
   /* Mobile layout */
   --hud-height-mobile:        100px;
   --container-padding-mobile: 12px;
+
+  /* Flexera One (flexera_cert.js) */
+  --flexera-orange:    #E8622A;
+  --flexera-orange-lt: #F07840;
+  --flexera-navy:      #1A1A2E;
+  --flexera-dark:      #1D1D1D;
+  --flexera-gray:      #F5F5F5;
+  --flexera-mid-gray:   #6B6B6B;
+  --flexera-border:    #E0E0E0;
+  --flexera-white:     #FFFFFF;
+  --flexera-green:     #2E7D32;
+  --flexera-red:       #C62828;
 }

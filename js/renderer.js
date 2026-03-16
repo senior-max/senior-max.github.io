@@ -67,25 +67,27 @@ function createOverlay(id, label) {
 
 // ── Core render functions ─────────────────────────────────
 
-/** @type {{ interval: number, text: string, resolve: function, el: HTMLElement, clickHandler: function }|null} */
+/** @type {{ interval: number, text: string, resolve: function, el: HTMLElement, sceneContainer: HTMLElement, cleanup: function }|null} */
 let _currentTyping = null;
 
 function finishTyping() {
   if (!_currentTyping) return;
   clearInterval(_currentTyping.interval);
-  const { text, resolve, el, clickHandler } = _currentTyping;
+  const { text, resolve, el, cleanup } = _currentTyping;
   _currentTyping = null;
   el.textContent = text;
+  el.classList.remove('typing');
+  el.classList.add('typing-done');
   el.style.cursor = '';
   el.querySelector('.animate-typing-cursor')?.remove();
-  if (clickHandler) el.removeEventListener('click', clickHandler);
+  if (cleanup) cleanup();
   resolve();
 }
 
 /**
  * Types text character by character into a DOM element.
  * Appends a blinking cursor during typing; removes it on completion.
- * Click on the element to reveal full text immediately.
+ * Click on the element or scene area to reveal full text immediately.
  * @param {string} text - The text to type out.
  * @param {string} selector - CSS selector of the target element.
  * @param {number} [speed=28] - Milliseconds between each character.
@@ -94,17 +96,31 @@ function finishTyping() {
 function typeText(text, selector, speed = 28) {
   return new Promise((resolve) => {
     const el = $(selector);
+    const sceneContainer = document.getElementById('game-container');
     el.textContent = '';
+    el.classList.add('typing');
+    el.classList.remove('typing-done');
     el.style.cursor = 'pointer';
 
     const cursor = document.createElement('span');
     cursor.className = 'animate-typing-cursor';
     el.appendChild(cursor);
 
-    const clickHandler = () => {
+    const completeImmediately = (e) => {
+      if (e.target.closest('.choice-btn')) return;
+      if (e.target.closest('#hud')) return;
+      if (e.target.closest('#stat-detail-panel')) return;
+      if (e.target.closest('.stat-detail-panel')) return;
       if (_currentTyping) finishTyping();
     };
-    el.addEventListener('click', clickHandler);
+
+    const cleanup = () => {
+      el.removeEventListener('click', completeImmediately);
+      if (sceneContainer) sceneContainer.removeEventListener('click', completeImmediately);
+    };
+
+    el.addEventListener('click', completeImmediately);
+    if (sceneContainer) sceneContainer.addEventListener('click', completeImmediately);
 
     let index = 0;
     const interval = setInterval(() => {
@@ -112,8 +128,17 @@ function typeText(text, selector, speed = 28) {
         clearInterval(interval);
         cursor.remove();
         _currentTyping = null;
+        el.classList.remove('typing');
+        el.classList.add('typing-done');
         el.style.cursor = '';
-        el.removeEventListener('click', clickHandler);
+        cleanup();
+        resolve();
+        return;
+      }
+      if (!el.contains(cursor)) {
+        clearInterval(interval);
+        _currentTyping = null;
+        cleanup();
         resolve();
         return;
       }
@@ -122,7 +147,7 @@ function typeText(text, selector, speed = 28) {
       index += 1;
     }, speed);
 
-    _currentTyping = { interval, text, resolve, el, clickHandler };
+    _currentTyping = { interval, text, resolve, el, sceneContainer, cleanup };
   });
 }
 
@@ -1114,18 +1139,18 @@ function showOnboardingSkipButton(projectData) {
   btn.title = projectData?.skipTooltip ?? 'Direkt zu Projekt 1. Stats starten auf Standardwerten.';
   btn.style.cssText = [
     'position:fixed', 'top:16px', 'right:20px', 'z-index:100',
-    'background:transparent', 'border:1px solid #333', 'color:#555',
+    'background:transparent', 'border:1px solid #505050', 'color:#A0A0A0',
     'font-size:0.75rem', 'padding:6px 12px', 'border-radius:3px',
     'cursor:pointer', 'font-family:var(--font-mono)',
     'transition:all 0.2s',
   ].join(';');
   btn.addEventListener('mouseenter', () => {
-    btn.style.borderColor = '#666';
-    btn.style.color = '#999';
+    btn.style.borderColor = '#505050';
+    btn.style.color = '#B0B0B0';
   });
   btn.addEventListener('mouseleave', () => {
-    btn.style.borderColor = '#333';
-    btn.style.color = '#555';
+    btn.style.borderColor = '#505050';
+    btn.style.color = '#A0A0A0';
   });
   btn.addEventListener('click', () => {
     const overlay = document.createElement('div');
@@ -1172,12 +1197,113 @@ function hideOnboardingSkipButton() {
 }
 
 /**
+ * Shows the project intro overlay before the first scene.
+ * Player must click [Projekt starten →] to begin. No auto-start.
+ * @param {Object} projectData - Full project JSON (id, title, subtitle, difficulty, comedyLevel).
+ * @param {function} onStart - Called when player clicks the start button.
+ */
+function showProjectIntro(projectData, onStart) {
+  window.Engine?.setActiveOverlay?.('project_intro');
+
+  const overlay = createOverlay('project-intro-overlay', 'Neues Projekt');
+  overlay.style.backgroundColor = 'rgba(13,17,23,0.97)';
+  overlay.style.borderTop = '3px solid var(--color-accent-cyan)';
+  overlay.style.gap = 'var(--space-md)';
+  overlay.style.zIndex = '1200';
+  overlay.style.padding = 'var(--space-xl) var(--space-lg)';
+  overlay.style.overflowY = 'auto';
+
+  const title = projectData.title || projectData.id || 'Projekt';
+  const subtitle = projectData.subtitle || '';
+  const customer = projectData.customer || '—';
+  const difficulty = projectData.difficulty || 'medium';
+  const comedyLevel = Math.min(5, Math.max(1, projectData.comedyLevel || 3));
+  const diffFilled = { easy: 1, medium: 2, hard: 3 }[difficulty] ?? 2;
+  const stars = '★'.repeat(diffFilled) + '☆'.repeat(5 - diffFilled);
+  const comedyEmojis = '😂'.repeat(comedyLevel) + '😐'.repeat(5 - comedyLevel);
+
+  const inner = document.createElement('div');
+  inner.style.cssText = [
+    'display:flex', 'flex-direction:column', 'align-items:center',
+    'gap:var(--space-lg)', 'max-width:480px', 'width:100%', 'margin:0 auto',
+    'animation:fadeInUp 0.4s ease both',
+  ].join(';');
+
+  const header = document.createElement('div');
+  header.style.cssText = 'font-size:var(--font-size-sm);text-transform:uppercase;letter-spacing:3px;color:var(--color-accent-cyan);';
+  header.textContent = '📁 NEUES PROJEKT';
+  inner.appendChild(header);
+
+  const sep1 = document.createElement('div');
+  sep1.style.cssText = 'width:100%;height:1px;background:var(--color-border);';
+  inner.appendChild(sep1);
+
+  const titleEl = document.createElement('div');
+  titleEl.style.cssText = 'font-size:var(--font-size-lg);font-weight:bold;text-align:center;';
+  titleEl.textContent = title;
+  inner.appendChild(titleEl);
+
+  const meta = document.createElement('div');
+  meta.style.cssText = 'font-size:var(--font-size-sm);color:var(--color-text-secondary);display:flex;flex-direction:column;gap:4px;align-self:stretch;';
+  meta.innerHTML = `
+    <div>Kunde: ${customer}</div>
+    <div>Schwierigkeit: ${stars}</div>
+    <div>Comedy-Level: ${comedyEmojis}</div>
+  `;
+  inner.appendChild(meta);
+
+  if (subtitle) {
+    const desc = document.createElement('p');
+    desc.style.cssText = 'font-size:var(--font-size-sm);color:var(--color-text-secondary);line-height:1.6;font-style:italic;margin:0;text-align:center;';
+    desc.textContent = `"${subtitle}"`;
+    inner.appendChild(desc);
+  }
+
+  const sep2 = document.createElement('div');
+  sep2.style.cssText = 'width:100%;height:1px;background:var(--color-border);';
+  inner.appendChild(sep2);
+
+  const statsLabel = document.createElement('div');
+  statsLabel.style.cssText = 'font-size:var(--font-size-sm);color:var(--color-text-tertiary);';
+  statsLabel.textContent = 'Deine aktuellen Stats:';
+  inner.appendChild(statsLabel);
+
+  const stats = window.Engine?.GameState?.stats || {};
+  const order = ['kompetenz', 'bullshit', 'kundenliebe', 'burnout', 'prestige'];
+  const statsRow = document.createElement('div');
+  statsRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;justify-content:center;';
+  order.forEach((key) => {
+    const info = STAT_LABELS[key] || { emoji: '•', name: key };
+    const val = stats[key] ?? 0;
+    statsRow.innerHTML += `<span style="font-size:var(--font-size-sm);">${info.emoji} ${val}</span>`;
+  });
+  inner.appendChild(statsRow);
+
+  const btn = document.createElement('button');
+  btn.className = 'choice-btn';
+  btn.style.cssText = 'width:220px;margin-top:var(--space-md);';
+  btn.textContent = 'Projekt starten →';
+  btn.addEventListener('click', () => {
+    window.Sound?.play?.('click');
+    window.Engine?.clearActiveOverlay?.();
+    window.Engine.EventState.projectActive = true;
+    window.Engine.EventState.projectId = projectData.id || null;
+    overlay.remove();
+    if (typeof onStart === 'function') onStart();
+  });
+  inner.appendChild(btn);
+
+  overlay.appendChild(inner);
+}
+
+/**
  * Shows the onboarding completion summary overlay with animated stat bars.
- * Auto-advances after 4 seconds or on button click.
+ * Button click only — no auto-advance.
  * @param {Object} stats - Current GameState.stats.
  * @param {function} callback - Called when user continues (click or auto).
  */
 function showOnboardingSummary(stats, callback) {
+  window.Engine?.setActiveOverlay?.('onboarding');
   const overlay = createOverlay('onboarding-summary-overlay', 'Tag 1 abgeschlossen');
   overlay.style.backgroundColor = 'rgba(13,17,23,0.97)';
   overlay.style.borderTop = '3px solid var(--color-accent-cyan)';
@@ -1248,17 +1374,12 @@ function showOnboardingSummary(stats, callback) {
   const btn = document.createElement('button');
   btn.className = 'choice-btn';
   btn.style.cssText = 'width:220px;margin:var(--space-sm) auto 0;';
-  btn.textContent = 'Weiter zum ersten Projekt →';
-
-  const autoAdvance = setTimeout(() => {
-    overlay.remove();
-    if (typeof callback === 'function') callback();
-  }, 4000);
+  btn.textContent = 'Zur Pflichtschulung →';
 
   btn.addEventListener('click', () => {
-    clearTimeout(autoAdvance);
     window.Sound?.play?.('click');
     overlay.remove();
+    window.Engine?.clearActiveOverlay?.();
     if (typeof callback === 'function') callback();
   });
   inner.appendChild(btn);
@@ -1302,6 +1423,7 @@ window.Renderer = {
   showProjectComplete,
   showToast,
   animateXP,
+  showProjectIntro,
   showOnboardingSummary,
   showOnboardingSkipButton,
   hideOnboardingSkipButton,
